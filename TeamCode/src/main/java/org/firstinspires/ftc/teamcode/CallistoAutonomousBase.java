@@ -46,6 +46,7 @@ public class CallistoAutonomousBase extends LinearOpMode
     double ref_angle = 0;
 
 
+
     static final double COUNTS_PER_MOTOR_REV = 1440;    // eg: TETRIX Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
@@ -63,10 +64,7 @@ public class CallistoAutonomousBase extends LinearOpMode
     final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     final String LABEL_GOLD_MINERAL = "Gold Mineral";
     final String LABEL_SILVER_MINERAL = "Silver Mineral";
-    //final String VUFORIA_KEY = "AUWa2hP/////AAABmYAEN4JY30WlndAsvgcYjZAcwt/KX4c9VUt+Br3zZxPhIbJ+ovlQrV3YlETOwJ4Q5NajUuwkdpnX2292snWM8iiXzQ2Nm37xl78r82PlDZPAKP8XV+9sBg1KMHO+0zDzTtWNa/fmNPeEhmdff/YWUzcqTmGLnccOhj57waivZa4Y5xDfH4YKssYJUNQKumOd8v5m90IEKYgWghs7BhxpWfQbjzC+3QUKPc7q34V+9W4xQ+2S+hI0inYLrK4rSdiCGU76d8hwlBWuDC8PWrkqwIi6EptTL/nP1rLoWy/Usv6ZUqRRHwkgLNYsrWusN0G5d71F6tdvRDbGdgQKQ2evHWZPPtlVW6u0S5N5S2sXu7R+";
-    //final String VUFORIA_KEY = "ARgorO//////AAABmTNryRWHs0iduuKYeo/RTC82lqjhxM1ZpUq78wyOpzAx3mn9q5fKWvlN0WQf9YptFPy17FAlMDA8SQ0qMdUmlmFP7tJ/kTQwXgoPrJFp78KmMTFs+x8vHXPYGkvSM9TY4/2pStDcTHqM3jLl0nlaF+4zulnDcwsz/EKhzL87hkBnatk1GGYTXlyKUB7XrHLDkMyNgtghrk7qdSXnYHhvbQzzZ87d5PTgJygjI7AHUFL4alR8nD9D2tNmP9tkVniV0OQ1ZcVoBQM5fzKPkW7fsZgK/S852yHXx7UWqrD2hiPVNhHKamBc5a4b94uCBCScLaZkiQJQr8a3YxW0otbOpBJzhwNa8AP7exZPXWkLdzw2";
-    //final String VUFORIA_KEY = "AUlUrXf/////AAABmWkPvNqe6UDvkpaBp7zgAyEG8NPlcP1sdx3cMoWe6WctHxSusC8WfkZ1hoZwqTpisqtHIF6XaOpZPRd0OG6JBPOXyHCSugA8BYdlRVQzuDIVkKUaVrBC4VqGevEzNnAAmtdAs4UPN9qUvp7G/7ABkfN9B1rt/tPKvXYON2VfszGYPzYebfN3o6sVtCf4iwczH20WIav5MTWjE93uwRqZnW9VK8WNdlUT2dFoUtvyTGSznJhp0cs0sJw5X8pVL5mOahFOVfRcRb/8LMB02xQYplsqv8v/2S5Zn6fme0oZSyzr9Q5QKb9fTtEIMOJWkw86AfZSlUQRlMRzmh8TFT69yRSDTNkm7X7E/0pA7t7ngPf+";
-    final String VUFORIA_KEY = "AcG1ToX/////AAABmZwkWkBrt0LBmroz02/Q+Eo1i0bD6c6TFli1v0rZ4J/9xpVacejXAGILhav7QHJDJvUK9FARrzi6G8d0/uNzzdTedJF6IXVXhGdv22fRhU8X02GKixtHW2Bl6RIE5VjUZxdt1RIhK6u6mxZl+53r6gYLDNP9lCocNf6yKWjKMq5Sle6kUoyiguTJzcOyYICrfSUDToefpyBSv0Uf2Iw/055mv/7ZDYLo1arM5HuRnPPkAdvveWQ0ezsJ0cK8Dg1RrpYU7cCa/pbLy1eFj+tKWYLt+XEukfXxWJwwJO39Jciy82SinJ9hQmaIU9H+Y14Q3lkX72hW9l8eQn2XkP/RaGRTgJZOTHBcWWR+euGKekls";
+    final String VUFORIA_KEY = "AXSRCQP/////AAABmZeKs8E+bExYlViUoU4W3x9D+ZqA3HLfy3PxlWiz0h5wh/awa/Oe9lra0C0CqlyRducvIyV5egl7zTYvGsbA34h3hCAV1eQtpnzQtYulVYRxD6W2Lnl47omLOHjXv3fTXLPnPDBugwDQUCqw4tN58FFEN5xoKEIPWwaQuOg43WHpfa6wenMv+bxuiwxM0Ciy+2gad/kkc+MTWzsFAL/yjTQhq718BNLr1FYZveMEwFHS43kILSKaL/+3/YGqd677av/z5tVDLkSRPUDuEYKIB1P0uCJd5AhIPnVvNigICEUxETMZiEt0RmKoQ3x9S6Y8AelTJgpHeuVgDHy5BmNP877er8Bsqr+WfHGho64CNbUx";
     public TFObjectDetector tfod = null;
     public VuforiaLocalizer vuforia = null;
 
@@ -190,6 +188,7 @@ public class CallistoAutonomousBase extends LinearOpMode
         lastAngles = angles;
 
         return globalAngle;
+ eiihcckgbrrrivthgierhnjkltfctfjvhhdclljvlrvh
     }
 
     public double getAbsoluteAngle()
