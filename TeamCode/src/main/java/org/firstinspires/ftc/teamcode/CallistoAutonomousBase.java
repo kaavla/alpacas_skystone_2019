@@ -188,7 +188,6 @@ public class CallistoAutonomousBase extends LinearOpMode
         lastAngles = angles;
 
         return globalAngle;
- eiihcckgbrrrivthgierhnjkltfctfjvhhdclljvlrvh
     }
 
     public double getAbsoluteAngle()
