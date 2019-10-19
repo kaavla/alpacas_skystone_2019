@@ -129,14 +129,14 @@ public class CallistoAutonomousBase extends LinearOpMode
     }
 
     public void myCollectionSlideOut(double power, double timeoutS) {
-        robot.MCollectionSlide.setPower(-1 * power);
+        //robot.MCollectionSlide.setPower(-1 * power);
         runtime.reset();
 
         while (opModeIsActive() && !isStopRequested() &&
                 (runtime.seconds() < timeoutS)) {
             //Do nothing
         }
-        robot.MCollectionSlide.setPower(0);
+        //robot.MCollectionSlide.setPower(0);
     }
 
     public void initMotorEncoders()
@@ -146,13 +146,13 @@ public class CallistoAutonomousBase extends LinearOpMode
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backleftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backrightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.MLanderLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //robot.MLanderLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.backrightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.backleftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.MLanderLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //robot.MLanderLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RobotLog.ii("CAL", "Exit -  initMotorEncoders");
 
         telemetry.addData("Path1", "Init MotorEncoders Done");
@@ -188,7 +188,6 @@ public class CallistoAutonomousBase extends LinearOpMode
         lastAngles = angles;
 
         return globalAngle;
- eiihcckgbrrrivthgierhnjkltfctfjvhhdclljvlrvh
     }
 
     public double getAbsoluteAngle()
@@ -551,23 +550,21 @@ public class CallistoAutonomousBase extends LinearOpMode
     public void myLanderLift(Direction direction,
                              double speed,
                              double Inches,
-                             double timeoutS)
-    {
+                             double timeoutS) {
         int newLiftTarget;
         RobotLog.ii("CAL", "Enter - myLanderLift");
 
 
         //Reset the encoder
-        robot.MLanderLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //robot.MLanderLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // Ensure that the op mode is still active
-        if (opModeIsActive() && !isStopRequested())
-        {
-
+        if (opModeIsActive() && !isStopRequested()) {
+/*
             // Determine new target position, and pass to motor controller
             if (direction == Direction.ROBOT_UP)
             {
-                newLiftTarget = robot.MLanderLift.getCurrentPosition() + (int) (Inches * TICKS_PER_INCH);
+                //newLiftTarget = robot.MLanderLift.getCurrentPosition() + (int) (Inches * TICKS_PER_INCH);
             }
             else if (direction == Direction.ROBOT_DOWN)
             {
@@ -588,6 +585,8 @@ public class CallistoAutonomousBase extends LinearOpMode
             runtime.reset();
             robot.MLanderLift.setPower(Math.abs(speed));
 
+ */
+
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
             // its target position, the motion will stop.  This is "safer" in the event that the robot will
@@ -598,9 +597,9 @@ public class CallistoAutonomousBase extends LinearOpMode
             //        (runtime.seconds() < timeoutS) &&
             //       (robot.MLanderLift.isBusy() )) {
             RobotLog.ii("CAL", "Enter - myLanderLift - waiting to get to pos");
-            while (opModeIsActive() && !isStopRequested() &&
+            /*while (opModeIsActive() && !isStopRequested() &&
                     (runtime.seconds() < timeoutS) &&
-                    (robot.MLanderLift.isBusy()))
+                    //(robot.MLanderLift.isBusy()))
             {
 
                 // Display it for the driver.
@@ -700,5 +699,8 @@ public class CallistoAutonomousBase extends LinearOpMode
 
     }
 
+             */
 
-}
+
+        }
+    }}
