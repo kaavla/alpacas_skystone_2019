@@ -188,7 +188,7 @@ public class CallistoAutonomousBase extends LinearOpMode
         lastAngles = angles;
 
         return globalAngle;
- eiihcckgbrrrivthgierhnjkltfctfjvhhdclljvlrvh
+
     }
 
     public double getAbsoluteAngle()
@@ -218,6 +218,7 @@ public class CallistoAutonomousBase extends LinearOpMode
 
     public void rotate(int degrees, double power)
     {
+        //logs that get added to a file to see what was wrong with the robot and the sequences of it
         RobotLog.ii("CAL", "Enter - rotate - degrees=%d, power=%f",
                 degrees, power);
 
