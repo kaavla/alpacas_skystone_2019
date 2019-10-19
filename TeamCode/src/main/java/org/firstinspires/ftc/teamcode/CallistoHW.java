@@ -20,17 +20,19 @@ public class CallistoHW
     public DcMotor rightMotor = null;
     public DcMotor backrightMotor = null;
     public DcMotor backleftMotor = null;
-
-    public DcMotor MCollectionSlide = null;
-    public DcMotor MCollectionLift = null;
-    public DcMotor MDropLift = null;
+/*
+    //public DcMotor MCollectionSlide = null;
+    //public DcMotor MCollectionLift = null;
+    //public DcMotor MDropLift = null;
     public DcMotor MLanderLift = null;
 
     public CRServo spinnerServo = null;
     public Servo trayServo = null;
     public Servo markerServo = null;
 
-    public DigitalChannel digitalTouch = null;  // Hardware Device Object
+ */
+
+    //public DigitalChannel digitalTouch = null;  // Hardware Device Object
     //public DistanceSensor sensorRange = null;
 
 
@@ -49,8 +51,8 @@ public class CallistoHW
         rightMotor = ahwMap.get(DcMotor.class, "MFrontRight");
         backleftMotor = ahwMap.get(DcMotor.class, "MBackLeft");
         backrightMotor = ahwMap.get(DcMotor.class, "MBackRight");
-
-        MCollectionSlide = ahwMap.get(DcMotor.class, "MCollectionSlide");
+/*
+        //MCollectionSlide = ahwMap.get(DcMotor.class, "MCollectionSlide");
         MCollectionLift = ahwMap.get(DcMotor.class, "MCollectionLift");
         MDropLift = ahwMap.get(DcMotor.class, "MDropLift");
         MLanderLift = ahwMap.get(DcMotor.class, "MLanderLift");
@@ -61,6 +63,8 @@ public class CallistoHW
 
         digitalTouch = ahwMap.get(DigitalChannel.class, "sensor_digital");
         //sensorRange = ahwMap.get(DistanceSensor.class, "sensor_range");
+
+ */
 
 
 
@@ -78,7 +82,7 @@ public class CallistoHW
         //Invert direction for left motors
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backleftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        MLanderLift.setDirection(DcMotorSimple.Direction.FORWARD);
+        //MLanderLift.setDirection(DcMotorSimple.Direction.FORWARD);
         // Set all motors to zero power
         stopAllMotors();
 
@@ -98,12 +102,12 @@ public class CallistoHW
         backleftMotor.setPower(0);
         backrightMotor.setPower(0);
 
-        MCollectionSlide.setPower(0);
-        MCollectionLift.setPower(0);
-        MDropLift.setPower(0);
-        MLanderLift.setPower(0);
+        //MCollectionSlide.setPower(0);
+        //MCollectionLift.setPower(0);
+        //MDropLift.setPower(0);
+        //MLanderLift.setPower(0);
 
-        spinnerServo.setPower(0);
+        //spinnerServo.setPower(0);
     }
 
     public void moveForward(double power)
@@ -196,16 +200,16 @@ public class CallistoHW
     }
 
 
-    public void collectionSlideOut(double power)
-    {
-        MCollectionSlide.setPower(-1*power);
-    }
+    //public void collectionSlideOut(double power)
+    //{
+        //MCollectionSlide.setPower(-1*power);
+    //}
 
-    public void collectionSlideIn(double power)
-    {
-        MCollectionSlide.setPower(power);
-    }
-
+    //public void collectionSlideIn(double power)
+    //{
+        //MCollectionSlide.setPower(power);
+    //}
+/*
     public void collectionLiftUp(double power)
     {
         MCollectionLift.setPower(-1*power);
@@ -264,6 +268,8 @@ public class CallistoHW
     {
         markerServo.setPosition(0.7);
     }
+
+ */
 
 
 }

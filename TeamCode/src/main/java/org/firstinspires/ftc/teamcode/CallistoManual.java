@@ -44,18 +44,6 @@ public class CallistoManual extends LinearOpMode
         {
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
-            if (robotCallisto.digitalTouch.getState() == true)
-            {
-                //Not pressed
-                telemetry.addData("Digital Touch", "Is Not Pressed");
-            }
-            else
-            {
-                //Pressed
-                telemetry.addData("Digital Touch", "Is Pressed");
-            }
-            telemetry.update();
-
             if (gamepad1.dpad_up)
             {
                 robotCallisto.moveForward(motor_power);
@@ -106,67 +94,55 @@ public class CallistoManual extends LinearOpMode
             }
             else if (gamepad1.left_stick_button)
             {
-                robotCallisto.landerliftUp(1);
+                //robotCallisto.landerliftUp(1);
                 //myLanderLiftTest(0, 0.5, 5, 2);
             }
             else if (gamepad1.right_stick_button)
             {
-                robotCallisto.landerliftDown(1);
+                //robotCallisto.landerliftDown(1);
                 //myLanderLiftTest(1, 0.5, 5, 2);
 
             }
             else if (gamepad2.dpad_up)
             {
-                if (robotCallisto.digitalTouch.getState() == true)
-                {
-                    //Not pressed
-                    telemetry.addData("Digital Touch", "Is Not Pressed");
-                    robotCallisto.collectionSlideIn(1);
-                }
-                else
-                {
-                    //Pressed
-                    telemetry.addData("Digital Touch", "Is Pressed");
-                    robotCallisto.collectionSlideOut(0);
-                }
-
 
             }
+            /*
             else if (gamepad2.dpad_down)
             {
-                robotCallisto.collectionSlideOut(1);
+                //robotCallisto.collectionSlideOut(1);
             }
             else if (gamepad2.dpad_left)
             {
-                robotCallisto.collectionLiftDown(0.7);
+                //robotCallisto.collectionLiftDown(0.7);
             }
             else if (gamepad2.dpad_right)
             {
-                robotCallisto.collectionLiftUp(0.7);
+                //robotCallisto.collectionLiftUp(0.7);
             }
             else if (gamepad2.y)
             {
-                robotCallisto.collectionDropLiftUp(0.9);
+                //robotCallisto.collectionDropLiftUp(0.9);
             }
             else if (gamepad2.a)
             {
-                robotCallisto.collectionDropLiftDown(0.7);
+                //robotCallisto.collectionDropLiftDown(0.7);
             }
             else if (gamepad2.left_bumper)
             {
-                robotCallisto.turnspinnerservobacwards(motor_power);
+                //robotCallisto.turnspinnerservobacwards(motor_power);
             }
             else if (gamepad2.right_bumper)
             {
-                robotCallisto.turnspinnerservoforward(motor_power);
+                //robotCallisto.turnspinnerservoforward(motor_power);
             }
             else if (gamepad2.b)
             {
-                robotCallisto.turnTraytodrop();
+                //robotCallisto.turnTraytodrop();
             }
             else if (gamepad2.x)
             {
-                robotCallisto.turnTraytocollect();
+                //robotCallisto.turnTraytocollect();
             }
             else if (gamepad2.left_stick_button)
             {
@@ -176,6 +152,8 @@ public class CallistoManual extends LinearOpMode
             {
                 robotCallisto.turnMarkerServotoDrop();
             }
+            */
+
 
 
             else
