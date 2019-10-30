@@ -106,6 +106,20 @@ public class CallistoHW
         spinnerServo.setPower(0);
     }
 
+
+    public void moveHolonomic(double x, double y )
+    {
+        double fl_power = Range.clip(y + x, -1.0, 1.0);
+        double fr_power = Range.clip(y - x, -1.0, 1.0);
+        double br_power = Range.clip(y + x, -1.0, 1.0);
+        double bl_power = Range.clip(y - x, -1.0, 1.0);
+
+        leftMotor.setPower(fl_power);
+        rightMotor.setPower(fr_power);
+        backleftMotor.setPower(bl_power);
+        backrightMotor.setPower(br_power);
+    }
+
     public void moveForward(double power)
     {
         leftMotor.setPower(power);
