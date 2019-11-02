@@ -90,7 +90,7 @@ public class EricTestEncoder extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  96,  96, 5.0);  // S1: Forward 5 Inches with 5 Sec timeout
+        encoderDrive(DRIVE_SPEED,  96,  96, 50);  // S1: Forward 96 Inches with 5 Sec timeout
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -151,23 +151,23 @@ public class EricTestEncoder extends LinearOpMode {
                             robot.MBackRight.isBusy() &&
                             robot.MBackLeft.isBusy())) {
                 // Display it for the driver.
-            telemetry.addData("Path1",  "Running to Front-%7d :%7d and Back-%7d :%7d",
+                telemetry.addData("Path1",  "Running to Front-%7d :%7d and Back-%7d :%7d",
                     newLeftTarget,
                     newRightTarget,
                     newBackLeftTarget,
                     newBackRightTarget);
-            telemetry.addData("Path2",  "Running at Front-%7d :%7d and Back-%7d :%7d",
+                telemetry.addData("Path2",  "Running at Front-%7d :%7d and Back-%7d :%7d",
                     robot.MFrontLeft.getCurrentPosition(),
                     robot.MFrontRight.getCurrentPosition(),
                     robot.MBackLeft.getCurrentPosition(),
                     robot.MBackRight.getCurrentPosition());
-            telemetry.update();
-        }
+                telemetry.update();
+            }
 
-        // Stop all motion;
-        robot.MFrontLeft.setPower(0);
-        robot.MFrontRight.setPower(0);
-        robot.MBackLeft.setPower(0);
+            // Stop all motion;
+            robot.MFrontLeft.setPower(0);
+            robot.MFrontRight.setPower(0);
+            robot.MBackLeft.setPower(0);
             robot.MBackRight.setPower(0);
 
             // Turn off RUN_TO_POSITION
