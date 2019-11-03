@@ -1,47 +1,93 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.RobotLog;
+/* Copyright (c) 2019 FIRST. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted (subject to the limitations in the disclaimer below) provided that
+ * the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this list
+ * of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice, this
+ * list of conditions and the following disclaimer in the documentation and/or
+ * other materials provided with the distribution.
+ *
+ * Neither the name of FIRST nor the names of its contributors may be used to endorse or
+ * promote products derived from this software without specific prior written permission.
+ *
+ * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+ * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-import java.util.ArrayList;
-import java.util.List;
+        import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+        import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
-import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
+        import org.firstinspires.ftc.robotcore.external.ClassFactory;
+        import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+        import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+        import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+        import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
+        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
+        import java.util.ArrayList;
+        import java.util.List;
 
-@TeleOp(name="SHANK - Navigation Nav Webcam", group ="Concept")
+        import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
+        import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
+        import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
+        import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
+        import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
+
+/**
+ * This 2019-2020 OpMode illustrates the basics of using the Vuforia localizer to determine
+ * positioning and orientation of robot on the SKYSTONE FTC field.
+ * The code is structured as a LinearOpMode
+ *
+ * When images are located, Vuforia is able to determine the position and orientation of the
+ * image relative to the camera.  This sample code then combines that information with a
+ * knowledge of where the target images are on the field, to determine the location of the camera.
+ *
+ * From the Audience perspective, the Red Alliance station is on the right and the
+ * Blue Alliance Station is on the left.
+
+ * Eight perimeter targets are distributed evenly around the four perimeter walls
+ * Four Bridge targets are located on the bridge uprights.
+ * Refer to the Field Setup manual for more specific location details
+ *
+ * A final calculation then uses the location of the camera on the robot to determine the
+ * robot's location and orientation on the field.
+ *
+ * @see VuforiaLocalizer
+ * @see VuforiaTrackableDefaultListener
+ * see  skystone/doc/tutorial/FTC_FieldCoordinateSystemDefinition.pdf
+ *
+ * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
+ * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list.
+ *
+ * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
+ * is explained below.
+ */
+
+@TeleOp(name="SHANK - Navigation Simple", group ="Concept")
 //@Disabled
-public class Shank_navigation_webcam extends LinearOpMode {
 
-    // Constants
-    private static final int     MAX_TARGETS    =   13;
-    private static final double  ON_AXIS        =  10;      // Within 1.0 cm of target center-line
-    private static final double  CLOSE_ENOUGH   =  20;      // Within 2.0 cm of final target standoff
 
-    public  static final double  YAW_GAIN       =  0.018;   // Rate at which we respond to heading error
-    public  static final double  LATERAL_GAIN   =  0.0027;  // Rate at which we respond to off-axis error
-    public  static final double  AXIAL_GAIN     =  0.0017;  // Rate at which we respond to target distance errors
-    public final double TARGET_DISTANCE =  400.0;    // Hold robot's center 400 mm from target
-
+public class shank_navigation_webcam_simple extends LinearOpMode {
 
     // IMPORTANT: If you are using a USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
@@ -57,8 +103,7 @@ public class Shank_navigation_webcam extends LinearOpMode {
      * random data. As an example, here is a example of a fragment of a valid key:
      *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
      * Once you've obtained a license key, copy the string from the Vuforia web site
-     * and paste it in to your code on the next line, between the doubleeiihcckgbrrruifcjtvdufgjrjdnechtthdkdfnbnndk
-     *  quotes.
+     * and paste it in to your code on the next line, between the double quotes.
      */
     private static final String VUFORIA_KEY =
             "AXSRCQP/////AAABmZeKs8E+bExYlViUoU4W3x9D+ZqA3HLfy3PxlWiz0h5wh/awa/Oe9lra0C0CqlyRducvIyV5egl7zTYvGsbA34h3hCAV1eQtpnzQtYulVYRxD6W2Lnl47omLOHjXv3fTXLPnPDBugwDQUCqw4tN58FFEN5xoKEIPWwaQuOg43WHpfa6wenMv+bxuiwxM0Ciy+2gad/kkc+MTWzsFAL/yjTQhq718BNLr1FYZveMEwFHS43kILSKaL/+3/YGqd677av/z5tVDLkSRPUDuEYKIB1P0uCJd5AhIPnVvNigICEUxETMZiEt0RmKoQ3x9S6Y8AelTJgpHeuVgDHy5BmNP877er8Bsqr+WfHGho64CNbUx\n";
@@ -97,32 +142,7 @@ public class Shank_navigation_webcam extends LinearOpMode {
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
 
-    private boolean             targetFound;    // set to true if Vuforia is currently tracking a target
-    private String              targetName;     // Name of the currently tracked target
-    private double              robotX;         // X displacement from target center
-    private double              robotY;         // Y displacement from target center
-    private double              targetX;         // X displacement from target center
-    private double              targetY;         // Y displacement from target center
-    private double              robotBearing;   // Robot's rotation around the Z axis (CCW is positive)
-    private double              abs_robotBearing;   // Robot's rotation around the Z axis (CCW is positive)
-    private double              targetRange;    // Range from robot's center to target in mm
-    private double              targetBearing;  // Heading of the target , relative to the robot's unrotated center
-    private double              relativeBearing;// Heading to the target from the robot's current bearing.
-    private double Y;
-    private double L;
-    private double A;
-
-
-    //   eg: a Positive RelativeBearing means the robot must turn CCW to point at the target image.
-    private CallistoHW robotCallisto = new CallistoHW();
-
-    VuforiaTrackables targetsSkyStone;
-
     @Override public void runOpMode() {
-
-        boolean closeenough = false;
-        robotCallisto.init(hardwareMap);
-
         /*
          * Retrieve the camera we are to use.
          */
@@ -144,14 +164,15 @@ public class Shank_navigation_webcam extends LinearOpMode {
          * We also indicate which camera on the RC we wish to use.
          */
         parameters.cameraName = webcamName;
-        //parameters.useExtendedTracking = false;
+        parameters.useExtendedTracking = false;
+
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
-        targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+        VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
 
         VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
         stoneTarget.setName("Stone Target");
@@ -213,9 +234,9 @@ public class Shank_navigation_webcam extends LinearOpMode {
         blueFrontBridge.setLocation(OpenGLMatrix
                 .translation(-bridgeX, bridgeY, bridgeZ)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 0, bridgeRotY, bridgeRotZ)));
-        //-x to X
+
         blueRearBridge.setLocation(OpenGLMatrix
-                .translation(bridgeX, bridgeY, bridgeZ)
+                .translation(-bridgeX, bridgeY, bridgeZ)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 0, -bridgeRotY, bridgeRotZ)));
 
         redFrontBridge.setLocation(OpenGLMatrix
@@ -234,11 +255,11 @@ public class Shank_navigation_webcam extends LinearOpMode {
         red2.setLocation(OpenGLMatrix
                 .translation(-quadField, -halfField, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180)));
-        //dz 90 to -90
+
         front1.setLocation(OpenGLMatrix
                 .translation(-halfField, -quadField, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , 90)));
-        //dz 90 to -90
+
         front2.setLocation(OpenGLMatrix
                 .translation(-halfField, quadField, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90)));
@@ -313,173 +334,48 @@ public class Shank_navigation_webcam extends LinearOpMode {
         // Tap the preview window to receive a fresh image.
 
         targetsSkyStone.activate();
-
-
         while (!isStopRequested()) {
 
-            if (targetsAreVisible()) {
-                closeenough = cruiseControl(TARGET_DISTANCE);
-            }
-            // Build telemetry messages with Navigation Information;
-            addNavTelemetry();
+            // check all the trackable targets to see which one (if any) is visible.
+            targetVisible = false;
+            for (VuforiaTrackable trackable : allTrackables) {
+                if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
+                    telemetry.addData("Visible Target", trackable.getName());
+                    targetVisible = true;
 
-            //  Move the robot according to the pre-determined axis motions
-            if (closeenough == false) {
-                //robotCallisto.moveHolonomic(L, A, Y);
-            } else {
-                telemetry.addData("SHANK","Reached....");
+                    // getUpdatedRobotLocation() will return null if no new information is available since
+                    // the last time that call was made, or if the trackable is not currently visible.
+                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
+                    if (robotLocationTransform != null) {
+                        lastLocation = robotLocationTransform;
+                    }
+                    break;
+                }
+            }
+
+            // Provide feedback as to where the robot is located (if we know).
+            if (targetVisible) {
+                // express position (translation) of robot in inches.
+                VectorF translation = lastLocation.getTranslation();
+                telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
+                        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
+
+                // express the rotation of the robot in degrees.
+                Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
+                double abs_angle = rotation.thirdAngle;
+                if (abs_angle < 0)
+                {
+                    abs_angle = Math.abs(abs_angle) + 180;
+                }
+                telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle, abs_angle);
+            }
+            else {
+                telemetry.addData("Visible Target", "none");
             }
             telemetry.update();
-
-
         }
 
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
     }
-    public void addNavTelemetry() {
-        if (targetFound)
-        {
-            // Display the current visible target name, robot info, target info, and required robot action.
-            telemetry.addData("Visible", targetName);
-            telemetry.addData("Robot", "[X]:[Y] (B) [%5.0f in]:[%5.0f inch] (%4.0f°)(%4.0f°)",
-                    robotX/mmPerInch, robotY/mmPerInch, robotBearing, abs_robotBearing);
-            telemetry.addData("Target", "[X]:[Y] [%5.0f inch]:[%5.0f inch] ",
-                    targetX/mmPerInch, targetY/mmPerInch);
-            telemetry.addData("Target", "[R] (B):(RB) [%5.0fmm] (%4.0f°):(%4.0f°)",
-                    targetRange/mmPerInch, targetBearing, relativeBearing);
-            telemetry.addData("- Turn    ", "%s %4.0f°",  relativeBearing > 0 ? ">>> CW " : "<<< CCW", Math.abs(relativeBearing));
-            telemetry.addData("- Strafe  ", "%s %5.0fmm", (robotX - targetX) < 0 ? "RIGHT" : "LEFT", Math.abs(robotY));
-            telemetry.addData("- Distance", "%5.0fmm", Math.abs(robotY - targetY));
-        }
-        else
-        {
-            telemetry.addData("Visible", "- - - -" );
-        }
-    }
-
-
-    public boolean cruiseControl(double standOffDistance) {
-        boolean closeEnough;
-
-        // Priority #1 Rotate to always be pointing at the target (for best target retention).
-        Y  = (Math.abs(relativeBearing) * YAW_GAIN);
-
-        // Priority #2  Drive laterally based on distance from X axis (same as y value)
-        L  =((robotX - targetX) * LATERAL_GAIN);
-
-        // Priority #3 Drive forward based on the desiredHeading target standoff distance
-        A  = (((robotY - targetY) - standOffDistance) * AXIAL_GAIN);
-
-        // Send the desired axis motions to the robot hardware.
-
-        // Determine if we are close enough to the target for action.
-        closeEnough = ( ((Math.abs(robotY - targetY) - standOffDistance) < CLOSE_ENOUGH) &&
-                (Math.abs(robotX - targetX) < ON_AXIS));
-
-        return (closeEnough);
-    }
-
-    public boolean targetsAreVisible()  {
-
-        int targetTestID = 0;
-
-        // Check each target in turn, but stop looking when the first target is found.
-        while ((targetTestID < MAX_TARGETS) && !targetIsVisible(targetTestID)) {
-            targetTestID++ ;
-        }
-
-        return (targetFound);
-    }
-
-    public boolean targetIsVisible(int targetId) {
-
-        VuforiaTrackable target = targetsSkyStone.get(targetId);
-        VuforiaTrackableDefaultListener listener = (VuforiaTrackableDefaultListener)target.getListener();
-        OpenGLMatrix location  = null;
-        VectorF trans;
-        Orientation rot;
-
-        // if we have a target, look for an updated robot position
-        if ((target != null) && (listener != null) && listener.isVisible()) {
-            targetFound = true;
-            targetName = target.getName();
-
-            RobotLog.ii("SHANK", "targetIsVisible - Found Target - %s(%d)", targetName, targetId);
-
-            trans = target.getFtcFieldFromTarget().getTranslation();
-            targetX = trans.get(0);
-            targetY = trans.get(1);
-            RobotLog.ii("SHANK", "targetIsVisible - Target - [%2.2f, %2.2f]", targetX/mmPerInch, targetY/mmPerInch);
-
-            // If we have an updated robot location, update all the relevant tracking information
-            location  = listener.getUpdatedRobotLocation();
-            if (location != null) {
-
-                // Create a translation and rotation vector for the robot.
-                trans = location.getTranslation();
-                rot = Orientation.getOrientation(location, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-
-                // Robot position is defined by the standard Matrix translation (x and y)
-                robotX = trans.get(0);
-                robotY = trans.get(1);
-
-                // Robot bearing (in +vc CCW cartesian system) is defined by the standard Matrix z rotation
-                robotBearing = rot.thirdAngle;
-                abs_robotBearing = robotBearing;
-                if (abs_robotBearing  < 0)
-                {
-                    abs_robotBearing  = (abs_robotBearing ) + 360;
-                }
-
-                RobotLog.ii("SHANK", "targetIsVisible - Robot - [%2.2f, %2.2f, %2.2f, %2.2f]",
-                        robotX/mmPerInch, robotY/mmPerInch,robotBearing ,abs_robotBearing );
-
-                // target range is based on distance from robot position to origin.
-                //targetRange = Math.hypot(robotX, robotY);
-                targetRange = Math.hypot((robotX-targetX), (robotY-targetY));
-
-                // target bearing is based on angle formed between the X axis to the target range line
-                if (targetId == 9  ||
-                    targetId == 10)
-                {
-                    //Red or Blue
-                    targetBearing = Math.toDegrees(Math.asin(Math.abs(robotY - targetY) / targetRange));
-                    if (targetX < robotX)
-                    {
-                        targetBearing = 270 - targetBearing;
-                    } else
-                    {
-                        targetBearing = 90 + targetBearing;
-                    }
-                } else
-                {
-                    //Not supported
-                    //Front or Read
-                    targetBearing = Math.toDegrees(Math.asin(Math.abs(robotX - targetX) / targetRange));
-                }
-
-                // Target relative bearing is the target Heading relative to the direction the robot is pointing.
-                //relativeBearing = targetBearing - robotBearing;
-                relativeBearing = targetBearing - abs_robotBearing;
-                if (relativeBearing > 180)
-                {
-                    relativeBearing = -1*(360-relativeBearing); //-1 -> Go CCW instead of CW
-                }
-                RobotLog.ii("SHANK", "targetIsVisible - targetRange(%2.2f),targetBearing(%2.2f),relativeBearing(%2.2f)]",
-                        targetRange,targetBearing,relativeBearing);
-
-            }
-            targetFound = true;
-        }
-        else  {
-            // Indicate that there is no target visible
-            targetFound = false;
-            targetName = "None";
-        }
-
-        return targetFound;
-    }
-
 }
-

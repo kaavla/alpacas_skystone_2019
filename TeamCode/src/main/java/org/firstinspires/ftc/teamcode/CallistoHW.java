@@ -47,10 +47,15 @@ public class CallistoHW
     {
         RobotLog.ii("CAL", "Enter - init");
 
-        leftMotor = ahwMap.get(DcMotor.class, "MFrontLeft");
-        rightMotor = ahwMap.get(DcMotor.class, "MFrontRight");
-        backleftMotor = ahwMap.get(DcMotor.class, "MBackLeft");
-        backrightMotor = ahwMap.get(DcMotor.class, "MBackRight");
+        //leftMotor = ahwMap.get(DcMotor.class, "MFrontLeft");
+        //rightMotor = ahwMap.get(DcMotor.class, "MFrontRight");
+        //backleftMotor = ahwMap.get(DcMotor.class, "MBackLeft");
+        //backrightMotor = ahwMap.get(DcMotor.class, "MBackRight");
+
+        leftMotor = ahwMap.get(DcMotor.class, "M1"); //FL
+        rightMotor = ahwMap.get(DcMotor.class, "M2"); //FR
+        backleftMotor = ahwMap.get(DcMotor.class, "M3"); //BL
+        backrightMotor = ahwMap.get(DcMotor.class, "M4"); //BR
 /*
         //MCollectionSlide = ahwMap.get(DcMotor.class, "MCollectionSlide");
         MCollectionLift = ahwMap.get(DcMotor.class, "MCollectionLift");
