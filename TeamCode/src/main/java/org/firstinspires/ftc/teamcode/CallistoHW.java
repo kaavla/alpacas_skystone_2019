@@ -20,6 +20,9 @@ public class CallistoHW
     public DcMotor rightMotor = null;
     public DcMotor backrightMotor = null;
     public DcMotor backleftMotor = null;
+    public Servo foundationServo = null;
+    public Servo stoneServo = null;
+
 /*
     //public DcMotor MCollectionSlide = null;
     //public DcMotor MCollectionLift = null;
@@ -27,7 +30,7 @@ public class CallistoHW
     public DcMotor MLanderLift = null;
 
     public CRServo spinnerServo = null;
-    public Servo trayServo = null;
+
     public Servo markerServo = null;
 
  */
@@ -47,10 +50,14 @@ public class CallistoHW
     {
         RobotLog.ii("CAL", "Enter - init");
 
-        leftMotor = ahwMap.get(DcMotor.class, "MFrontLeft");
-        rightMotor = ahwMap.get(DcMotor.class, "MFrontRight");
-        backleftMotor = ahwMap.get(DcMotor.class, "MBackLeft");
-        backrightMotor = ahwMap.get(DcMotor.class, "MBackRight");
+        leftMotor = ahwMap.get(DcMotor.class, "M1");
+        rightMotor = ahwMap.get(DcMotor.class, "M2");
+        backleftMotor = ahwMap.get(DcMotor.class, "M3");
+        backrightMotor = ahwMap.get(DcMotor.class, "M4");
+        foundationServo = ahwMap.get(Servo.class, "foundationServo");
+        stoneServo = ahwMap.get(Servo.class, "stoneServo");
+
+
 /*
         //MCollectionSlide = ahwMap.get(DcMotor.class, "MCollectionSlide");
         MCollectionLift = ahwMap.get(DcMotor.class, "MCollectionLift");
@@ -58,7 +65,6 @@ public class CallistoHW
         MLanderLift = ahwMap.get(DcMotor.class, "MLanderLift");
 
         spinnerServo = ahwMap.get(CRServo.class, "spinnerServo");
-        trayServo = ahwMap.get(Servo.class, "trayServo");
         markerServo = ahwMap.get(Servo.class, "markerServo");
 
         digitalTouch = ahwMap.get(DigitalChannel.class, "sensor_digital");
@@ -197,6 +203,23 @@ public class CallistoHW
         rightMotor.setPower(Range.clip(rightMotor.getPower() - 0.01, -0.3, -1.0));
         backleftMotor.setPower(Range.clip(backleftMotor.getPower() - 0.01, -0.3, -1.0));
         backrightMotor.setPower(Range.clip(backrightMotor.getPower() - 0.01, -0.3, -1.0));
+    }
+    public void turnTraytocollect()
+    {
+        foundationServo.setPosition(0);
+    }
+
+    public void turnTraytodrop()
+    {
+        foundationServo.setPosition(0.85);
+    }
+    public void turnClawtocollect()
+    {
+        stoneServo.setPosition(0);
+    }
+    public void turnClawotoDrop()
+    {
+        stoneServo.setPosition(0.85);
     }
 
 
