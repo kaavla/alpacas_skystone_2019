@@ -38,8 +38,8 @@ public class Shank_navigation_webcam extends LinearOpMode {
     private static final double  CLOSE_ENOUGH   =  20;      // Within 2.0 cm of final target standoff
 
     public  static final double  YAW_GAIN       =  0.018;   // Rate at which we respond to heading error
-    public  static final double  LATERAL_GAIN   =  0.0027;  // Rate at which we respond to off-axis error
-    public  static final double  AXIAL_GAIN     =  0.0017;  // Rate at which we respond to target distance errors
+    public  static final double  LATERAL_GAIN   =  0.2;  // Rate at which we respond to off-axis error
+    public  static final double  AXIAL_GAIN     =  0.2;  // Rate at which we respond to target distance errors
     public final double TARGET_DISTANCE =  400.0;    // Hold robot's center 400 mm from target
 
 
@@ -90,7 +90,7 @@ public class Shank_navigation_webcam extends LinearOpMode {
      * This is the webcam we are to use. As with other hardware devices such as motors and
      * servos, this device is identified using the robot configuration tool in the FTC application.
      */
-    WebcamName webcamName = null;
+    //WebcamName webcamName = null;
 
     private boolean targetVisible = false;
     private float phoneXRotate    = 0;
@@ -126,7 +126,7 @@ public class Shank_navigation_webcam extends LinearOpMode {
         /*
          * Retrieve the camera we are to use.
          */
-        webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
+        //webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
 
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
@@ -139,15 +139,12 @@ public class Shank_navigation_webcam extends LinearOpMode {
         // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-
-        /**
-         * We also indicate which camera on the RC we wish to use.
-         */
-        parameters.cameraName = webcamName;
+        parameters.cameraDirection   = CAMERA_CHOICE;
         //parameters.useExtendedTracking = false;
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
 
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
@@ -317,7 +314,9 @@ public class Shank_navigation_webcam extends LinearOpMode {
 
         while (!isStopRequested()) {
 
-            if (targetsAreVisible()) {
+            closeenough = false;
+            //if (targetsAreVisible()  && gamepad1.left_bumper) {
+            if (targetsAreVisible() ) {
                 closeenough = cruiseControl(TARGET_DISTANCE);
             }
             // Build telemetry messages with Navigation Information;
@@ -325,7 +324,7 @@ public class Shank_navigation_webcam extends LinearOpMode {
 
             //  Move the robot according to the pre-determined axis motions
             if (closeenough == false) {
-                //robotCallisto.moveHolonomic(L, A, Y);
+                robotCallisto.moveHolonomic(L, A, Y);
             } else {
                 telemetry.addData("SHANK","Reached....");
             }
@@ -346,11 +345,11 @@ public class Shank_navigation_webcam extends LinearOpMode {
                     robotX/mmPerInch, robotY/mmPerInch, robotBearing, abs_robotBearing);
             telemetry.addData("Target", "[X]:[Y] [%5.0f inch]:[%5.0f inch] ",
                     targetX/mmPerInch, targetY/mmPerInch);
-            telemetry.addData("Target", "[R] (B):(RB) [%5.0fmm] (%4.0f°):(%4.0f°)",
+            telemetry.addData("Target", "[R] (B):(RB) [%5.0f] (%4.0f°):(%4.0f°)",
                     targetRange/mmPerInch, targetBearing, relativeBearing);
-            telemetry.addData("- Turn    ", "%s %4.0f°",  relativeBearing > 0 ? ">>> CW " : "<<< CCW", Math.abs(relativeBearing));
-            telemetry.addData("- Strafe  ", "%s %5.0fmm", (robotX - targetX) < 0 ? "RIGHT" : "LEFT", Math.abs(robotY));
-            telemetry.addData("- Distance", "%5.0fmm", Math.abs(robotY - targetY));
+            telemetry.addData("- Turn    ", "%s %4.0f°",  relativeBearing < 0 ? ">>> CW " : "<<< CCW", Math.abs(relativeBearing));
+            telemetry.addData("- Strafe  ", "%s %5.0f inch", (robotX - targetX) < 0 ? "RIGHT" : "LEFT", Math.abs(robotX - targetX)/mmPerInch);
+            telemetry.addData("- Distance", "%5.0f inch", Math.abs(robotY - targetY)/mmPerInch);
         }
         else
         {
@@ -363,19 +362,19 @@ public class Shank_navigation_webcam extends LinearOpMode {
         boolean closeEnough;
 
         // Priority #1 Rotate to always be pointing at the target (for best target retention).
-        Y  = (Math.abs(relativeBearing) * YAW_GAIN);
+        Y  = ((relativeBearing) * YAW_GAIN);
 
         // Priority #2  Drive laterally based on distance from X axis (same as y value)
-        L  =((robotX - targetX) * LATERAL_GAIN);
+        L  =((targetX - robotX ) * LATERAL_GAIN);
 
         // Priority #3 Drive forward based on the desiredHeading target standoff distance
-        A  = (((robotY - targetY) - standOffDistance) * AXIAL_GAIN);
+        A  = (((targetY - robotY) - standOffDistance) * AXIAL_GAIN);
 
         // Send the desired axis motions to the robot hardware.
 
         // Determine if we are close enough to the target for action.
-        closeEnough = ( ((Math.abs(robotY - targetY) - standOffDistance) < CLOSE_ENOUGH) &&
-                (Math.abs(robotX - targetX) < ON_AXIS));
+        closeEnough = ( ((Math.abs(targetY - robotY ) - standOffDistance) < CLOSE_ENOUGH) &&
+                (Math.abs(targetX - robotX) < ON_AXIS));
 
         return (closeEnough);
     }
@@ -447,10 +446,10 @@ public class Shank_navigation_webcam extends LinearOpMode {
                     targetBearing = Math.toDegrees(Math.asin(Math.abs(robotY - targetY) / targetRange));
                     if (targetX < robotX)
                     {
-                        targetBearing = 270 - targetBearing;
+                        targetBearing = 180 - targetBearing;
                     } else
                     {
-                        targetBearing = 90 + targetBearing;
+                        targetBearing = targetBearing;
                     }
                 } else
                 {
@@ -461,11 +460,11 @@ public class Shank_navigation_webcam extends LinearOpMode {
 
                 // Target relative bearing is the target Heading relative to the direction the robot is pointing.
                 //relativeBearing = targetBearing - robotBearing;
-                relativeBearing = targetBearing - abs_robotBearing;
-                if (relativeBearing > 180)
-                {
-                    relativeBearing = -1*(360-relativeBearing); //-1 -> Go CCW instead of CW
-                }
+                relativeBearing = targetBearing - robotBearing;
+                //if (relativeBearing > 180)
+                //{
+                //    relativeBearing = -1*(360-relativeBearing); //-1 -> Go CCW instead of CW
+                //}
                 RobotLog.ii("SHANK", "targetIsVisible - targetRange(%2.2f),targetBearing(%2.2f),relativeBearing(%2.2f)]",
                         targetRange,targetBearing,relativeBearing);
 

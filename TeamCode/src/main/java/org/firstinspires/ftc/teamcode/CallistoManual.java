@@ -52,7 +52,6 @@ public class CallistoManual extends LinearOpMode
 
 
             robotCallisto.moveHolonomic(leftX, leftY, rightZ);
-/*
             if (gamepad1.dpad_up)
             {
                 robotCallisto.moveForward(motor_power);
@@ -93,6 +92,7 @@ public class CallistoManual extends LinearOpMode
             {
                 robotCallisto.diagonalbackwardsRight(motor_power);
             }
+ /*
             else if (gamepad1.y)
             {
                 robotCallisto.forwardSlow();
@@ -162,12 +162,12 @@ public class CallistoManual extends LinearOpMode
             }
 
 
+*/
 
             else
             {
                 robotCallisto.stopAllMotors();
             }
-*/
         }
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();
