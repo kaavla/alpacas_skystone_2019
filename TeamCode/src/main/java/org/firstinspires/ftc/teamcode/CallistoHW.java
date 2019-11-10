@@ -50,6 +50,7 @@ public class CallistoHW
     {
         RobotLog.ii("CAL", "Enter - init");
 
+<<<<<<< HEAD
         leftMotor = ahwMap.get(DcMotor.class, "M1");
         rightMotor = ahwMap.get(DcMotor.class, "M2");
         backleftMotor = ahwMap.get(DcMotor.class, "M3");
@@ -58,6 +59,17 @@ public class CallistoHW
         stoneServo = ahwMap.get(Servo.class, "stoneServo");
 
 
+=======
+        //leftMotor = ahwMap.get(DcMotor.class, "MFrontLeft");
+        //rightMotor = ahwMap.get(DcMotor.class, "MFrontRight");
+        //backleftMotor = ahwMap.get(DcMotor.class, "MBackLeft");
+        //backrightMotor = ahwMap.get(DcMotor.class, "MBackRight");
+
+        leftMotor = ahwMap.get(DcMotor.class, "M1"); //FL
+        rightMotor = ahwMap.get(DcMotor.class, "M2"); //FR
+        backleftMotor = ahwMap.get(DcMotor.class, "M3"); //BL
+        backrightMotor = ahwMap.get(DcMotor.class, "M4"); //BR
+>>>>>>> e44163fb7bf28b5622a3e1da072b8c90be872442
 /*
         //MCollectionSlide = ahwMap.get(DcMotor.class, "MCollectionSlide");
         MCollectionLift = ahwMap.get(DcMotor.class, "MCollectionLift");
@@ -114,6 +126,22 @@ public class CallistoHW
         //MLanderLift.setPower(0);
 
         //spinnerServo.setPower(0);
+    }
+
+    public void moveHolonomic(double x, double y , double z)
+    {
+        double max_power = 0.3;
+        double min_power = -1*max_power;
+
+        double fl_power = Range.clip(y + x - z, min_power, max_power );
+        double fr_power = Range.clip(y - x + z, min_power, max_power );
+        double br_power = Range.clip(y + x + z, min_power, max_power );
+        double bl_power = Range.clip(y - x - z, min_power, max_power );
+
+        leftMotor.setPower(fl_power);
+        rightMotor.setPower(fr_power);
+        backleftMotor.setPower(bl_power);
+        backrightMotor.setPower(br_power);
     }
 
     public void moveForward(double power)
