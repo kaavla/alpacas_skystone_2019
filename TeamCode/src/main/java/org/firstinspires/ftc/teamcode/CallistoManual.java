@@ -93,6 +93,7 @@ public class CallistoManual extends LinearOpMode
             {
                 robotCallisto.diagonalbackwardsRight(motor_power);
             }
+            /*
             else if (gamepad2.x)
             {
                 robotCallisto.position1();
@@ -121,7 +122,7 @@ public class CallistoManual extends LinearOpMode
             {
                 robotCallisto.turnSpinServoleft();
             }
-
+*/
  /*
             else if (gamepad1.y)
             {

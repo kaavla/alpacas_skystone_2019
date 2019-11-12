@@ -55,8 +55,9 @@ public class CallistoHW
         rightMotor = ahwMap.get(DcMotor.class, "M2");
         backleftMotor = ahwMap.get(DcMotor.class, "M3");
         backrightMotor = ahwMap.get(DcMotor.class, "M4");
-        foundationServo = ahwMap.get(Servo.class, "foundationServo");
-        stoneServo = ahwMap.get(Servo.class, "stoneServo");
+        //foundationServo = ahwMap.get(Servo.class, "foundationServo");
+        //collectServo = ahwMap.get(CRServo.class, "stoneServo");
+
 
 
         //leftMotor = ahwMap.get(DcMotor.class, "MFrontLeft");
@@ -68,7 +69,7 @@ public class CallistoHW
         rightMotor = ahwMap.get(DcMotor.class, "M2"); //FR
         backleftMotor = ahwMap.get(DcMotor.class, "M3"); //BL
         backrightMotor = ahwMap.get(DcMotor.class, "M4"); //BR
-        foundationServo = ahwMap.get(Servo.class, "foundationServo");
+        //collectServo = ahwMap.get(Servo.class, "foundationServo");
 
 /*
         //MCollectionSlide = ahwMap.get(DcMotor.class, "MCollectionSlide");
