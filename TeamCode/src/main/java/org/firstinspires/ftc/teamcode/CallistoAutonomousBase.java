@@ -20,8 +20,6 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
-
-
 enum Direction
 {
     FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, ROBOT_UP, ROBOT_DOWN, SPINNER_FORWARD;
@@ -33,6 +31,8 @@ enum SensorsToUse
 }
 
 
+
+
 //@Autonomous(name="CallistoAutonomousBase", group="Callisto")
 //@Disabled
 public class CallistoAutonomousBase extends LinearOpMode
@@ -42,7 +42,7 @@ public class CallistoAutonomousBase extends LinearOpMode
     public ElapsedTime runtime = new ElapsedTime();
     private Orientation lastAngles = new Orientation();
     private double globalAngle = 0;
-    public Direction direction;
+    //public Direction direction;
     double ref_angle = 0;
 
 

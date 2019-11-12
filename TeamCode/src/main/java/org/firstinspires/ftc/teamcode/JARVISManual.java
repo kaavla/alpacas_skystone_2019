@@ -70,7 +70,19 @@ public class JARVISManual extends LinearOpMode{
             } else if (gamepad1.a) {
                 robotJARVIS.backwardSlow();
             } else if (gamepad1.right_trigger > 0.7) {
-                }
+
+            } else if (gamepad1.right_stick_x > -1.0) {
+                robotJARVIS.moveHolonomic(0, 0);
+            }
+            else if (gamepad1.right_stick_y > -1.0) {
+                robotJARVIS.moveHolonomic(0, 0);
+            }
+            else if (gamepad1.left_stick_x > -1.0) {
+                robotJARVIS.moveHolonomic(0, 0);
+            }
+            else if (gamepad1.left_stick_y > -1.0) {
+                robotJARVIS.moveHolonomic(0, 0);
+            }
 
                 else {
                     robotJARVIS.stopAllMotors();

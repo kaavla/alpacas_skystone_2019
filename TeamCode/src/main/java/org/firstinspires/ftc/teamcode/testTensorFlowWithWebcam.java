@@ -108,6 +108,8 @@ public class testTensorFlowWithWebcam extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
+
+
         if (opModeIsActive()) {
             while (opModeIsActive()) {
                 if (tfod != null) {
@@ -119,11 +121,18 @@ public class testTensorFlowWithWebcam extends LinearOpMode {
                         // step through the list of recognitions and display boundary info.
                         int i = 0;
                         for (Recognition recognition : updatedRecognitions) {
+                            float targetHeightRatio = (float) 0.8;
+                            float imageHeight = recognition.getImageHeight();
+                            float objectHeight = recognition.getHeight();
+                            float objectHeightRatio = objectHeight/imageHeight;
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
                             telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
                                     recognition.getLeft(), recognition.getTop());
                             telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                     recognition.getRight(), recognition.getBottom());
+                            if (objectHeightRatio <= targetHeightRatio) {
+                                telemetry.addData("The objectHeightRatio!", "is less than the targetHeightRatio.");
+                            }
                         }
                         telemetry.update();
                     }
@@ -146,7 +155,8 @@ public class testTensorFlowWithWebcam extends LinearOpMode {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+        //parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);

@@ -20,6 +20,9 @@ public class CallistoHW
     public DcMotor rightMotor = null;
     public DcMotor backrightMotor = null;
     public DcMotor backleftMotor = null;
+    public Servo foundationServo = null;
+    public Servo stoneServo = null;
+
 /*
     //public DcMotor MCollectionSlide = null;
     //public DcMotor MCollectionLift = null;
@@ -27,7 +30,7 @@ public class CallistoHW
     public DcMotor MLanderLift = null;
 
     public CRServo spinnerServo = null;
-    public Servo trayServo = null;
+
     public Servo markerServo = null;
 
  */
@@ -48,26 +51,24 @@ public class CallistoHW
     {
         RobotLog.ii("CAL", "Enter - init");
 
-        leftMotor = ahwMap.get(DcMotor.class, "MFrontLeft");
-        rightMotor = ahwMap.get(DcMotor.class, "MFrontRight");
-        backleftMotor = ahwMap.get(DcMotor.class, "MBackLeft");
-        backrightMotor = ahwMap.get(DcMotor.class, "MBackRight");
-/*
-        //MCollectionSlide = ahwMap.get(DcMotor.class, "MCollectionSlide");
-        MCollectionLift = ahwMap.get(DcMotor.class, "MCollectionLift");
-        MDropLift = ahwMap.get(DcMotor.class, "MDropLift");
-        MLanderLift = ahwMap.get(DcMotor.class, "MLanderLift");
-
-        spinnerServo = ahwMap.get(CRServo.class, "spinnerServo");
-        trayServo = ahwMap.get(Servo.class, "trayServo");
-        markerServo = ahwMap.get(Servo.class, "markerServo");
-
-        digitalTouch = ahwMap.get(DigitalChannel.class, "sensor_digital");
-        //sensorRange = ahwMap.get(DistanceSensor.class, "sensor_range");
-
- */
+        leftMotor = ahwMap.get(DcMotor.class, "M1");
+        rightMotor = ahwMap.get(DcMotor.class, "M2");
+        backleftMotor = ahwMap.get(DcMotor.class, "M3");
+        backrightMotor = ahwMap.get(DcMotor.class, "M4");
+        foundationServo = ahwMap.get(Servo.class, "foundationServo");
+        stoneServo = ahwMap.get(Servo.class, "stoneServo");
 
 
+
+        //leftMotor = ahwMap.get(DcMotor.class, "MFrontLeft");
+        //rightMotor = ahwMap.get(DcMotor.class, "MFrontRight");
+        //backleftMotor = ahwMap.get(DcMotor.class, "MBackLeft");
+        //backrightMotor = ahwMap.get(DcMotor.class, "MBackRight");
+
+        leftMotor = ahwMap.get(DcMotor.class, "M1"); //FL
+        rightMotor = ahwMap.get(DcMotor.class, "M2"); //FR
+        backleftMotor = ahwMap.get(DcMotor.class, "M3"); //BL
+        backrightMotor = ahwMap.get(DcMotor.class, "M4"); //BR
 
         imu = ahwMap.get(BNO055IMU.class, "imu 1");
 
@@ -213,78 +214,27 @@ public class CallistoHW
         backleftMotor.setPower(Range.clip(backleftMotor.getPower() - 0.01, -0.3, -1.0));
         backrightMotor.setPower(Range.clip(backrightMotor.getPower() - 0.01, -0.3, -1.0));
     }
-
-
-    //public void collectionSlideOut(double power)
-    //{
-        //MCollectionSlide.setPower(-1*power);
-    //}
-
-    //public void collectionSlideIn(double power)
-    //{
-        //MCollectionSlide.setPower(power);
-    //}
-/*
-    public void collectionLiftUp(double power)
-    {
-        MCollectionLift.setPower(-1*power);
-    }
-
-    public void collectionLiftDown(double power)
-    {
-        MCollectionLift.setPower(power);
-    }
-
-    public void collectionDropLiftUp(double power)
-    {
-        MDropLift.setPower(-1*power);
-    }
-
-    public void collectionDropLiftDown(double power)
-    {
-        MDropLift.setPower(power);
-    }
-    public void landerliftUp(double power)
-     {
-
-        MLanderLift.setPower(power);
-    }
-
-    public void landerliftDown(double power)
-    {
-        MLanderLift.setPower(-1*power);
-    }
-
-    public void turnspinnerservoforward(double power)
-    {
-        spinnerServo.setPower(power);
-    }
-
-    public void turnspinnerservobacwards(double power)
-    {
-        spinnerServo.setPower(-1 * power);
-    }
-
     public void turnTraytocollect()
     {
-        trayServo.setPosition(0);
+        foundationServo.setPosition(0);
     }
 
     public void turnTraytodrop()
     {
-        trayServo.setPosition(0.6);
+        foundationServo.setPosition(0.85);
+    }
+    public void turnClawtocollect()
+    {
+        stoneServo.setPosition(0);
+    }
+    public void turnClawotoDrop()
+    {
+        stoneServo.setPosition(0.85);
     }
 
-    public void turnMarkerServotoInitPos()
-    {
-        markerServo.setPosition(0);
-    }
-    public void turnMarkerServotoDrop()
-    {
-        markerServo.setPosition(0.7);
-    }
 
- */
+
+
 
 
 }
