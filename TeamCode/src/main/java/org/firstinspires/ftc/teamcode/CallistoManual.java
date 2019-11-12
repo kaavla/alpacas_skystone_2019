@@ -86,12 +86,42 @@ public class CallistoManual extends LinearOpMode
             }
             else if (gamepad1.left_trigger > 0.7)
             {
+
                 robotCallisto.diagonalbackwardsLeft(motor_power);
             }
             else if (gamepad1.right_trigger > 0.7)
             {
                 robotCallisto.diagonalbackwardsRight(motor_power);
             }
+            else if (gamepad2.x)
+            {
+                robotCallisto.position1();
+            }
+            else if (gamepad2.y)
+            {
+                robotCallisto.position2();
+            }
+            else if (gamepad2.b)
+            {
+                robotCallisto.position3();
+            }
+            else if (gamepad2.left_bumper)
+            {
+                robotCallisto.collectSkystone();
+            }
+            else if (gamepad2.right_bumper)
+            {
+                robotCallisto.dropSkystone();
+            }
+            else if (gamepad2.dpad_right)
+            {
+                robotCallisto.turnSpinServoright();
+            }
+            else if (gamepad2.dpad_left)
+            {
+                robotCallisto.turnSpinServoleft();
+            }
+
  /*
             else if (gamepad1.y)
             {

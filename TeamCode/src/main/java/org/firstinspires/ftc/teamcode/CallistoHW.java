@@ -20,6 +20,9 @@ public class CallistoHW
     public DcMotor rightMotor = null;
     public DcMotor backrightMotor = null;
     public DcMotor backleftMotor = null;
+    public CRServo spinServo = null;
+    public Servo collectServo = null;
+    public Servo foundationServo = null;
 /*
     //public DcMotor MCollectionSlide = null;
     //public DcMotor MCollectionLift = null;
@@ -56,6 +59,10 @@ public class CallistoHW
         rightMotor = ahwMap.get(DcMotor.class, "M2"); //FR
         backleftMotor = ahwMap.get(DcMotor.class, "M3"); //BL
         backrightMotor = ahwMap.get(DcMotor.class, "M4"); //BR
+        spinServo = ahwMap.get(CRServo.class, "spinServo");
+        collectServo = ahwMap.get(Servo.class, "collectServo");
+        foundationServo = ahwMap.get(Servo.class, "foundationServo");
+
 /*
         //MCollectionSlide = ahwMap.get(DcMotor.class, "MCollectionSlide");
         MCollectionLift = ahwMap.get(DcMotor.class, "MCollectionLift");
@@ -117,7 +124,7 @@ public class CallistoHW
 
     public void moveHolonomic(double x, double y , double z)
     {
-        double max_power = 0.3;
+        double max_power = 0.7;
         double min_power = -1*max_power;
 
         double fl_power = Range.clip(y + x - z, min_power, max_power );
@@ -218,6 +225,34 @@ public class CallistoHW
         rightMotor.setPower(Range.clip(rightMotor.getPower() - 0.01, -0.3, -1.0));
         backleftMotor.setPower(Range.clip(backleftMotor.getPower() - 0.01, -0.3, -1.0));
         backrightMotor.setPower(Range.clip(backrightMotor.getPower() - 0.01, -0.3, -1.0));
+    }
+    public void turnSpinServoright()
+    {
+        spinServo.setPower(0.7);
+    }
+    public void turnSpinServoleft ()
+    {
+        spinServo.setPower(-0.7);
+    }
+    public void collectSkystone()
+    {
+        collectServo.setPosition(0.7);
+    }
+    public void dropSkystone()
+    {
+        collectServo.setPosition(0);
+    }
+    public void position1()
+    {
+        foundationServo.setPosition(0);
+    }
+    public void position2()
+    {
+        foundationServo.setPosition(0.9);
+    }
+    public void position3()
+    {
+        foundationServo.setPosition(0.7);
     }
 
 
