@@ -1,17 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.util.RobotLog;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import com.qualcomm.robotcore.util.RobotLog;
@@ -28,8 +22,8 @@ public class JARVISHW
     public DcMotor backleftMotor = null;
 
 
-    Orientation lastAngles = new Orientation();
-    double globalAngle, power = .30, correction;
+    Orientation lastAngles = new Orientation();  //?
+    double globalAngle, power = .30, correction;  //?
     //sets the power used in each of the actions
 
     public BNO055IMU imu = null;
@@ -58,7 +52,7 @@ public class JARVISHW
         //Invert direction for left motors
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backleftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        //MLanderLift.setDirection(DcMotorSimple.Direction.FORWARD);
+
         // Set all motors to zero power
         stopAllMotors();
 
@@ -71,12 +65,12 @@ public class JARVISHW
 
     }
 
+    //resets the power to zero before starting the action
     public void stopAllMotors() {
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         backleftMotor.setPower(0);
         backrightMotor.setPower(0);
-        //resets the power to zero before starting the action
     }
 
     public void moveForward (double power) {
@@ -141,12 +135,12 @@ public class JARVISHW
         backrightMotor.setPower(-1 * power);
     }
 
+    //extra motions to move slowly go in case we are in a situation like that
     public void forwardSlow() {
         leftMotor.setPower(Range.clip(leftMotor.getPower() + 0.01, 0.3, 1.0));
         rightMotor.setPower(Range.clip(rightMotor.getPower() + 0.01, 0.3, 1.0));
         backleftMotor.setPower(Range.clip(backleftMotor.getPower() + 0.01, 0.3, 1.0));
         backrightMotor.setPower(Range.clip(backrightMotor.getPower() + 0.01, 0.3, 1.0));
-        //extra motions to move slowly go in case we are in a situation like that
     }
 
     public void backwardSlow() {
