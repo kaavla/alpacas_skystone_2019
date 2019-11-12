@@ -146,6 +146,25 @@ public class CallistoManual extends LinearOpMode
             {
 
             }
+<<<<<<< HEAD
+            else if (gamepad2.x)
+            {
+                robotCallisto.turnTraytocollect();
+            }
+            else if (gamepad2.b)
+            {
+                robotCallisto.turnTraytodrop();
+            }
+            else if (gamepad2.a)
+            {
+                robotCallisto.turnClawotoDrop();
+            } else if (gamepad2.y)
+            {
+                robotCallisto.turnClawtocollect();
+            }
+            /*
+=======
+>>>>>>> e44163fb7bf28b5622a3e1da072b8c90be872442
             else if (gamepad2.dpad_down)
             {
                 //robotCallisto.collectionSlideOut(1);

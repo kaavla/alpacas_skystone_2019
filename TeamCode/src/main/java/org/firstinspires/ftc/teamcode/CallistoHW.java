@@ -20,9 +20,10 @@ public class CallistoHW
     public DcMotor rightMotor = null;
     public DcMotor backrightMotor = null;
     public DcMotor backleftMotor = null;
-    public CRServo spinServo = null;
-    public Servo collectServo = null;
+
     public Servo foundationServo = null;
+    public Servo stoneServo = null;
+
 /*
     //public DcMotor MCollectionSlide = null;
     //public DcMotor MCollectionLift = null;
@@ -30,7 +31,7 @@ public class CallistoHW
     public DcMotor MLanderLift = null;
 
     public CRServo spinnerServo = null;
-    public Servo trayServo = null;
+
     public Servo markerServo = null;
 
  */
@@ -50,6 +51,14 @@ public class CallistoHW
     {
         RobotLog.ii("CAL", "Enter - init");
 
+        leftMotor = ahwMap.get(DcMotor.class, "M1");
+        rightMotor = ahwMap.get(DcMotor.class, "M2");
+        backleftMotor = ahwMap.get(DcMotor.class, "M3");
+        backrightMotor = ahwMap.get(DcMotor.class, "M4");
+        foundationServo = ahwMap.get(Servo.class, "foundationServo");
+        stoneServo = ahwMap.get(Servo.class, "stoneServo");
+
+
         //leftMotor = ahwMap.get(DcMotor.class, "MFrontLeft");
         //rightMotor = ahwMap.get(DcMotor.class, "MFrontRight");
         //backleftMotor = ahwMap.get(DcMotor.class, "MBackLeft");
@@ -59,8 +68,6 @@ public class CallistoHW
         rightMotor = ahwMap.get(DcMotor.class, "M2"); //FR
         backleftMotor = ahwMap.get(DcMotor.class, "M3"); //BL
         backrightMotor = ahwMap.get(DcMotor.class, "M4"); //BR
-        spinServo = ahwMap.get(CRServo.class, "spinServo");
-        collectServo = ahwMap.get(Servo.class, "collectServo");
         foundationServo = ahwMap.get(Servo.class, "foundationServo");
 
 /*
@@ -70,7 +77,6 @@ public class CallistoHW
         MLanderLift = ahwMap.get(DcMotor.class, "MLanderLift");
 
         spinnerServo = ahwMap.get(CRServo.class, "spinnerServo");
-        trayServo = ahwMap.get(Servo.class, "trayServo");
         markerServo = ahwMap.get(Servo.class, "markerServo");
 
         digitalTouch = ahwMap.get(DigitalChannel.class, "sensor_digital");
@@ -226,33 +232,22 @@ public class CallistoHW
         backleftMotor.setPower(Range.clip(backleftMotor.getPower() - 0.01, -0.3, -1.0));
         backrightMotor.setPower(Range.clip(backrightMotor.getPower() - 0.01, -0.3, -1.0));
     }
-    public void turnSpinServoright()
-    {
-        spinServo.setPower(0.7);
-    }
-    public void turnSpinServoleft ()
-    {
-        spinServo.setPower(-0.7);
-    }
-    public void collectSkystone()
-    {
-        collectServo.setPosition(0.7);
-    }
-    public void dropSkystone()
-    {
-        collectServo.setPosition(0);
-    }
-    public void position1()
+    public void turnTraytocollect()
     {
         foundationServo.setPosition(0);
     }
-    public void position2()
+
+    public void turnTraytodrop()
     {
-        foundationServo.setPosition(0.9);
+        foundationServo.setPosition(0.85);
     }
-    public void position3()
+    public void turnClawtocollect()
     {
-        foundationServo.setPosition(0.7);
+        stoneServo.setPosition(0);
+    }
+    public void turnClawotoDrop()
+    {
+        stoneServo.setPosition(0.85);
     }
 
 
