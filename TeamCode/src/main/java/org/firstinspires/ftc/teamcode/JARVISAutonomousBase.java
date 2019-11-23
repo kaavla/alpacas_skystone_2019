@@ -4,6 +4,7 @@ import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -20,29 +21,17 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
-enum Direction
-{
-    FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, ROBOT_UP, ROBOT_DOWN, SPINNER_FORWARD;
-}
 
-enum SensorsToUse
-{
-    NONE, USE_COLOR, USE_DISTANCE, USE_TOUCH;
-}
-
-
-
-
-//@Autonomous(name="CallistoAutonomousBase", group="Callisto")
+//still changing
 //@Disabled
-public class CallistoAutonomousBase extends LinearOpMode
+public class JARVISAutonomousBase extends LinearOpMode
 {
 
-    public CallistoHW robot = new CallistoHW();
+    public JARVISHW robot = new JARVISHW();
     public ElapsedTime runtime = new ElapsedTime();
     private Orientation lastAngles = new Orientation();
     private double globalAngle = 0;
-    //public Direction direction;
+   // public direction;
     double ref_angle = 0;
 
 
@@ -128,17 +117,6 @@ public class CallistoAutonomousBase extends LinearOpMode
 
     }
 
-    public void myCollectionSlideOut(double power, double timeoutS) {
-        //robot.MCollectionSlide.setPower(-1 * power);
-        runtime.reset();
-
-        while (opModeIsActive() && !isStopRequested() &&
-                (runtime.seconds() < timeoutS)) {
-            //Do nothing
-        }
-        //robot.MCollectionSlide.setPower(0);
-    }
-
     public void initMotorEncoders()
     {
         RobotLog.ii("CAL", "Enter -  initMotorEncoders");
@@ -146,13 +124,12 @@ public class CallistoAutonomousBase extends LinearOpMode
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backleftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backrightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //robot.MLanderLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.backrightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.backleftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //robot.MLanderLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         RobotLog.ii("CAL", "Exit -  initMotorEncoders");
 
         telemetry.addData("Path1", "Init MotorEncoders Done");
