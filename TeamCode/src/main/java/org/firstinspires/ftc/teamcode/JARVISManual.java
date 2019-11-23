@@ -47,33 +47,37 @@ public class JARVISManual extends LinearOpMode {
                 //forward
                 robotJARVIS.moveHolonomic(0, motor_power * 1, 0);
             }
-            if (gamepad1.dpad_down) {
+            else if (gamepad1.dpad_down) {
                 //backwards
                 robotJARVIS.moveHolonomic(0, motor_power * -1, 0);
             }
-            if (gamepad1.dpad_right) {
+            else if (gamepad1.dpad_left) {
                 //rotate counter-clockwise
                 robotJARVIS.moveHolonomic(0, 0, motor_power * 1);
             }
-            if (gamepad1.dpad_left) {
+            else if (gamepad1.left_bumper) {
+                //strafe left
+                robotJARVIS.moveHolonomic(motor_power * -1, 0, 0);
+            }
+            else if (gamepad1.right_bumper) {
+                //strafe right
+                robotJARVIS.moveHolonomic(motor_power * 1, 0, 0);
+            }
+            else if (gamepad1.dpad_right) {
                 //rotate clockwise
                 robotJARVIS.moveHolonomic(0, 0, motor_power * -1);
-
-                if (gamepad1.right_bumper) {
-                    //strafe right
-                    robotJARVIS.moveHolonomic(motor_power * 1, 0, 0);
-                }
-                if (gamepad1.left_bumper) {
-                    //strafe left
-                    robotJARVIS.moveHolonomic(motor_power * -1, 0, 0);
-                }
+            }
+            else
+            {
+                robotJARVIS.stopAllMotors();
+            }
 
             }
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
         }
     }
-}
+
 
 
 
