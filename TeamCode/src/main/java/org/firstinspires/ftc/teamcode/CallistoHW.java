@@ -36,6 +36,7 @@ public class CallistoHW
 
  */
 
+
     //public DigitalChannel digitalTouch = null;  // Hardware Device Object
     //public DistanceSensor sensorRange = null;
 
@@ -60,15 +61,6 @@ public class CallistoHW
 
 
 
-        //leftMotor = ahwMap.get(DcMotor.class, "MFrontLeft");
-        //rightMotor = ahwMap.get(DcMotor.class, "MFrontRight");
-        //backleftMotor = ahwMap.get(DcMotor.class, "MBackLeft");
-        //backrightMotor = ahwMap.get(DcMotor.class, "MBackRight");
-
-        leftMotor = ahwMap.get(DcMotor.class, "M1"); //FL
-        rightMotor = ahwMap.get(DcMotor.class, "M2"); //FR
-        backleftMotor = ahwMap.get(DcMotor.class, "M3"); //BL
-        backrightMotor = ahwMap.get(DcMotor.class, "M4"); //BR
         //collectServo = ahwMap.get(Servo.class, "foundationServo");
 
 /*
@@ -86,58 +78,15 @@ public class CallistoHW
  */
 
 
-
-        imu = ahwMap.get(BNO055IMU.class, "imu 1");
-
-        //initialize the IMU
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parameters.loggingEnabled = true;
-        parameters.loggingTag = "IMU";
-        imu.initialize(parameters);
-
-        //Invert direction for left motors
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backleftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        //MLanderLift.setDirection(DcMotorSimple.Direction.FORWARD);
-        // Set all motors to zero power
-        stopAllMotors();
-
-        //Set zero power behavior to braking
-        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backrightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backleftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        RobotLog.ii("CAL", "Exit - init");
-
-    }
-
-    public void stopAllMotors()
-    {
-        leftMotor.setPower(0);
-        rightMotor.setPower(0);
-        backleftMotor.setPower(0);
-        backrightMotor.setPower(0);
-
-        //MCollectionSlide.setPower(0);
-        //MCollectionLift.setPower(0);
-        //MDropLift.setPower(0);
-        //MLanderLift.setPower(0);
-
-        //spinnerServo.setPower(0);
-    }
-
-    public void moveHolonomic(double x, double y , double z)
+    public void moveHolonomic(double x, double y , double z) {
     {
         double max_power = 0.7;
         double min_power = -1*max_power;
 
-        double fl_power = Range.clip(y + x - z, min_power, max_power );
-        double fr_power = Range.clip(y - x + z, min_power, max_power );
-        double br_power = Range.clip(y + x + z, min_power, max_power );
-        double bl_power = Range.clip(y - x - z, min_power, max_power );
+        double fl_power = Range.clip(y + x, -1.0, 1.0);
+        double fr_power = Range.clip(y - x, -1.0, 1.0);
+        double br_power = Range.clip(y + x, -1.0, 1.0);
+        double bl_power = Range.clip(y - x, -1.0, 1.0);
 
         leftMotor.setPower(fl_power);
         rightMotor.setPower(fr_power);
@@ -252,76 +201,9 @@ public class CallistoHW
     }
 
 
-    //public void collectionSlideOut(double power)
-    //{
-        //MCollectionSlide.setPower(-1*power);
-    //}
 
-    //public void collectionSlideIn(double power)
-    //{
-        //MCollectionSlide.setPower(power);
-    //}
-/*
-    public void collectionLiftUp(double power)
-    {
-        MCollectionLift.setPower(-1*power);
-    }
 
-    public void collectionLiftDown(double power)
-    {
-        MCollectionLift.setPower(power);
-    }
-
-    public void collectionDropLiftUp(double power)
-    {
-        MDropLift.setPower(-1*power);
-    }
-
-    public void collectionDropLiftDown(double power)
-    {
-        MDropLift.setPower(power);
-    }
-    public void landerliftUp(double power)
-     {
-
-        MLanderLift.setPower(power);
-    }
-
-    public void landerliftDown(double power)
-    {
-        MLanderLift.setPower(-1*power);
-    }
-
-    public void turnspinnerservoforward(double power)
-    {
-        spinnerServo.setPower(power);
-    }
-
-    public void turnspinnerservobacwards(double power)
-    {
-        spinnerServo.setPower(-1 * power);
-    }
-
-    public void turnTraytocollect()
-    {
-        trayServo.setPosition(0);
-    }
-
-    public void turnTraytodrop()
-    {
-        trayServo.setPosition(0.6);
-    }
-
-    public void turnMarkerServotoInitPos()
-    {
-        markerServo.setPosition(0);
-    }
-    public void turnMarkerServotoDrop()
-    {
-        markerServo.setPosition(0.7);
-    }
-
- */
 
 
 }
+    }
