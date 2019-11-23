@@ -21,16 +21,16 @@ public class CallistoHW
     public DcMotor backrightMotor = null;
     public DcMotor backleftMotor = null;
 
-    public DcMotor MCollectionSlide = null;
-    public DcMotor MCollectionLift = null;
-    public DcMotor MDropLift = null;
-    public DcMotor MLanderLift = null;
+    //public DcMotor MCollectionSlide = null;
+    //public DcMotor MCollectionLift = null;
+    //public DcMotor MDropLift = null;
+    //public DcMotor MLanderLift = null;
 
-    public CRServo spinnerServo = null;
-    public Servo trayServo = null;
-    public Servo markerServo = null;
+    //public CRServo spinnerServo = null;
+    //public Servo trayServo = null;
+    //public Servo markerServo = null;
 
-    public DigitalChannel digitalTouch = null;  // Hardware Device Object
+    //public DigitalChannel digitalTouch = null;  // Hardware Device Object
     //public DistanceSensor sensorRange = null;
 
 
@@ -45,21 +45,21 @@ public class CallistoHW
     {
         RobotLog.ii("CAL", "Enter - init");
 
-        leftMotor = ahwMap.get(DcMotor.class, "MFrontLeft");
-        rightMotor = ahwMap.get(DcMotor.class, "MFrontRight");
-        backleftMotor = ahwMap.get(DcMotor.class, "MBackLeft");
-        backrightMotor = ahwMap.get(DcMotor.class, "MBackRight");
+        leftMotor = ahwMap.get(DcMotor.class, "M1"); //FL
+        rightMotor = ahwMap.get(DcMotor.class, "M2"); //FR
+        backleftMotor = ahwMap.get(DcMotor.class, "M3"); //BL
+        backrightMotor = ahwMap.get(DcMotor.class, "M4"); //BR
 
-        MCollectionSlide = ahwMap.get(DcMotor.class, "MCollectionSlide");
-        MCollectionLift = ahwMap.get(DcMotor.class, "MCollectionLift");
-        MDropLift = ahwMap.get(DcMotor.class, "MDropLift");
-        MLanderLift = ahwMap.get(DcMotor.class, "MLanderLift");
+        //MCollectionSlide = ahwMap.get(DcMotor.class, "MCollectionSlide");
+        //MCollectionLift = ahwMap.get(DcMotor.class, "MCollectionLift");
+        //MDropLift = ahwMap.get(DcMotor.class, "MDropLift");
+        //MLanderLift = ahwMap.get(DcMotor.class, "MLanderLift");
 
-        spinnerServo = ahwMap.get(CRServo.class, "spinnerServo");
-        trayServo = ahwMap.get(Servo.class, "trayServo");
-        markerServo = ahwMap.get(Servo.class, "markerServo");
+        //spinnerServo = ahwMap.get(CRServo.class, "spinnerServo");
+        //trayServo = ahwMap.get(Servo.class, "trayServo");
+        //markerServo = ahwMap.get(Servo.class, "markerServo");
 
-        digitalTouch = ahwMap.get(DigitalChannel.class, "sensor_digital");
+        //digitalTouch = ahwMap.get(DigitalChannel.class, "sensor_digital");
         //sensorRange = ahwMap.get(DistanceSensor.class, "sensor_range");
 
 
@@ -78,7 +78,7 @@ public class CallistoHW
         //Invert direction for left motors
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backleftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        MLanderLift.setDirection(DcMotorSimple.Direction.FORWARD);
+        //MLanderLift.setDirection(DcMotorSimple.Direction.FORWARD);
         // Set all motors to zero power
         stopAllMotors();
 
@@ -98,12 +98,12 @@ public class CallistoHW
         backleftMotor.setPower(0);
         backrightMotor.setPower(0);
 
-        MCollectionSlide.setPower(0);
-        MCollectionLift.setPower(0);
-        MDropLift.setPower(0);
-        MLanderLift.setPower(0);
+        //MCollectionSlide.setPower(0);
+        //MCollectionLift.setPower(0);
+        //MDropLift.setPower(0);
+        //MLanderLift.setPower(0);
 
-        spinnerServo.setPower(0);
+        //spinnerServo.setPower(0);
     }
 
     public void moveForward(double power)
@@ -198,71 +198,71 @@ public class CallistoHW
 
     public void collectionSlideOut(double power)
     {
-        MCollectionSlide.setPower(-1*power);
+        //MCollectionSlide.setPower(-1*power);
     }
 
     public void collectionSlideIn(double power)
     {
-        MCollectionSlide.setPower(power);
+        //MCollectionSlide.setPower(power);
     }
 
     public void collectionLiftUp(double power)
     {
-        MCollectionLift.setPower(-1*power);
+        //MCollectionLift.setPower(-1*power);
     }
 
     public void collectionLiftDown(double power)
     {
-        MCollectionLift.setPower(power);
+        //MCollectionLift.setPower(power);
     }
 
     public void collectionDropLiftUp(double power)
     {
-        MDropLift.setPower(-1*power);
+        //MDropLift.setPower(-1*power);
     }
 
     public void collectionDropLiftDown(double power)
     {
-        MDropLift.setPower(power);
+        //MDropLift.setPower(power);
     }
     public void landerliftUp(double power)
      {
 
-        MLanderLift.setPower(power);
+        //MLanderLift.setPower(power);
     }
 
     public void landerliftDown(double power)
     {
-        MLanderLift.setPower(-1*power);
+        //MLanderLift.setPower(-1*power);
     }
 
     public void turnspinnerservoforward(double power)
     {
-        spinnerServo.setPower(power);
+        //spinnerServo.setPower(power);
     }
 
     public void turnspinnerservobacwards(double power)
     {
-        spinnerServo.setPower(-1 * power);
+        //spinnerServo.setPower(-1 * power);
     }
 
     public void turnTraytocollect()
     {
-        trayServo.setPosition(0);
+        //trayServo.setPosition(0);
     }
 
     public void turnTraytodrop()
     {
-        trayServo.setPosition(0.6);
+        //trayServo.setPosition(0.6);
     }
 
     public void turnMarkerServotoInitPos()
     {
-        markerServo.setPosition(0);
+        //markerServo.setPosition(0);
     }
     public void turnMarkerServotoDrop()
     {
-        markerServo.setPosition(0.7);
+        //markerServo.setPosition(0.7);
     }
 
 

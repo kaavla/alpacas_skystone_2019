@@ -81,7 +81,7 @@ public class CallistoAutoDepotStart extends CallistoAutonomousBase
                 myEncoderDrive(Direction.FORWARD, TURN_SPEED, 15, 10.0, SensorsToUse.NONE);
                 rotate(36, TURN_SPEED);
                 myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 19, 10.0, SensorsToUse.NONE);
-                robot.markerServo.setPosition(0.3);
+                //robot.markerServo.setPosition(0.3);
                 sleep(1000);
                 rotate(82, TURN_SPEED);
                 myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 10, 10.0, SensorsToUse.NONE);
@@ -96,7 +96,7 @@ public class CallistoAutoDepotStart extends CallistoAutonomousBase
             {
                 //cube on robot left - human right
                 myEncoderDrive(Direction.FORWARD, TURN_SPEED, 25, 10.0, SensorsToUse.NONE);
-                robot.markerServo.setPosition(0.3);
+                //robot.markerServo.setPosition(0.3);
                 sleep(1000);
                 myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 3, 5.0, SensorsToUse.NONE);
                 rotate(122, TURN_SPEED);
@@ -109,7 +109,7 @@ public class CallistoAutoDepotStart extends CallistoAutonomousBase
                 //cube in middle
                 //myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 4, 5.0);
                 myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 28, 10.0, SensorsToUse.NONE);
-                robot.markerServo.setPosition(0.3);
+                //robot.markerServo.setPosition(0.3);
                 sleep(1000);
                 rotate(113, TURN_SPEED);
                 myEncoderDrive(Direction.FORWARD, 0.95, 15, 10.0, SensorsToUse.NONE);

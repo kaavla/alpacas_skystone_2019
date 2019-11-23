@@ -44,7 +44,7 @@ public class CallistoManual extends LinearOpMode
         {
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
-            if (robotCallisto.digitalTouch.getState() == true)
+            /*if (robotCallisto.digitalTouch.getState() == true)
             {
                 //Not pressed
                 telemetry.addData("Digital Touch", "Is Not Pressed");
@@ -53,7 +53,7 @@ public class CallistoManual extends LinearOpMode
             {
                 //Pressed
                 telemetry.addData("Digital Touch", "Is Pressed");
-            }
+            }*/
             telemetry.update();
 
             if (gamepad1.dpad_up)
@@ -117,7 +117,7 @@ public class CallistoManual extends LinearOpMode
             }
             else if (gamepad2.dpad_up)
             {
-                if (robotCallisto.digitalTouch.getState() == true)
+                /*if (robotCallisto.digitalTouch.getState() == true)
                 {
                     //Not pressed
                     telemetry.addData("Digital Touch", "Is Not Pressed");
@@ -128,7 +128,7 @@ public class CallistoManual extends LinearOpMode
                     //Pressed
                     telemetry.addData("Digital Touch", "Is Pressed");
                     robotCallisto.collectionSlideOut(0);
-                }
+                }*/
 
 
             }
@@ -156,10 +156,12 @@ public class CallistoManual extends LinearOpMode
             {
                 robotCallisto.turnspinnerservobacwards(motor_power);
             }
-            else if (gamepad2.right_bumper)
+            /*else if (gamepad2.right_bumper)
             {
                 robotCallisto.turnspinnerservoforward(motor_power);
             }
+
+             */
             else if (gamepad2.b)
             {
                 robotCallisto.turnTraytodrop();
