@@ -121,18 +121,15 @@ public class testTensorFlowWithWebcam extends LinearOpMode {
                         // step through the list of recognitions and display boundary info.
                         int i = 0;
                         for (Recognition recognition : updatedRecognitions) {
-                            double targetHeightRatio = (float) 0.8;
-                            double imageHeight = recognition.getImageHeight();
-                            double objectHeight = recognition.getHeight();
-                            double objectHeightRatio = objectHeight/imageHeight;
+                            float targetHeightRatio = (float) 0.8;
+                            float imageHeight = recognition.getImageHeight();
+                            float objectHeight = recognition.getHeight();
+                            float objectHeightRatio = objectHeight/imageHeight;
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                            telemetry.addData(" ", "image Height (%.1f), object Height (%.1f)",
-                                    imageHeight, objectHeight  );
-
-                            double obj_h_mm = objectHeight*25.4/441.0;
-                            double f2 = 26*4*25.4/obj_h_mm;
-
-                            telemetry.addData(" ", " f2 (%.1f) inch", f2/25.4);
+                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                    recognition.getLeft(), recognition.getTop());
+                            telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                    recognition.getRight(), recognition.getBottom());
                             if (objectHeightRatio <= targetHeightRatio) {
                                 telemetry.addData("The objectHeightRatio!", "is less than the targetHeightRatio.");
                             }
