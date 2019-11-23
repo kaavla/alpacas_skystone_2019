@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
+
+import com.qualcomm.robotcore.hardware.DcMotor;import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -23,19 +23,18 @@ public class CallistoManual extends LinearOpMode
     {
         //This is where we set our motor powers
         double motor_power = 0.7;
-        float   leftX, leftY, rightZ;
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         robotCallisto.init(hardwareMap);
 
-        //waitForStart();
-        // Do not use waitForStart() if you have Motorola E4 phones.
-        //waitForStart();
+
         while (!opModeIsActive() && !isStopRequested())
         {
             telemetry.addData("status", "waiting for start command...");
-            telemetry.update();
+            telemetry.update();        //waitForStart();
+            // Do not use waitForStart() if you have Motorola E4 phones.
+            //waitForStart();
         }
 
         runtime.reset();
@@ -45,13 +44,6 @@ public class CallistoManual extends LinearOpMode
         {
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
-
-            leftY = gamepad1.left_stick_y;
-            leftX = gamepad1.left_stick_x * -1;
-            rightZ = gamepad1.right_stick_x * -1;
-
-
-            robotCallisto.moveHolonomic(leftX, leftY, rightZ);
             if (gamepad1.dpad_up)
             {
                 robotCallisto.moveForward(motor_power);
@@ -93,131 +85,14 @@ public class CallistoManual extends LinearOpMode
             {
                 robotCallisto.diagonalbackwardsRight(motor_power);
             }
-            /*
-            else if (gamepad2.x)
-            {
-                robotCallisto.position1();
-            }
-            else if (gamepad2.y)
-            {
-                robotCallisto.position2();
-            }
-            else if (gamepad2.b)
-            {
-                robotCallisto.position3();
-            }
-            else if (gamepad2.left_bumper)
-            {
-                robotCallisto.collectSkystone();
-            }
-            else if (gamepad2.right_bumper)
-            {
-                robotCallisto.dropSkystone();
-            }
-            else if (gamepad2.dpad_right)
-            {
-                robotCallisto.turnSpinServoright();
-            }
-            else if (gamepad2.dpad_left)
-            {
-                robotCallisto.turnSpinServoleft();
-            }
-*/
- /*
-            else if (gamepad1.y)
-            {
-                robotCallisto.forwardSlow();
-            }
-            else if (gamepad1.a)
-            {
-                robotCallisto.backwardSlow();
-            }
-            else if (gamepad1.left_stick_button)
-            {
-                //robotCallisto.landerliftUp(1);
-                //myLanderLiftTest(0, 0.5, 5, 2);
-            }
-            else if (gamepad1.right_stick_button)
-            {
-                //robotCallisto.landerliftDown(1);
-                //myLanderLiftTest(1, 0.5, 5, 2);
-
-            }
-            else if (gamepad2.dpad_up)
-            {
-
-            }
-<<<<<<< HEAD
-            else if (gamepad2.x)
-            {
-                robotCallisto.turnTraytocollect();
-            }
-            else if (gamepad2.b)
-            {
-                robotCallisto.turnTraytodrop();
-            }
-            else if (gamepad2.a)
-            {
-                robotCallisto.turnClawotoDrop();
-            } else if (gamepad2.y)
-            {
-                robotCallisto.turnClawtocollect();
-            }
-            /*
-=======
->>>>>>> e44163fb7bf28b5622a3e1da072b8c90be872442
-            else if (gamepad2.dpad_down)
-            {
-                //robotCallisto.collectionSlideOut(1);
-            }
-            else if (gamepad2.dpad_left)
-            {
-                //robotCallisto.collectionLiftDown(0.7);
-            }
-            else if (gamepad2.dpad_right)
-            {
-                //robotCallisto.collectionLiftUp(0.7);
-            }
-            else if (gamepad2.y)
-            {
-                //robotCallisto.collectionDropLiftUp(0.9);
-            }
-            else if (gamepad2.a)
-            {
-                //robotCallisto.collectionDropLiftDown(0.7);
-            }
-            else if (gamepad2.left_bumper)
-            {
-                //robotCallisto.turnspinnerservobacwards(motor_power);
-            }
-            else if (gamepad2.right_bumper)
-            {
-                //robotCallisto.turnspinnerservoforward(motor_power);
-            }
-            else if (gamepad2.b)
-            {
-                //robotCallisto.turnTraytodrop();
-            }
-            else if (gamepad2.x)
-            {
-                //robotCallisto.turnTraytocollect();
-            }
-            else if (gamepad2.left_stick_button)
-            {
-                robotCallisto.turnMarkerServotoInitPos();
-            }
-            else if (gamepad2.right_stick_button)
-            {
-                robotCallisto.turnMarkerServotoDrop();
-            }
 
 
-*/
 
             else
             {
                 robotCallisto.stopAllMotors();
             }
+
         }
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();

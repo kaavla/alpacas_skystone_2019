@@ -24,23 +24,6 @@ public class CallistoHW
     public Servo foundationServo = null;
     public Servo stoneServo = null;
 
-/*
-    //public DcMotor MCollectionSlide = null;
-    //public DcMotor MCollectionLift = null;
-    //public DcMotor MDropLift = null;
-    public DcMotor MLanderLift = null;
-
-    public CRServo spinnerServo = null;
-
-    public Servo markerServo = null;
-
- */
-
-    //public DigitalChannel digitalTouch = null;  // Hardware Device Object
-    //public DistanceSensor sensorRange = null;
-
-
-    //static final double     REFERENCE_ANGLE           = 165;
     Orientation lastAngles = new Orientation();
     double globalAngle, power = .30, correction;
 
@@ -51,40 +34,11 @@ public class CallistoHW
     {
         RobotLog.ii("CAL", "Enter - init");
 
-        leftMotor = ahwMap.get(DcMotor.class, "M1");
-        rightMotor = ahwMap.get(DcMotor.class, "M2");
-        backleftMotor = ahwMap.get(DcMotor.class, "M3");
-        backrightMotor = ahwMap.get(DcMotor.class, "M4");
-        //foundationServo = ahwMap.get(Servo.class, "foundationServo");
-        //collectServo = ahwMap.get(CRServo.class, "stoneServo");
-
-
-
-        //leftMotor = ahwMap.get(DcMotor.class, "MFrontLeft");
-        //rightMotor = ahwMap.get(DcMotor.class, "MFrontRight");
-        //backleftMotor = ahwMap.get(DcMotor.class, "MBackLeft");
-        //backrightMotor = ahwMap.get(DcMotor.class, "MBackRight");
 
         leftMotor = ahwMap.get(DcMotor.class, "M1"); //FL
         rightMotor = ahwMap.get(DcMotor.class, "M2"); //FR
         backleftMotor = ahwMap.get(DcMotor.class, "M3"); //BL
         backrightMotor = ahwMap.get(DcMotor.class, "M4"); //BR
-        //collectServo = ahwMap.get(Servo.class, "foundationServo");
-
-/*
-        //MCollectionSlide = ahwMap.get(DcMotor.class, "MCollectionSlide");
-        MCollectionLift = ahwMap.get(DcMotor.class, "MCollectionLift");
-        MDropLift = ahwMap.get(DcMotor.class, "MDropLift");
-        MLanderLift = ahwMap.get(DcMotor.class, "MLanderLift");
-
-        spinnerServo = ahwMap.get(CRServo.class, "spinnerServo");
-        markerServo = ahwMap.get(Servo.class, "markerServo");
-
-        digitalTouch = ahwMap.get(DigitalChannel.class, "sensor_digital");
-        //sensorRange = ahwMap.get(DistanceSensor.class, "sensor_range");
-
- */
-
 
 
         imu = ahwMap.get(BNO055IMU.class, "imu 1");
@@ -120,24 +74,18 @@ public class CallistoHW
         rightMotor.setPower(0);
         backleftMotor.setPower(0);
         backrightMotor.setPower(0);
-
-        //MCollectionSlide.setPower(0);
-        //MCollectionLift.setPower(0);
-        //MDropLift.setPower(0);
-        //MLanderLift.setPower(0);
-
-        //spinnerServo.setPower(0);
     }
 
     public void moveHolonomic(double x, double y , double z)
     {
+
         double max_power = 0.7;
         double min_power = -1*max_power;
 
-        double fl_power = Range.clip(y + x - z, min_power, max_power );
-        double fr_power = Range.clip(y - x + z, min_power, max_power );
-        double br_power = Range.clip(y + x + z, min_power, max_power );
-        double bl_power = Range.clip(y - x - z, min_power, max_power );
+        double fl_power = Range.clip(y + x, -1.0, 1.0);
+        double fr_power = Range.clip(y - x, -1.0, 1.0);
+        double br_power = Range.clip(y + x, -1.0, 1.0);
+        double bl_power = Range.clip(y - x, -1.0, 1.0);
 
         leftMotor.setPower(fl_power);
         rightMotor.setPower(fr_power);
@@ -252,76 +200,8 @@ public class CallistoHW
     }
 
 
-    //public void collectionSlideOut(double power)
-    //{
-        //MCollectionSlide.setPower(-1*power);
-    //}
 
-    //public void collectionSlideIn(double power)
-    //{
-        //MCollectionSlide.setPower(power);
-    //}
-/*
-    public void collectionLiftUp(double power)
-    {
-        MCollectionLift.setPower(-1*power);
-    }
 
-    public void collectionLiftDown(double power)
-    {
-        MCollectionLift.setPower(power);
-    }
-
-    public void collectionDropLiftUp(double power)
-    {
-        MDropLift.setPower(-1*power);
-    }
-
-    public void collectionDropLiftDown(double power)
-    {
-        MDropLift.setPower(power);
-    }
-    public void landerliftUp(double power)
-     {
-
-        MLanderLift.setPower(power);
-    }
-
-    public void landerliftDown(double power)
-    {
-        MLanderLift.setPower(-1*power);
-    }
-
-    public void turnspinnerservoforward(double power)
-    {
-        spinnerServo.setPower(power);
-    }
-
-    public void turnspinnerservobacwards(double power)
-    {
-        spinnerServo.setPower(-1 * power);
-    }
-
-    public void turnTraytocollect()
-    {
-        trayServo.setPosition(0);
-    }
-
-    public void turnTraytodrop()
-    {
-        trayServo.setPosition(0.6);
-    }
-
-    public void turnMarkerServotoInitPos()
-    {
-        markerServo.setPosition(0);
-    }
-    public void turnMarkerServotoDrop()
-    {
-        markerServo.setPosition(0.7);
-    }
-
- */
 
 
 }

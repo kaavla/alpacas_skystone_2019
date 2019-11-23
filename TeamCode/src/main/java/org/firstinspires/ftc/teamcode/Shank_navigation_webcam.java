@@ -3,15 +3,21 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+<<<<<<< HEAD
+=======
 import com.qualcomm.robotcore.util.RobotLog;
+>>>>>>> 5e66efaa3ff04af10d785b413b876cedf75911a9
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+<<<<<<< HEAD
+=======
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+>>>>>>> 5e66efaa3ff04af10d785b413b876cedf75911a9
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
@@ -32,6 +38,8 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 //@Disabled
 public class Shank_navigation_webcam extends LinearOpMode {
 
+<<<<<<< HEAD
+=======
     // Constants
     private static final int     MAX_TARGETS    =   13;
     private static final double  ON_AXIS        =  10;      // Within 1.0 cm of target center-line
@@ -43,6 +51,7 @@ public class Shank_navigation_webcam extends LinearOpMode {
     public final double TARGET_DISTANCE =  400.0;    // Hold robot's center 400 mm from target
 
 
+>>>>>>> 5e66efaa3ff04af10d785b413b876cedf75911a9
     // IMPORTANT: If you are using a USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final boolean PHONE_IS_PORTRAIT = false  ;
@@ -90,13 +99,24 @@ public class Shank_navigation_webcam extends LinearOpMode {
      * This is the webcam we are to use. As with other hardware devices such as motors and
      * servos, this device is identified using the robot configuration tool in the FTC application.
      */
+<<<<<<< HEAD
+    WebcamName webcamName = null;
+=======
     //WebcamName webcamName = null;
+>>>>>>> 5e66efaa3ff04af10d785b413b876cedf75911a9
 
     private boolean targetVisible = false;
     private float phoneXRotate    = 0;
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
 
+<<<<<<< HEAD
+    @Override public void runOpMode() {
+        /*
+         * Retrieve the camera we are to use.
+         */
+        webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
+=======
     private boolean             targetFound;    // set to true if Vuforia is currently tracking a target
     private String              targetName;     // Name of the currently tracked target
     private double              robotX;         // X displacement from target center
@@ -127,6 +147,7 @@ public class Shank_navigation_webcam extends LinearOpMode {
          * Retrieve the camera we are to use.
          */
         //webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
+>>>>>>> 5e66efaa3ff04af10d785b413b876cedf75911a9
 
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
@@ -139,16 +160,30 @@ public class Shank_navigation_webcam extends LinearOpMode {
         // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
+<<<<<<< HEAD
+
+        /**
+         * We also indicate which camera on the RC we wish to use.
+         */
+        parameters.cameraName = webcamName;
+=======
         parameters.cameraDirection   = CAMERA_CHOICE;
         //parameters.useExtendedTracking = false;
+>>>>>>> 5e66efaa3ff04af10d785b413b876cedf75911a9
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
+<<<<<<< HEAD
+        // Load the data sets for the trackable objects. These particular data
+        // sets are stored in the 'assets' part of our application.
+        VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+=======
 
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
         targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+>>>>>>> 5e66efaa3ff04af10d785b413b876cedf75911a9
 
         VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
         stoneTarget.setName("Stone Target");
@@ -310,6 +345,42 @@ public class Shank_navigation_webcam extends LinearOpMode {
         // Tap the preview window to receive a fresh image.
 
         targetsSkyStone.activate();
+<<<<<<< HEAD
+        while (!isStopRequested()) {
+
+            // check all the trackable targets to see which one (if any) is visible.
+            targetVisible = false;
+            for (VuforiaTrackable trackable : allTrackables) {
+                if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
+                    telemetry.addData("Visible Target", trackable.getName());
+                    targetVisible = true;
+
+                    // getUpdatedRobotLocation() will return null if no new information is available since
+                    // the last time that call was made, or if the trackable is not currently visible.
+                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
+                    if (robotLocationTransform != null) {
+                        lastLocation = robotLocationTransform;
+                    }
+                    break;
+                }
+            }
+
+            // Provide feedback as to where the robot is located (if we know).
+            if (targetVisible) {
+                // express position (translation) of robot in inches.
+                VectorF translation = lastLocation.getTranslation();
+                telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
+                        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
+
+                // express the rotation of the robot in degrees.
+                Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
+                telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+            }
+            else {
+                telemetry.addData("Visible Target", "none");
+            }
+            telemetry.update();
+=======
 
 
         while (!isStopRequested()) {
@@ -331,11 +402,14 @@ public class Shank_navigation_webcam extends LinearOpMode {
             telemetry.update();
 
 
+>>>>>>> 5e66efaa3ff04af10d785b413b876cedf75911a9
         }
 
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
     }
+<<<<<<< HEAD
+=======
     public void addNavTelemetry() {
         if (targetFound)
         {
@@ -480,5 +554,6 @@ public class Shank_navigation_webcam extends LinearOpMode {
         return targetFound;
     }
 
+>>>>>>> 5e66efaa3ff04af10d785b413b876cedf75911a9
 }
 
