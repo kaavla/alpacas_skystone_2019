@@ -26,7 +26,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 
 
-@TeleOp(name="SHANK Vuforia Nav Webcam", group ="Concept")
+@TeleOp(name="SHANK Vuforia Nav Webcam - 1", group ="Concept")
 //@Disabled
 public class ShankVuforiaNavigation extends LinearOpMode {
 
