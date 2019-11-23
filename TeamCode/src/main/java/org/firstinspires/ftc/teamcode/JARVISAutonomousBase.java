@@ -203,11 +203,11 @@ public class JARVISAutonomousBase extends LinearOpMode
 
         if (degrees < 0)
         {   // turn right.
-            robot.turnRight(power);
+            robot.moveHolonomic(0, 0, power*-1);
         }
         else if (degrees > 0)
         {   // turn left.
-            robot.turnLeft(power);
+            robot.moveHolonomic(0, 0, power*1);
         }
         else return;
 
@@ -242,132 +242,6 @@ public class JARVISAutonomousBase extends LinearOpMode
         // reset angle tracking on new heading.
         resetAngle();
         RobotLog.ii("CAL", "Exit - rotate");
-    }
-
-
-    public int myTFOD(double timeoutS)
-    {
-        RobotLog.ii("CAL", "Enter - myTFOD - timeout=%f", timeoutS);
-        int positionGold = 2;
-        runtime.reset();
-
-        if (tfod != null)
-        {
-            //tfod.activate();
-        }
-
-        while (opModeIsActive() && !isStopRequested() &&
-                (runtime.seconds() < timeoutS))
-        {
-            if (tfod != null)
-            {
-                List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                if (updatedRecognitions != null)
-                {
-                    telemetry.addData("Path1", "# Objects Detected %d",updatedRecognitions.size());
-                    RobotLog.ii("CAL", "myTFOD - Objects Detected =%d", updatedRecognitions.size());
-
-                    /////////////////////////////////
-                    if (updatedRecognitions.size() == 2)
-                    {
-                        int goldMineralX = -1;
-                        int silverMineral1X = -1;
-                        int silverMineral2X = -1;
-                        for (Recognition recognition : updatedRecognitions)
-                        {
-                            if (recognition.getLabel().equals(LABEL_GOLD_MINERAL))
-                            {
-                                goldMineralX = (int) recognition.getLeft();
-                            }
-                            else if (silverMineral1X == -1)
-                            {
-                                silverMineral1X = (int) recognition.getLeft();
-                            }
-                            else
-                            {
-                                silverMineral2X = (int) recognition.getLeft();
-                            }
-                        }
-                        // Assuming we see only the center and left (as the camera sees) minerals through the camera
-                        // If Gold mineral is not found, that means it is the right (1) one
-                        if (goldMineralX == -1)
-                        {
-                            telemetry.addData("Gold Mineral Position", "Right");
-                            positionGold = 1;
-                            break;
-                        }
-                        else if (silverMineral2X == -1)
-                        {
-                            if (goldMineralX > silverMineral1X)
-                            {
-                                telemetry.addData("Gold Mineral Position", "Center");
-                                positionGold = 2;
-                                break;
-                            }
-                            else
-                            {
-                                telemetry.addData("Gold Mineral Position", "Left");
-                                positionGold = 3;
-                                break;
-                            }
-                        }
-                    }
-                    telemetry.update();
-                    ///////////////////////////////////
-                    /*if (updatedRecognitions.size() == 3)
-                    {
-                        int goldMineralX = -1;
-                        int silverMineral1X = -1;
-                        int silverMineral2X = -1;
-                        for (Recognition recognition : updatedRecognitions)
-                        {
-                            if (recognition.getLabel().equals(LABEL_GOLD_MINERAL))
-                            {
-                                goldMineralX = (int) recognition.getLeft();
-                            }
-                            else if (silverMineral1X == -1)
-                            {
-                                silverMineral1X = (int) recognition.getLeft();
-                            }
-                            else
-                            {
-                                silverMineral2X = (int) recognition.getLeft();
-                            }
-                        }
-                        if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1)
-                        {
-                            if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X)
-                            {
-                                telemetry.addData("Gold Mineral Position", "Left");
-                                positionGold = 3;
-                                break;
-                            }
-                            else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X)
-                            {
-                                telemetry.addData("Gold Mineral Position", "Right");
-                                positionGold = 1;
-                                break;
-                            }
-                            else
-                            {
-                                telemetry.addData("Gold Mineral Position", "Center");
-                                positionGold = 2;
-                                break;
-                            }
-                        }
-                    }
-                    telemetry.update();*/
-                }
-            }
-        }
-
-        if (tfod != null)
-        {
-            tfod.shutdown();
-        }
-        RobotLog.ii("CAL", "Exit - myTFOD - positionGold=%d", positionGold);
-
-        return positionGold;
     }
 
 
@@ -454,50 +328,10 @@ public class JARVISAutonomousBase extends LinearOpMode
             robot.backleftMotor.setPower(Math.abs(speed));
             robot.backrightMotor.setPower(Math.abs(speed));
 
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
-            // its target position, the motion will stop.  This is "safer" in the event that the robot will
-            // always end the motion as soon as possible.
-            // However, if you require that BOTH motors have finished their moves before the robot continues
-            // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() && !isStopRequested() &&
                     (runtime.seconds() < timeoutS) &&
                     (robot.leftMotor.isBusy()))
-            {
-/*
-                if (sensors_2_use == SensorsToUse.USE_COLOR)
-                {
 
-                }
-                if (sensors_2_use == SensorsToUse.USE_DISTANCE)
-                {
-                    if (robot.sensorRange.getDistance(DistanceUnit.INCH) < 5) {
-                        int count = 0;
-                        while (opModeIsActive() && !isStopRequested() &&
-                                (runtime.seconds() < timeoutS) &&
-                                (count < 20) &&
-                                (robot.sensorRange.getDistance(DistanceUnit.INCH) < 5)) {
-                            sleep(100);
-                            count++;
-                        }
-                    }
-
-                }
-
-                if (sensors_2_use == SensorsToUse.USE_TOUCH)
-                {
-                    robot.digitalTouch.setMode(DigitalChannel.Mode.INPUT);
-
-                    if (robot.digitalTouch.getState() == true) {
-                        telemetry.addData("Digital Touch", "Is Not Pressed");
-                    } else {
-                        telemetry.addData("Digital Touch", "Is Pressed");
-                        break;
-                    }
-                    telemetry.update();
-
-                }
-                */
 
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
@@ -521,164 +355,7 @@ public class JARVISAutonomousBase extends LinearOpMode
 
             sleep(50);   // optional pause after each move
         }
-        RobotLog.ii("CAL", "Exit - myEncoderDrive ");
 
-    }
-
-    public void myLanderLift(Direction direction,
-                             double speed,
-                             double Inches,
-                             double timeoutS) {
-        int newLiftTarget;
-        RobotLog.ii("CAL", "Enter - myLanderLift");
-
-
-        //Reset the encoder
-        //robot.MLanderLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // Ensure that the op mode is still active
-        if (opModeIsActive() && !isStopRequested()) {
-/*
-            // Determine new target position, and pass to motor controller
-            if (direction == Direction.ROBOT_UP)
-            {
-                //newLiftTarget = robot.MLanderLift.getCurrentPosition() + (int) (Inches * TICKS_PER_INCH);
-            }
-            else if (direction == Direction.ROBOT_DOWN)
-            {
-                newLiftTarget = robot.MLanderLift.getCurrentPosition() + (int) (-1 * Inches * TICKS_PER_INCH);
-            }
-            else
-            {
-                Inches = 0;
-                newLiftTarget = robot.MLanderLift.getCurrentPosition() + (int) (Inches * TICKS_PER_INCH);
-            }
-
-            robot.MLanderLift.setTargetPosition(newLiftTarget);
-
-            // Turn On RUN_TO_POSITION
-            robot.MLanderLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            robot.MLanderLift.setPower(Math.abs(speed));
-
- */
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
-            // its target position, the motion will stop.  This is "safer" in the event that the robot will
-            // always end the motion as soon as possible.
-            // However, if you require that BOTH motors have finished their moves before the robot continues
-            // onto the next step, use (isBusy() || isBusy()) in the loop test.
-            //while (opModeIsActive() && !isStopRequested()  &&
-            //        (runtime.seconds() < timeoutS) &&
-            //       (robot.MLanderLift.isBusy() )) {
-            RobotLog.ii("CAL", "Enter - myLanderLift - waiting to get to pos");
-            /*while (opModeIsActive() && !isStopRequested() &&
-                    (runtime.seconds() < timeoutS) &&
-                    //(robot.MLanderLift.isBusy()))
-            {
-
-                // Display it for the driver.
-                telemetry.addData("Path1", "Run time to %7f", runtime.seconds());
-                //telemetry.addData("Path2", "Running at %7d :%7d",
-                //        robot.MLanderLift.getCurrentPosition());
-                telemetry.update();
-            }
-            RobotLog.ii("CAL", "Enter - myLanderLift - reached pos");
-
-            // Stop all motion;
-            robot.MLanderLift.setPower(0);
-
-            // Turn off RUN_TO_POSITION
-            robot.MLanderLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            RobotLog.ii("CAL", "Exit - myLanderLift");
-
-            //sleep(50);   // optional pause after each move
-        }
-    }
-
-    public void turnspinnerservoforward(double power,
-                                        double timoutS)
-    {
-        robot.spinnerServo.setPower(power);
-    }
-
-
-    public void myDetectionTest(int position,
-                                double speed,
-                                double timeoutS)
-    {
-        double curr_angle ;
-        RobotLog.ii("CAL", "Enter - myDetectionTest");
-        telemetry.addData("Path1", "Position Detected %d", position);
-        telemetry.update();
-
-        // Ensure that the op mode is still active
-        if (opModeIsActive() && !isStopRequested())
-        {
-            myLanderLift(Direction.ROBOT_DOWN, 1, 6.5, 4.0);
-
-            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 8, 10.0, SensorsToUse.NONE);
-            curr_angle = getAngle();
-            telemetry.addData("status", "curr_angle = %f", curr_angle);
-            telemetry.update();
-
-            rotate((int)((-1)*(curr_angle - ref_angle )), 0.3);
-            // Determine new target position, and pass to motor controller
-            if (position == 1)
-            {
-                myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 12, 10.0, SensorsToUse.NONE);
-                //double current_angle = getAbsoluteAngle();
-                //rotate((int)(REFERENCE_ANGLE - current_angle), TURN_SPEED);
-                myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 15, 10.0, SensorsToUse.NONE);
-                rotate(76, TURN_SPEED);
-                //myEncoderDrive(Direction.FORWARD, TURN_SPEED, 13, 10.0);
-                myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 11, 10.0, SensorsToUse.NONE);
-            }
-            else if (position == 3)
-            {
-                myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 12, 10.0, SensorsToUse.NONE);
-                myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 16, 10.0, SensorsToUse.NONE);
-                rotate(73, TURN_SPEED);
-                myEncoderDrive(Direction.FORWARD, TURN_SPEED, 13, 10.0, SensorsToUse.NONE);
-            }
-            else // Position = 2 and default position
-            {
-                myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 12, 10.0, SensorsToUse.NONE);
-                //myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 2, 10.0);
-                myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 4, 10.0, SensorsToUse.NONE);
-                rotate(82, TURN_SPEED);
-                myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 15, 10.0, SensorsToUse.NONE);
-            }
-        }
-        RobotLog.ii("CAL", "Exit - myDetectionTest");
-
-    }
-
-    public void myCollectionLiftDown(double power, double timeoutS)
-    {
-        RobotLog.ii("CAL", "Enter - myCollectionLiftDown - waiting to get to pos");
-        runtime.reset();
-        robot.collectionLiftDown(power);
-        while (opModeIsActive() && !isStopRequested() &&
-                (runtime.seconds() < timeoutS))
-        {
-
-            // Display it for the driver.
-            telemetry.addData("Path1", "Run time to %7f", runtime.seconds());
-            //telemetry.addData("Path2", "Running at %7d :%7d",
-            //        robot.MLanderLift.getCurrentPosition());
-            telemetry.update();
-        }
-        robot.collectionLiftDown(0);
-        RobotLog.ii("CAL", "Enter - myCollectionLiftDown - reached pos");
-
-    }
-
-             */
 
 
         }
-    }}

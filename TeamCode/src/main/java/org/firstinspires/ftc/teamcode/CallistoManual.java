@@ -28,13 +28,13 @@ public class CallistoManual extends LinearOpMode
         telemetry.update();
         robotCallisto.init(hardwareMap);
 
-        //waitForStart();
-        // Do not use waitForStart() if you have Motorola E4 phones.
-        //waitForStart();
+
         while (!opModeIsActive() && !isStopRequested())
         {
             telemetry.addData("status", "waiting for start command...");
-            telemetry.update();
+            telemetry.update();        //waitForStart();
+            // Do not use waitForStart() if you have Motorola E4 phones.
+            //waitForStart();
         }
 
         runtime.reset();
@@ -78,81 +78,13 @@ public class CallistoManual extends LinearOpMode
             }
             else if (gamepad1.left_trigger > 0.7)
             {
+
                 robotCallisto.diagonalbackwardsLeft(motor_power);
             }
             else if (gamepad1.right_trigger > 0.7)
             {
                 robotCallisto.diagonalbackwardsRight(motor_power);
             }
-            else if (gamepad1.y)
-            {
-                robotCallisto.forwardSlow();
-            }
-            else if (gamepad1.a)
-            {
-                robotCallisto.backwardSlow();
-            }
-            else if (gamepad1.left_stick_button)
-            {
-                //robotCallisto.landerliftUp(1);
-                //myLanderLiftTest(0, 0.5, 5, 2);
-            }
-            else if (gamepad1.right_stick_button)
-            {
-                //robotCallisto.landerliftDown(1);
-                //myLanderLiftTest(1, 0.5, 5, 2);
-
-            }
-            else if (gamepad2.dpad_up)
-            {
-
-            }
-            /*
-            else if (gamepad2.dpad_down)
-            {
-                //robotCallisto.collectionSlideOut(1);
-            }
-            else if (gamepad2.dpad_left)
-            {
-                //robotCallisto.collectionLiftDown(0.7);
-            }
-            else if (gamepad2.dpad_right)
-            {
-                //robotCallisto.collectionLiftUp(0.7);
-            }
-            else if (gamepad2.y)
-            {
-                //robotCallisto.collectionDropLiftUp(0.9);
-            }
-            else if (gamepad2.a)
-            {
-                //robotCallisto.collectionDropLiftDown(0.7);
-            }
-            else if (gamepad2.left_bumper)
-            {
-                //robotCallisto.turnspinnerservobacwards(motor_power);
-            }
-            else if (gamepad2.right_bumper)
-            {
-                //robotCallisto.turnspinnerservoforward(motor_power);
-            }
-            else if (gamepad2.b)
-            {
-                //robotCallisto.turnTraytodrop();
-            }
-            else if (gamepad2.x)
-            {
-                //robotCallisto.turnTraytocollect();
-            }
-            else if (gamepad2.left_stick_button)
-            {
-                robotCallisto.turnMarkerServotoInitPos();
-            }
-            else if (gamepad2.right_stick_button)
-            {
-                robotCallisto.turnMarkerServotoDrop();
-            }
-            */
 
 
 
