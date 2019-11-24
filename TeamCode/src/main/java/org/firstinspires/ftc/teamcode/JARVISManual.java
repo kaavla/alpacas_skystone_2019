@@ -24,7 +24,7 @@ public class JARVISManual extends LinearOpMode {
     @Override
     public void runOpMode() {
         //This is where we set our motor powers
-        double motor_power = 0.7;
+        double motor_power = 0.3;
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -45,27 +45,27 @@ public class JARVISManual extends LinearOpMode {
 
             if (gamepad1.dpad_up) {
                 //forward
-                robotJARVIS.moveHolonomic(0, motor_power * 0.5, 0);
+                robotJARVIS.moveHolonomic(0, motor_power * 1, 0);
             }
             else if (gamepad1.dpad_down) {
                 //backwards
-                robotJARVIS.moveHolonomic(0, motor_power * -0.5, 0);
-            }
-            else if (gamepad1.dpad_left) {
-                //rotate counter-clockwise
-                robotJARVIS.moveHolonomic(0, 0, motor_power * 0.5);
+                robotJARVIS.moveHolonomic(0, motor_power * -1, 0);
             }
             else if (gamepad1.left_bumper) {
                 //strafe left
-                robotJARVIS.moveHolonomic(motor_power * -0.5, 0, 0);
+                robotJARVIS.moveHolonomic(motor_power * -1, 0, 0);
             }
             else if (gamepad1.right_bumper) {
                 //strafe right
-                robotJARVIS.moveHolonomic(motor_power * 0.5, 0, 0);
+                robotJARVIS.moveHolonomic(motor_power * 1, 0, 0);
+            }
+            else if (gamepad1.dpad_left) {
+                //rotate counter-clockwise
+                robotJARVIS.moveHolonomic(0, 0, motor_power * 1);
             }
             else if (gamepad1.dpad_right) {
                 //rotate clockwise
-                robotJARVIS.moveHolonomic(0, 0, motor_power * -0.5);
+                robotJARVIS.moveHolonomic(0, 0, motor_power * -1);
             }
             else
             {
