@@ -21,6 +21,8 @@ public class JARVISHW
     public DcMotor backrightMotor = null;
     public DcMotor backleftMotor = null;
 
+    public DcMotor slide_1 = null;
+    public DcMotor slide_2 = null;
 
     Orientation lastAngles = new Orientation();  //?
     double globalAngle, power = .30, correction;  //?
@@ -36,6 +38,9 @@ public class JARVISHW
         rightMotor = ahwMap.get(DcMotor.class, "M2");
         backleftMotor = ahwMap.get(DcMotor.class, "M3");
         backrightMotor = ahwMap.get(DcMotor.class, "M4");
+
+        slide_1  = ahwMap.get(DcMotor.class, "slide_1");
+        slide_2  = ahwMap.get(DcMotor.class, "slide_2");
 
 
         imu = ahwMap.get(BNO055IMU.class, "imu 1");
@@ -53,6 +58,8 @@ public class JARVISHW
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backleftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
+
+
         // Set all motors to zero power
         stopAllMotors();
 
@@ -61,6 +68,9 @@ public class JARVISHW
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backrightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backleftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        slide_1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slide_2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RobotLog.ii("CAL", "Exit - init");
 
     }

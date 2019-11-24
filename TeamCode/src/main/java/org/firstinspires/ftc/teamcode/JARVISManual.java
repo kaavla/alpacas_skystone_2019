@@ -76,9 +76,19 @@ public class JARVISManual extends LinearOpMode {
                 //rotate clockwise
                 robotJARVIS.moveHolonomic(0, 0, motor_power * -1);
             }
+            else if (gamepad2.dpad_up) {
+                //Slide Down
+                robotJARVIS.slide_1.setPower(0.3);
+            }
+            else if (gamepad2.dpad_down) {
+                //Slide Down
+                robotJARVIS.slide_1.setPower(-0.3);
+            }
+
             else
             {
                 robotJARVIS.stopAllMotors();
+                robotJARVIS.slide_1.setPower(0);
             }
         }
         telemetry.addData("Status", "Run Time: " + runtime.toString());

@@ -46,7 +46,7 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase{
                 telemetry.addData("status", "waiting for start command...");
                 telemetry.update();
             }
-            myDetectionRun (positionGold, DRIVE_SPEED, 40.0);
+            myDetectionRun (positionGold, 0.3, 40.0);
             //sleep(50);     // pause for servos to move
 
             //telemetry.addData("Path", "Run Complete");
@@ -67,8 +67,8 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase{
             if (opModeIsActive() && !isStopRequested() )
             {
 
-                    myEncoderDrive(Direction.FORWARD, TURN_SPEED, 15, 10.0, SensorsToUse.NONE);
-                    //rotate(36, TURN_SPEED);
+                    myEncoderDrive(Direction.FORWARD, speed, 36, 10.0, SensorsToUse.NONE);
+                    rotate(90, 0.3);
 
             }
             RobotLog.ii("CAL", "Exit - myDetectionRun");
