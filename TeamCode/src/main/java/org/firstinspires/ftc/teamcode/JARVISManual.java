@@ -45,42 +45,42 @@ public class JARVISManual extends LinearOpMode {
             telemetry.update();
             //all of the code bellow is setting a power to each button on the gamepad
 
-            //if ((gamepad1.left_stick_y != 0)  || (gamepad1.left_stick_x !=0) || (gamepad1.right_stick_x != 0)) {
-            if (gamepad1.dpad_up) {
+            if ((gamepad1.left_stick_y != 0)  || (gamepad1.left_stick_x !=0) || (gamepad1.right_stick_x != 0)) {
+                //if (gamepad1.dpad_up) {
                 leftY = gamepad1.left_stick_y;
                 leftX = gamepad1.left_stick_x * -1;
                 rightZ = gamepad1.right_stick_x * -1;
                 robotJARVIS.moveHolonomic(leftX, leftY, rightZ);
             }
             else if (gamepad1.dpad_up) {
-                    //forward
-                    robotJARVIS.moveHolonomic(0, motor_power * 1, 0);
-                }
-                else if (gamepad1.dpad_down) {
-                    //backwards
-                    robotJARVIS.moveHolonomic(0, motor_power * -1, 0);
-                }
-                else if (gamepad1.left_bumper) {
-                    //strafe left
-                    robotJARVIS.moveHolonomic(motor_power * -1, 0, 0);
-                }
-                else if (gamepad1.right_bumper) {
-                    //strafe right
-                    robotJARVIS.moveHolonomic(motor_power * 1, 0, 0);
-                }
-                else if (gamepad1.dpad_left) {
-                    //rotate counter-clockwise
-                    robotJARVIS.moveHolonomic(0, 0, motor_power * 1);
-                }
-                else if (gamepad1.dpad_right) {
-                    //rotate clockwise
-                    robotJARVIS.moveHolonomic(0, 0, motor_power * -1);
-                }
-                else
-                {
-                    robotJARVIS.stopAllMotors();
-                }
+                //forward
+                robotJARVIS.moveHolonomic(0, motor_power * 1, 0);
             }
+            else if (gamepad1.dpad_down) {
+                //backwards
+                robotJARVIS.moveHolonomic(0, motor_power * -1, 0);
+            }
+            else if (gamepad1.left_bumper) {
+                //strafe left
+                robotJARVIS.moveHolonomic(motor_power * -1, 0, 0);
+            }
+            else if (gamepad1.right_bumper) {
+                //strafe right
+                robotJARVIS.moveHolonomic(motor_power * 1, 0, 0);
+            }
+            else if (gamepad1.dpad_left) {
+                //rotate counter-clockwise
+                robotJARVIS.moveHolonomic(0, 0, motor_power * 1);
+            }
+            else if (gamepad1.dpad_right) {
+                //rotate clockwise
+                robotJARVIS.moveHolonomic(0, 0, motor_power * -1);
+            }
+            else
+            {
+                robotJARVIS.stopAllMotors();
+            }
+        }
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();
 
