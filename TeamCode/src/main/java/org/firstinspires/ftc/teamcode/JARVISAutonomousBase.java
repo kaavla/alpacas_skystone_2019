@@ -355,7 +355,13 @@ public class JARVISAutonomousBase extends LinearOpMode
 
             sleep(50);   // optional pause after each move
         }
+    public void moveFoundationServoDown () {
+        robot.FLServo.setPosition(0.5);
+        robot.FRServo.setPosition(0.5);
+    }
+    public void moveFoundationServoUp() {
+        robot.FLServo.setPosition(0);
+        robot.FRServo.setPosition(0);
+    }
+    }
 
-
-
-        }
