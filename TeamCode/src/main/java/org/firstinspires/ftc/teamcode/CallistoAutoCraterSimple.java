@@ -39,7 +39,7 @@ public class CallistoAutoCraterSimple extends CallistoAutonomousBase {
         }
 
         positionGold = myTFOD(2);
-        myDetectionTest(positionGold, DRIVE_SPEED, 40.0);
+        //myDetectionTest(positionGold, DRIVE_SPEED, 40.0);
         myDetectionRun(positionGold, DRIVE_SPEED, 40.0);
         myLanderLift(Direction.ROBOT_UP, 1, 5, 5.0);
 
@@ -66,7 +66,7 @@ public class CallistoAutoCraterSimple extends CallistoAutonomousBase {
             //right most side when standing near the lander lift
                 {
                     //myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 12, 20.0);
-                    myCollectionLiftDown(0.7, 1.0);
+                    //myCollectionLiftDown(0.7, 1.0);
                 //myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 7, 10.0); //PERFECT
                 //myEncoderDrive(Direction.STRAFE_RIGHT,DRIVE_SPEED,16,10.0);\
                 //myEncoderDrive(Direction.FORWARD,DRIVE_SPEED,16.5,10.0);
@@ -74,7 +74,7 @@ public class CallistoAutoCraterSimple extends CallistoAutonomousBase {
             //left most side when standing near the lander lift
             {
                 //myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 12, 20.0);
-                myCollectionLiftDown(0.7, 1.0);
+                //myCollectionLiftDown(0.7, 1.0);
                 //myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 11, 20.0);//PERFECT
                 //myEncoderDrive(Direction.STRAFE_RIGHT,DRIVE_SPEED,53,20.0);
                 //rotate(160, TURN_SPEED);
@@ -85,7 +85,7 @@ public class CallistoAutoCraterSimple extends CallistoAutonomousBase {
             //center
             {
                 //myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 12, 20.0);
-                myCollectionLiftDown(0.7, 1.0);
+                //myCollectionLiftDown(0.7, 1.0);
                 //myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 7, 20.0);//PERFECT
                 //rotate(-180, TURN_SPEED);
                 //myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED,12, 20.0);

@@ -72,78 +72,21 @@ public class JARVISHW
         backleftMotor.setPower(0);
         backrightMotor.setPower(0);
     }
-    public void moveHolonomic(double x, double y ) {
-        double fl_power = Range.clip(y + x, -1.0, 1.0);
-        double fr_power = Range.clip(y - x, -1.0, 1.0);
-        double br_power = Range.clip(y + x, -1.0, 1.0);
-        double bl_power = Range.clip(y - x, -1.0, 1.0);
+    public void moveHolonomic(double x, double y , double z)
+    {
+        double max_power = 0.7;
+        double min_power = -1*max_power;
+
+        double fl_power = Range.clip(y + x - z, min_power, max_power);
+        double fr_power = Range.clip(y - x + z, min_power, max_power);
+        double br_power = Range.clip(y + x + z, min_power, max_power);
+        double bl_power = Range.clip(y - x - z, min_power, max_power);
 
         leftMotor.setPower(fl_power);
         rightMotor.setPower(fr_power);
         backleftMotor.setPower(bl_power);
         backrightMotor.setPower(br_power);
-    }
 
-    public void moveForward (double power) {
-        leftMotor.setPower(power);
-        rightMotor.setPower(power);
-        backleftMotor.setPower(power);
-        backrightMotor.setPower(power);
-    }
-
-    public void moveBackwards(double power) {
-        leftMotor.setPower(-1 * power);
-        rightMotor.setPower(-1 * power);
-        backleftMotor.setPower(-1 * power);
-        backrightMotor.setPower(-1 * power);
-    }
-
-    public void turnRight(double power) {
-        leftMotor.setPower(power);
-        rightMotor.setPower(-1 * power);
-        backleftMotor.setPower(power);
-        backrightMotor.setPower(-1 * power);
-    }
-
-    public void turnLeft(double power) {
-        leftMotor.setPower(-1 * power);
-        rightMotor.setPower(power);
-        backleftMotor.setPower(-1 * power);
-        backrightMotor.setPower(power);
-    }
-
-    public void strafeRight(double power) {
-        leftMotor.setPower(power);
-        rightMotor.setPower(-1 * power);
-        backleftMotor.setPower(-1 * power);
-        backrightMotor.setPower(power);
-    }
-
-    public void strafeleft(double power) {
-        leftMotor.setPower(-1 * power);
-        rightMotor.setPower(power);
-        backleftMotor.setPower(power);
-        backrightMotor.setPower(-1 * power);
-    }
-
-    public void diagonalforwardRight(double power) {
-        leftMotor.setPower(power);
-        backrightMotor.setPower(power);
-    }
-
-    public void diagonalforwardLeft(double power) {
-        rightMotor.setPower(power);
-        backleftMotor.setPower(power);
-    }
-
-    public void diagonalbackwardsRight(double power) {
-        rightMotor.setPower(-1 * power);
-        backleftMotor.setPower(-1 * power);
-    }
-
-    public void diagonalbackwardsLeft(double power) {
-        leftMotor.setPower(-1 * power);
-        backrightMotor.setPower(-1 * power);
     }
 
     //extra motions to move slowly go in case we are in a situation like that

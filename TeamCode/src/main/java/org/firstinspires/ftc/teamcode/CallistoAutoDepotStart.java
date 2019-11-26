@@ -48,7 +48,7 @@ public class CallistoAutoDepotStart extends CallistoAutonomousBase
         }
 
         positionGold = myTFOD(2);
-        myDetectionTest(positionGold, DRIVE_SPEED, 40.0);
+        //myDetectionTest(positionGold, DRIVE_SPEED, 40.0);
         myDetectionRun(positionGold, DRIVE_SPEED, 40.0);
         myLanderLift(Direction.ROBOT_UP, 1, 3, 2.0);
 
@@ -122,9 +122,9 @@ public class CallistoAutoDepotStart extends CallistoAutonomousBase
             }
 
 
-            myCollectionLiftDown(0.7, 1.0);
+            //myCollectionLiftDown(0.7, 1.0);
             myCollectionSlideOut(0.8,1);
-            robot.turnspinnerservobacwards(1);
+            //robot.turnspinnerservobacwards(1);
         }
         RobotLog.ii("CAL", "Exit - myDetectionRun");
     }

@@ -44,7 +44,7 @@ public class EricTestEncoder extends LinearOpMode {
     CallistoHW robot   = new CallistoHW();   // Use Callisto's hardware
     private ElapsedTime     runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 28 ;    // eg: GoBilda Yellow Jacket 1150 RPM Motor Encoder
+    static final double     COUNTS_PER_MOTOR_REV    = 146.6 ;    // eg: GoBilda Yellow Jacket 1150 RPM Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 2 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -67,15 +67,10 @@ public class EricTestEncoder extends LinearOpMode {
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
 
-        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backrightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backleftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backrightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backleftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0",  "Starting @ Front-%7d:%7d___Back-%7d:%7d",
@@ -107,36 +102,27 @@ public class EricTestEncoder extends LinearOpMode {
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
-        int newLeftTarget;
-        int newBackLeftTarget;
-        int newRightTarget;
-        int newBackRightTarget;
+        int newLeftTarget = 0;
+        int newBackLeftTarget = 0;
+        int newRightTarget = 0;
+        int newBackRightTarget = 0;
+
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // Ensure that the opmode is still active
         if (opModeIsActive() && !isStopRequested()) {
 
             // Determine new target position, and pass to motor controller
             newLeftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newBackLeftTarget = robot.backleftMotor.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = robot.rightMotor.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            newBackRightTarget = robot.backrightMotor.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+
             robot.leftMotor.setTargetPosition(newLeftTarget);
-            robot.rightMotor.setTargetPosition(newRightTarget);
-            robot.backleftMotor.setTargetPosition(newBackLeftTarget);
-            robot.backrightMotor.setTargetPosition(newBackRightTarget);
 
             // Turn On RUN_TO_POSITION
             robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.backleftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.backrightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
-            robot.leftMotor.setPower(Math.abs(speed));
-            robot.backleftMotor.setPower(Math.abs(speed));
-            robot.rightMotor.setPower(Math.abs(speed));
-            robot.backrightMotor.setPower(Math.abs(speed));
+            robot.leftMotor.setPower((speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -146,10 +132,7 @@ public class EricTestEncoder extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (robot.leftMotor.isBusy() &&
-                            robot.rightMotor.isBusy() &&
-                            robot.backrightMotor.isBusy() &&
-                            robot.backleftMotor.isBusy())) {
+                    (robot.leftMotor.isBusy())) {
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running -> Front-%7d:%7d___Back-%7d:%7d",
                     newLeftTarget,
@@ -166,15 +149,9 @@ public class EricTestEncoder extends LinearOpMode {
 
             // Stop all motion;
             robot.leftMotor.setPower(0);
-            robot.rightMotor.setPower(0);
-            robot.backleftMotor.setPower(0);
-            robot.backrightMotor.setPower(0);
 
             // Turn off RUN_TO_POSITION
             robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backrightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backleftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //  sleep(250);   // optional pause after each move
         }

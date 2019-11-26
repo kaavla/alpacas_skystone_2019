@@ -34,7 +34,7 @@ public class CallistoAutoCraterAdvanced2 extends CallistoAutonomousBase {
         }
 
         positionGold = myTFOD(2);
-        myDetectionTest(positionGold, DRIVE_SPEED, 40.0);
+        //myDetectionTest(positionGold, DRIVE_SPEED, 40.0);
         myDetectionRun(positionGold, DRIVE_SPEED, 40.0);
         myLanderLift(Direction.ROBOT_UP, 1, 7.5, 12.0);
 
