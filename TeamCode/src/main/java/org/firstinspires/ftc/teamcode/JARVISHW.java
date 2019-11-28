@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.util.RobotLog;
 
@@ -23,6 +25,10 @@ public class JARVISHW
 
     public DcMotor slide_1 = null;
     public DcMotor slide_2 = null;
+    public DcMotor slide_3 = null;
+    public CRServo turnServo = null;
+    public Servo clawServo = null;
+
 
     Orientation lastAngles = new Orientation();  //?
     double globalAngle, power = .30, correction;  //?
@@ -41,6 +47,10 @@ public class JARVISHW
 
         slide_1  = ahwMap.get(DcMotor.class, "slide_1");
         slide_2  = ahwMap.get(DcMotor.class, "slide_2");
+        slide_3 = ahwMap.get(DcMotor.class, "slide_3");
+        turnServo = ahwMap.get(CRServo.class, "tServo");
+        clawServo = ahwMap.get(Servo.class, "cServo");
+
 
 
         imu = ahwMap.get(BNO055IMU.class, "imu 1");
@@ -71,6 +81,9 @@ public class JARVISHW
 
         slide_1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide_2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slide_3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
         RobotLog.ii("CAL", "Exit - init");
 
     }
@@ -82,6 +95,7 @@ public class JARVISHW
         backleftMotor.setPower(0);
         backrightMotor.setPower(0);
     }
+
     public void moveHolonomic(double x, double y , double z)
     {
         double max_power = 0.7;
@@ -113,4 +127,44 @@ public class JARVISHW
         backleftMotor.setPower(Range.clip(backleftMotor.getPower() - 0.01, -0.3, -1.0));
         backrightMotor.setPower(Range.clip(backrightMotor.getPower() - 0.01, -0.3, -1.0));
     }
+
+    public void slidesUp() {
+        slide_1.setPower(1);
+        slide_2.setPower(1);
+    }
+
+    public void slidesDown() {
+        slide_1.setPower(-1);
+        slide_2.setPower(-1);
+    }
+
+    public void slideOut() {
+        slide_3.setPower(1);
+    }
+
+    public void slideIn() {
+        slide_3.setPower(-1);
+    }
+
+    public void clawTurn1() {
+        turnServo.setPower(0.5);
+    }
+
+    public void clawTurn2() {
+        turnServo.setPower(-0.5);
+    }
+
+    public void claw1() {
+        clawServo.setPosition(0);
+    }
+
+    public void claw2() {
+        clawServo.setPosition(0.5);
+    }
+
+    public void claw3() {
+        clawServo.setPosition(1);
+    }
+
+
 }
