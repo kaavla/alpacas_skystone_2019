@@ -84,14 +84,14 @@ public class testTensorFlowWithWebcam extends LinearOpMode {
     private TFObjectDetector tfod;
 
     //   eg: a Positive RelativeBearing means the robot must turn CCW to point at the target image.
-    private CallistoHW robotCallisto = new CallistoHW();
+    private JARVISHW robotJARVIS = new JARVISHW();
 
     @Override
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         boolean strafeDone = false;
-        robotCallisto.init(hardwareMap);
+        robotJARVIS.init(hardwareMap);
 
         initVuforia();
 
@@ -114,8 +114,6 @@ public class testTensorFlowWithWebcam extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-
-
         if (opModeIsActive()) {
             while (opModeIsActive()) {
                 if (tfod != null) {
@@ -127,7 +125,7 @@ public class testTensorFlowWithWebcam extends LinearOpMode {
                         telemetry.addData("# Object Detected", updatedRecognitions.size());
                         // step through the list of recognitions and display boundary info.
                         if (updatedRecognitions.size() == 0) {
-                            robotCallisto.moveHolonomic(0, 0, 0);
+                            robotJARVIS.moveHolonomic(0, 0, 0);
                         }
                         int i = 0;
                         for (Recognition recognition : updatedRecognitions) {
@@ -150,28 +148,28 @@ public class testTensorFlowWithWebcam extends LinearOpMode {
                                 double power = 0.3;
                             /*
                             if (recognition.getLeft() > (680 - 100)) {
-                                robotCallisto.moveHolonomic(power, 0, 0);
+                                robotJARVIS.moveHolonomic(power, 0, 0);
                             } else {
                                 strafeDone = true;
-                                robotCallisto.moveHolonomic(0, 0, 0);
+                                robotJARVIS.moveHolonomic(0, 0, 0);
                             }*/
 
                                 double mid = (recognition.getLeft() + recognition.getRight()) / 2;
                                 if (mid < (640 - 100)) {
-                                    robotCallisto.moveHolonomic(-1 * power, 0, 0);
+                                    robotJARVIS.moveHolonomic(-1 * power, 0, 0);
                                 } else if (mid > (640 + 100)) {
-                                    robotCallisto.moveHolonomic(power, 0, 0);
+                                    robotJARVIS.moveHolonomic(power, 0, 0);
                                 } else {
                                     strafeDone = true;
-                                    robotCallisto.moveHolonomic(0, 0, 0);
+                                    robotJARVIS.moveHolonomic(0, 0, 0);
                                 }
 
                                 if (strafeDone == true) {
 
                                     if (objectHeightRatio < targetHeightRatio) {
-                                        robotCallisto.moveHolonomic(0, power, 0);
+                                        robotJARVIS.moveHolonomic(0, power, 0);
                                     } else {
-                                        robotCallisto.moveHolonomic(0, 0, 0);
+                                        robotJARVIS.moveHolonomic(0, 0, 0);
                                     }
                                 }
 
@@ -193,7 +191,7 @@ public class testTensorFlowWithWebcam extends LinearOpMode {
                         telemetry.update();
                         }
                     } else {
-                        robotCallisto.moveHolonomic(0, 0, 0);
+                        robotJARVIS.moveHolonomic(0, 0, 0);
                     }
 
             }
