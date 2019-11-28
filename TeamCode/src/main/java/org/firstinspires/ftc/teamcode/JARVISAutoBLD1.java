@@ -35,22 +35,30 @@ public class JARVISAutoBLD1 extends JARVISAutonomousBase {
 
         //initialized the motor encoders
         initMotorEncoders();
+        //move the foundation attachment up to the start position
+        //moveFoundationServoUp();
 
         // Ensure that the op mode is still active
         if (opModeIsActive() && !isStopRequested() )
         {
             //move to the foundation
-            myEncoderDrive(Direction.FORWARD, 0.3, 23, 3, SensorsToUse.NONE);
+            myEncoderDrive(Direction.FORWARD, 0.2, 24, 5, SensorsToUse.NONE);
+            //for the final stretch of moving toward the foundation, it goes at a slower speed to minimize chance of errors
+            myEncoderDrive(Direction.FORWARD, 0.1, 4, 5, SensorsToUse.NONE);
             //move the foundation attachment down
-            moveFoundationServoDown();
+            //moveFoundationServoDown();
             //turn the foundation counterclockwise
-            rotate(90, 0.3);
+            rotate(83, 0.1);
+            //wait for the servos to stop moving
+            sleep(1000);
             //strafe left to move the foundation into the building site
-            myEncoderDrive(Direction.STRAFE_LEFT, 0.3, 15, 4, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_LEFT, 0.15, 32, 5, SensorsToUse.NONE);
             //move the foundation attachment up
-            moveFoundationServoUp();
+            //moveFoundationServoUp();
             //move to the foundation
-            myEncoderDrive(Direction.BACKWARD, 0.3, 35, 3, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, 0.2, 41, 5, SensorsToUse.NONE);
+            //strafe left to move the robot up against the wall so it is out of the way of the other robot
+            myEncoderDrive(Direction.STRAFE_LEFT, 0.17, 3, 5, SensorsToUse.NONE);
         }
         RobotLog.ii("CAL", "Exit - JARVISAutoBLD1");
     }

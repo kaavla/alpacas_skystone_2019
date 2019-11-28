@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -67,8 +68,9 @@ public class JARVISHW
         imu.initialize(parameters);
 
         //Invert direction for left motors
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backleftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backrightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        FLServo.setDirection(Servo.Direction.REVERSE);
 
 
 
@@ -127,4 +129,5 @@ public class JARVISHW
         backleftMotor.setPower(Range.clip(backleftMotor.getPower() - 0.01, -0.3, -1.0));
         backrightMotor.setPower(Range.clip(backrightMotor.getPower() - 0.01, -0.3, -1.0));
     }
+
 }

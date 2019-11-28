@@ -84,6 +84,16 @@ public class JARVISManual extends LinearOpMode {
                 //Slide Down
                 robotJARVIS.slide_1.setPower(-0.3);
             }
+            else if (gamepad1.x) {
+                //Foundation Attachment Down
+                robotJARVIS.FRServo.setPosition(0.35);
+                robotJARVIS.FLServo.setPosition(0.35);
+            }
+            else if (gamepad1.y) {
+                //Foundation Attachment Up
+                robotJARVIS.FRServo.setPosition(0);
+                robotJARVIS.FLServo.setPosition(0);
+            }
 
             else
             {

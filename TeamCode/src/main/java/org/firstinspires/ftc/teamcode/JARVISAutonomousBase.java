@@ -203,11 +203,11 @@ public class JARVISAutonomousBase extends LinearOpMode
 
         if (degrees < 0)
         {   // turn right.
-            robot.moveHolonomic(0, 0, power*-1);
+            robot.moveHolonomic(0, 0, power*1);
         }
         else if (degrees > 0)
         {   // turn left.
-            robot.moveHolonomic(0, 0, power*1);
+            robot.moveHolonomic(0, 0, power*-1);
         }
         else return;
 
@@ -356,8 +356,8 @@ public class JARVISAutonomousBase extends LinearOpMode
             sleep(50);   // optional pause after each move
         }
     public void moveFoundationServoDown () {
-        robot.FLServo.setPosition(0.5);
-        robot.FRServo.setPosition(0.5);
+        robot.FLServo.setPosition(0.35);
+        robot.FRServo.setPosition(0.35);
     }
     public void moveFoundationServoUp() {
         robot.FLServo.setPosition(0);
