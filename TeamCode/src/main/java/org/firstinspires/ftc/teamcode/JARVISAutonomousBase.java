@@ -361,7 +361,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
                                             if (mid < (640 - 100)) {
                                                 robot.moveHolonomic(-1 * power, 0, 0);
                                             } else if (mid > (640 + 100)) {
-                                                robot.moveHolonomic(power, 0, 0);
+                                                robot.moveHolonomic(1*power, 0, 0);
                                             } else {
                                                 strafeDone = true;
                                                 robot.moveHolonomic(0, 0, 0);
@@ -373,7 +373,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
                                             if (objectHeightRatio < targetHeightRatio) {
                                                 telemetry.addData(" ", " SHANK object < target");
 
-                                                robot.moveHolonomic(0, power, 0);
+                                                robot.moveHolonomic(0, 1*power, 0);
                                             } else {
                                                 robot.moveHolonomic(0, 0, 0);
                                             }
