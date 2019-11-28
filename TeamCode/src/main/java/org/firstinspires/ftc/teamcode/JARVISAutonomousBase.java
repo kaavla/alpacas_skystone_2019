@@ -357,15 +357,16 @@ public class JARVISAutonomousBase extends LinearOpMode {
                                         double power = 0.4;
 
                                         double mid = (recognition.getLeft() + recognition.getRight()) / 2;
-                                        if (mid < (640 - 100)) {
-                                            robot.moveHolonomic(-1 * power, 0, 0);
-                                        } else if (mid > (640 + 100)) {
-                                            robot.moveHolonomic(power, 0, 0);
-                                        } else {
-                                            strafeDone = true;
-                                            robot.moveHolonomic(0, 0, 0);
+                                        if (strafeDone == false) {
+                                            if (mid < (640 - 100)) {
+                                                robot.moveHolonomic(-1 * power, 0, 0);
+                                            } else if (mid > (640 + 100)) {
+                                                robot.moveHolonomic(power, 0, 0);
+                                            } else {
+                                                strafeDone = true;
+                                                robot.moveHolonomic(0, 0, 0);
+                                            }
                                         }
-
                                         if (strafeDone == true) {
                                             telemetry.addData(" ", " Shank Strafe done");
 
