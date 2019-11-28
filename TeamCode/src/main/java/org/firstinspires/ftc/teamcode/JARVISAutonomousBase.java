@@ -1,12 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.RobotLog;
 
@@ -14,7 +9,6 @@ import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
@@ -24,16 +18,15 @@ import java.util.List;
 
 //still changing
 //@Disabled
-public class JARVISAutonomousBase extends LinearOpMode
-{
+public class JARVISAutonomousBase extends LinearOpMode {
 
     public JARVISHW robot = new JARVISHW();
+    //public JARVISHW robotJARVIS = new JARVISHW();
     public ElapsedTime runtime = new ElapsedTime();
     private Orientation lastAngles = new Orientation();
     private double globalAngle = 0;
-   // public direction;
+    // public direction;
     double ref_angle = 0;
-
 
 
     static final double COUNTS_PER_MOTOR_REV = 145.6;    // eg: goBilda 5202 Motor Encoder
@@ -41,46 +34,37 @@ public class JARVISAutonomousBase extends LinearOpMode
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
 
-    //Need to Change
-    //static final double ROTATIONS_PER_INCH = 11.42;
-    //static final double TICKS_PER_INCH = (ROTATIONS_PER_INCH * 1440);
-    //Need to Change
-
-    static final double DRIVE_SPEED = 0.7;
+    static final double DRIVE_SPEED = 0.3;
     static final double TURN_SPEED = 0.7;
     //maybe change to 0.6
 
-    final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
-    final String LABEL_GOLD_MINERAL = "Gold Mineral";
-    final String LABEL_SILVER_MINERAL = "Silver Mineral";
-    final String VUFORIA_KEY = "AXSRCQP/////AAABmZeKs8E+bExYlViUoU4W3x9D+ZqA3HLfy3PxlWiz0h5wh/awa/Oe9lra0C0CqlyRducvIyV5egl7zTYvGsbA34h3hCAV1eQtpnzQtYulVYRxD6W2Lnl47omLOHjXv3fTXLPnPDBugwDQUCqw4tN58FFEN5xoKEIPWwaQuOg43WHpfa6wenMv+bxuiwxM0Ciy+2gad/kkc+MTWzsFAL/yjTQhq718BNLr1FYZveMEwFHS43kILSKaL/+3/YGqd677av/z5tVDLkSRPUDuEYKIB1P0uCJd5AhIPnVvNigICEUxETMZiEt0RmKoQ3x9S6Y8AelTJgpHeuVgDHy5BmNP877er8Bsqr+WfHGho64CNbUx";
+    private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
+    private static final String LABEL_FIRST_ELEMENT = "Stone";
+    private static final String LABEL_SECOND_ELEMENT = "Skystone";
+    final String VUFORIA_KEY = "AXSRCQP/////AAABmZeKs8E+bExYlViUoU4W3x9D+ZqA3HLfy3PxlWiz0h5wh/awa/Oe9lra0C0CqlyRducvIyV5egl7zTYvGsbA34h3hCAV1eQtpnzQtYulVYRxD6W2Lnl47omLOHjXv3fTXLPnPDBugwDQUCqw4tN58FFEN5xoKEIPWwaQuOg43WHpfa6wenMv+bxuiwxM0Ciy+2gad/kkc+MTWzsFAL/yjTQhq718BNLr1FYZveMEwFHS43kILSKaL/+3/YGqd677av/z5tVDLkSRPUDuEYKIB1P0uCJd5AhIPnVvNigICEUxETMZiEt0RmKoQ3x9S6Y8AelTJgpHeuVgDHy5BmNP877er8Bsqr+WfHGho64CNbUx\n";
+
+
     public TFObjectDetector tfod = null;
     public VuforiaLocalizer vuforia = null;
 
     @Override
-    public void runOpMode()
-    {
+    public void runOpMode() {
         //Empty Function
     }
 
-    public void initHW()
-    {
+    public void initHW() {
         RobotLog.ii("CAL", "Enter -  initHW");
         robot.init(hardwareMap);
         initMotorEncoders();
         initVuforia();
 
-        if (ClassFactory.getInstance().canCreateTFObjectDetector())
-        {
+        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
             initTfod();
-        }
-        else
-        {
+        } else {
             telemetry.addData("Sorry!", "This device is not compatible with TFOD");
         }
 
-        if (tfod != null)
-        {
+        if (tfod != null) {
             tfod.activate();
         }
         telemetry.addData("Path1", "Init HW Done");
@@ -89,12 +73,11 @@ public class JARVISAutonomousBase extends LinearOpMode
         RobotLog.ii("CAL", "Exit -  initHW");
     }
 
-    private void initVuforia()
-    {
+    private void initVuforia() {
         RobotLog.ii("CAL", "Enter -  initVuforia");
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
         RobotLog.ii("CAL", "Exit -  initVuforia");
         telemetry.addData("Path1", "Init Vuforia Done");
@@ -103,22 +86,8 @@ public class JARVISAutonomousBase extends LinearOpMode
 
     }
 
-    private void initTfod()
-    {
-        RobotLog.ii("CAL", "Enter -  initTfod");
-        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
-        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
-        RobotLog.ii("CAL", "Exit -  initTfod");
-        telemetry.addData("Path1", "Init TFOD Done");
-        telemetry.update();
 
-    }
-
-    public void initMotorEncoders()
-    {
+    public void initMotorEncoders() {
         RobotLog.ii("CAL", "Enter -  initMotorEncoders");
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -137,15 +106,13 @@ public class JARVISAutonomousBase extends LinearOpMode
 
     }
 
-    private void resetAngle()
-    {
+    private void resetAngle() {
         lastAngles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         RobotLog.ii("CAL", "resetAngle - lastAngles = %2.2f", lastAngles.firstAngle);
         globalAngle = 0;
     }
 
-    public double getAngle()
-    {
+    public double getAngle() {
         // We experimentally determined the Z axis is the axis we want to use for heading angle.
         // We have to process the angle because the imu works in euler angles so the Z axis is
         // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
@@ -167,8 +134,7 @@ public class JARVISAutonomousBase extends LinearOpMode
         return globalAngle;
     }
 
-    public double getAbsoluteAngle()
-    {
+    public double getAbsoluteAngle() {
         // We experimentally determined the Z axis is the axis we want to use for heading angle.
         // We have to process the angle because the imu works in euler angles so the Z axis is
         // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
@@ -191,9 +157,7 @@ public class JARVISAutonomousBase extends LinearOpMode
     }
 
 
-
-    public void rotate(int degrees, double power)
-    {
+    public void rotate(int degrees, double power) {
         //logs that get added to a file to see what was wrong with the robot and the sequences of it
         RobotLog.ii("CAL", "Enter - rotate - degrees=%d, power=%f",
                 degrees, power);
@@ -201,32 +165,23 @@ public class JARVISAutonomousBase extends LinearOpMode
         // restart imu movement tracking.
         resetAngle();
 
-        if (degrees < 0)
-        {   // turn right.
-            robot.moveHolonomic(0, 0, power*-1);
-        }
-        else if (degrees > 0)
-        {   // turn left.
-            robot.moveHolonomic(0, 0, power*1);
-        }
-        else return;
+        if (degrees < 0) {   // turn right.
+            robot.moveHolonomic(0, 0, power * -1);
+        } else if (degrees > 0) {   // turn left.
+            robot.moveHolonomic(0, 0, power * 1);
+        } else return;
 
 
         // rotate until turn is completed.
-        if (degrees < 0)
-        {
+        if (degrees < 0) {
             // On right turn we have to get off zero first.
-            while (opModeIsActive() && !isStopRequested() && getAngle() == 0)
-            {
+            while (opModeIsActive() && !isStopRequested() && getAngle() == 0) {
             }
 
-            while (opModeIsActive() && !isStopRequested() && getAngle() > degrees)
-            {
+            while (opModeIsActive() && !isStopRequested() && getAngle() > degrees) {
             }
-        }
-        else    // left turn.
-            while (opModeIsActive() && !isStopRequested() && getAngle() < degrees)
-            {
+        } else    // left turn.
+            while (opModeIsActive() && !isStopRequested() && getAngle() < degrees) {
             }
 
         // turn the motors off.
@@ -245,8 +200,7 @@ public class JARVISAutonomousBase extends LinearOpMode
     }
 
 
-    public void myEncoderDrive(Direction direction, double speed, double Inches, double timeoutS, SensorsToUse sensors_2_use)
-    {
+    public void myEncoderDrive(Direction direction, double speed, double Inches, double timeoutS, SensorsToUse sensors_2_use) {
         int newLeftTarget = 0;
         int newRightTarget = 0;
         int newLeftBackTarget = 0;
@@ -261,46 +215,36 @@ public class JARVISAutonomousBase extends LinearOpMode
         robot.backleftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // Ensure that the op mode is still active
-        if (opModeIsActive() && !isStopRequested())
-        {
+        if (opModeIsActive() && !isStopRequested()) {
 
             // Determine new target position, and pass to motor controller
-            if (direction == Direction.FORWARD)
-            {
+            if (direction == Direction.FORWARD) {
                 //Go forward
                 newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
                 newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
                 newLeftBackTarget = robot.backrightMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
                 newRightBackTarget = robot.backleftMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
-            }
-            else if (direction == Direction.BACKWARD)
-            {
+            } else if (direction == Direction.BACKWARD) {
                 //Go backward
                 newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (-1 * Inches * COUNTS_PER_INCH);
                 newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (-1 * Inches * COUNTS_PER_INCH);
                 newLeftBackTarget = robot.backrightMotor.getCurrentPosition() + (int) (-1 * Inches * COUNTS_PER_INCH);
                 newRightBackTarget = robot.backleftMotor.getCurrentPosition() + (int) (-1 * Inches * COUNTS_PER_INCH);
-            }
-            else if (direction == Direction.STRAFE_RIGHT)
-            {
+            } else if (direction == Direction.STRAFE_RIGHT) {
                 //Strafe Right
                 newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
                 newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (-1 * Inches * COUNTS_PER_INCH);
                 newLeftBackTarget = robot.backrightMotor.getCurrentPosition() + (int) (-1 * Inches * COUNTS_PER_INCH);
                 newRightBackTarget = robot.backleftMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
 
-            }
-            else if (direction == Direction.STRAFE_LEFT)
-            {
+            } else if (direction == Direction.STRAFE_LEFT) {
                 //Strafe Left
                 newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (-1 * Inches * COUNTS_PER_INCH);
                 newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
                 newLeftBackTarget = robot.backrightMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
                 newRightBackTarget = robot.backleftMotor.getCurrentPosition() + (int) (-1 * Inches * COUNTS_PER_INCH);
 
-            }
-            else
-            {
+            } else {
                 Inches = 0;
                 newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
                 newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
@@ -335,27 +279,151 @@ public class JARVISAutonomousBase extends LinearOpMode
 
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
-                telemetry.addData("Path2", "Running at %7d :%7d",
-                        robot.leftMotor.getCurrentPosition(),
-                        robot.rightMotor.getCurrentPosition());
-                telemetry.update();
+            telemetry.addData("Path2", "Running at %7d :%7d",
+                    robot.leftMotor.getCurrentPosition(),
+                    robot.rightMotor.getCurrentPosition());
+            telemetry.update();
+        }
+
+        // Stop all motion;
+        robot.leftMotor.setPower(0);
+        robot.rightMotor.setPower(0);
+        robot.backleftMotor.setPower(0);
+        robot.backrightMotor.setPower(0);
+
+        // Turn off RUN_TO_POSITION
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backleftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backrightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        sleep(50);   // optional pause after each move
+    }
+
+    private void initTfod() {
+        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfodParameters.minimumConfidence = 0.8;
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
+
+    }
+
+    public void myTFOD(double timeoutS) {
+        {
+            // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
+            // first.
+            boolean strafeDone = false;
+            RobotLog.ii("CAL", "myTFOD - Enter");
+
+            if (opModeIsActive()) {
+                RobotLog.ii("CAL", "if opModeIsActive - Enter");
+                while (opModeIsActive() && !isStopRequested()) {
+                    RobotLog.ii("CAL", "while opModeIsActive and !isStopRequested - Enter");
+                    if (tfod != null) {
+                        RobotLog.ii("CAL", "if tfod != null - Enter");
+                        List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+
+                        if (updatedRecognitions != null) {
+                            telemetry.addData("# Object Detected", updatedRecognitions.size());
+                            RobotLog.ii("CAL", "if updatedRecognitions != null - Enter");
+                            // step through the list of recognitions and display boundary info.
+                            if (updatedRecognitions.size() == 0) {
+                                RobotLog.ii("CAL", "if updatedRecognitions.size() == 0 - Enter");
+                                robot.moveHolonomic(0, 0, 0);
+                                RobotLog.ii("CAL", "if updatedRecognitions.size() == 0 - Exit");
+                            } else {
+                                int i = 0;
+                                for (Recognition recognition : updatedRecognitions) {
+                                    RobotLog.ii("CAL", "for Recognition recognition : updatedRecognitions - Enter");
+                                    if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
+                                        RobotLog.ii("CAL", "Enter - if recognition.getLabel().equals(LABEL_SECOND_ELEMENT)");
+                                        double targetHeightRatio = (float) 0.8;
+                                        double imageHeight = recognition.getImageHeight();
+                                        double imageWidth = recognition.getImageWidth();
+                                        double objectHeight = recognition.getHeight();
+                                        double objectHeightRatio = objectHeight / imageHeight;
+
+                                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                                        telemetry.addData(" ", "Image Width (%.1f), image Height (%.1f), object Height (%.1f)",
+                                                imageWidth, imageHeight, objectHeight);
+                                        telemetry.addData(String.format("  left,right (%d)", i), "%.03f , %.03f",
+                                                recognition.getLeft(), recognition.getRight());
+
+                                        //double obj_h_mm = objectHeight * 25.4 / 424.0;
+                                        //double f2 = (60 * 5.5 * 25.4 / obj_h_mm) + 60;
+                                        //telemetry.addData(" ", " Distance = %.1f, inch", f2 / 25.4);
+                                        double power = 0.4;
+
+                                        double mid = (recognition.getLeft() + recognition.getRight()) / 2;
+                                        if (strafeDone == false) {
+                                            if (mid < (640 - 100)) {
+                                                robot.moveHolonomic(-1 * power, 0, 0);
+                                            } else if (mid > (640 + 100)) {
+                                                robot.moveHolonomic(power, 0, 0);
+                                            } else {
+                                                strafeDone = true;
+                                                robot.moveHolonomic(0, 0, 0);
+                                            }
+                                        }
+                                        if (strafeDone == true) {
+                                            telemetry.addData(" ", " Shank Strafe done");
+
+                                            if (objectHeightRatio < targetHeightRatio) {
+                                                telemetry.addData(" ", " SHANK object < target");
+
+                                                robot.moveHolonomic(0, power, 0);
+                                            } else {
+                                                robot.moveHolonomic(0, 0, 0);
+                                            }
+                                        }
+
+                                        if (strafeDone == true) {
+                                            //telemetry.addData(" ", " Strafe done");
+                                        } else {
+                                            //telemetry.addData(" ", " Strafing....");
+
+                                        }
+
+
+                                        if (objectHeightRatio <= targetHeightRatio) {
+                                            //telemetry.addData("The objectHeightRatio!", "is less than the targetHeightRatio.");
+                                        }
+                                        RobotLog.ii("CAL", "Exit - if recognition.getLabel().equals(LABEL_SECOND_ELEMENT)");
+                                    } else {
+                                        telemetry.addData("Not a skystone", " ");
+
+                                    }
+                                }
+                            }
+                            telemetry.update();
+                        }
+                    } else {
+                        robot.moveHolonomic(0, 0, 0);
+                    }
+                    RobotLog.ii("CAL", "while opModeIsActive and !isStopRequested - Enter");
+                }
+                RobotLog.ii("CAL", "Exit if opModeIsActive");
             }
 
-            // Stop all motion;
-            robot.leftMotor.setPower(0);
-            robot.rightMotor.setPower(0);
-            robot.backleftMotor.setPower(0);
-            robot.backrightMotor.setPower(0);
 
-            // Turn off RUN_TO_POSITION
-            robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backleftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backrightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            sleep(50);   // optional pause after each move
-        }
-
-
+            if (tfod != null) {
+                tfod.shutdown();
+            }
+            RobotLog.ii("CAL", "myTFOD - Exits");
 
         }
+    }
+
+
+    public void moveFoundationServoDown () {
+        robot.FLServo.setPosition(0.5);
+        robot.FRServo.setPosition(0.5);
+    }
+    public void moveFoundationServoUp() {
+        robot.FLServo.setPosition(0);
+        robot.FRServo.setPosition(0);
+    }
+}
+

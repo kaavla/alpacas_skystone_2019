@@ -90,8 +90,33 @@ public class JARVISManual extends LinearOpMode {
                 //Slide Down
                 robotJARVIS.slide_3.setPower(0.3);
             }
-
-
+            else if (gamepad2.dpad_up){
+                robotJARVIS.slidesUp();
+            }
+            else if (gamepad2.dpad_down){
+                robotJARVIS.slidesDown();
+            }
+            else if (gamepad2.x){
+                robotJARVIS.claw1();
+            }
+            else if (gamepad2.y){
+                robotJARVIS.claw2();
+            }
+            else if (gamepad2.b){
+                robotJARVIS.claw3();
+            }
+            else if(gamepad2.left_bumper){
+                robotJARVIS.clawTurn1();
+            }
+            else if(gamepad2.right_bumper){
+                robotJARVIS.clawTurn2();
+            }
+            else if(gamepad2.dpad_left) {
+                robotJARVIS.slideIn();
+            }
+            else if(gamepad2.dpad_right){
+                robotJARVIS.slideOut();
+            }
             else
             {
                 robotJARVIS.stopAllMotors();
