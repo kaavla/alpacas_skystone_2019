@@ -41,6 +41,7 @@ public class JARVISHW
 
         slide_1  = ahwMap.get(DcMotor.class, "slide_1");
         slide_2  = ahwMap.get(DcMotor.class, "slide_2");
+        slide_3  = ahwMap.get(DcMotor.class, "slide_3");
 
 
         imu = ahwMap.get(BNO055IMU.class, "imu 1");
