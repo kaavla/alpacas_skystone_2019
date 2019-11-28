@@ -83,6 +83,12 @@ public class JARVISManual extends LinearOpMode {
             else if (gamepad2.dpad_down) {
                 //Slide Down
                 robotJARVIS.slide_1.setPower(-0.3);
+            }else if (gamepad2.dpad_left) {
+                //Slide Down
+                robotJARVIS.slide_3.setPower(0.3);
+            }else if (gamepad2.dpad_right) {
+                //Slide Down
+                robotJARVIS.slide_3.setPower(0.3);
             }
             else if (gamepad2.dpad_up){
                 robotJARVIS.slidesUp();
