@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -30,6 +31,11 @@ public class JARVISHW
     public Servo clawServo = null;
 
 
+    public Servo FLServo = null;
+    public Servo FRServo = null;
+
+    //public ColorSensor sensorColor = null;
+
     Orientation lastAngles = new Orientation();  //?
     double globalAngle, power = .30, correction;  //?
     //sets the power used in each of the actions
@@ -52,6 +58,10 @@ public class JARVISHW
         clawServo = ahwMap.get(Servo.class, "cServo");
 
 
+        FLServo  = ahwMap.get(Servo.class, "FLServo");
+        FRServo  = ahwMap.get(Servo.class, "FRServo");
+
+        //sensorColor = ahwMap.get(ColorSensor.class, "sensor_color_distance");
 
         imu = ahwMap.get(BNO055IMU.class, "imu 1");
 
@@ -82,6 +92,7 @@ public class JARVISHW
         slide_1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide_2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide_3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
 
         RobotLog.ii("CAL", "Exit - init");
