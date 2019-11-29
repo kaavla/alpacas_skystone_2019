@@ -21,7 +21,6 @@ import java.util.List;
 public class JARVISAutonomousBase extends LinearOpMode {
 
     public JARVISHW robot = new JARVISHW();
-    //public JARVISHW robotJARVIS = new JARVISHW();
     public ElapsedTime runtime = new ElapsedTime();
     private Orientation lastAngles = new Orientation();
     private double globalAngle = 0;
@@ -83,6 +82,16 @@ public class JARVISAutonomousBase extends LinearOpMode {
         telemetry.addData("Path1", "Init Vuforia Done");
         telemetry.update();
 
+
+    }
+    public void initMotorNoEncoders() {
+        RobotLog.ii("CAL", "Enter -  initMotorNoEncoders");
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backleftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backrightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        RobotLog.ii("CAL", "Exit -  initMotorNoEncoders");
 
     }
 
@@ -318,25 +327,26 @@ public class JARVISAutonomousBase extends LinearOpMode {
             RobotLog.ii("CAL", "myTFOD - Enter");
 
             if (opModeIsActive()) {
-                RobotLog.ii("CAL", "if opModeIsActive - Enter");
+                //RobotLog.ii("CAL", "if opModeIsActive - Enter");
                 while (opModeIsActive() && !isStopRequested()) {
-                    RobotLog.ii("CAL", "while opModeIsActive and !isStopRequested - Enter");
+
+                    //RobotLog.ii("CAL", "while opModeIsActive and !isStopRequested - Enter");
                     if (tfod != null) {
-                        RobotLog.ii("CAL", "if tfod != null - Enter");
+                        //RobotLog.ii("CAL", "if tfod != null - Enter");
                         List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
 
                         if (updatedRecognitions != null) {
                             telemetry.addData("# Object Detected", updatedRecognitions.size());
-                            RobotLog.ii("CAL", "if updatedRecognitions != null - Enter");
+                            //RobotLog.ii("CAL", "if updatedRecognitions != null - Enter");
                             // step through the list of recognitions and display boundary info.
                             if (updatedRecognitions.size() == 0) {
-                                RobotLog.ii("CAL", "if updatedRecognitions.size() == 0 - Enter");
+                                //RobotLog.ii("CAL", "if updatedRecognitions.size() == 0 - Enter");
                                 robot.moveHolonomic(0, 0, 0);
-                                RobotLog.ii("CAL", "if updatedRecognitions.size() == 0 - Exit");
+                                //RobotLog.ii("CAL", "if updatedRecognitions.size() == 0 - Exit");
                             } else {
                                 int i = 0;
                                 for (Recognition recognition : updatedRecognitions) {
-                                    RobotLog.ii("CAL", "for Recognition recognition : updatedRecognitions - Enter");
+                                    //RobotLog.ii("CAL", "for Recognition recognition : updatedRecognitions - Enter");
                                     if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
                                         RobotLog.ii("CAL", "Enter - if recognition.getLabel().equals(LABEL_SECOND_ELEMENT)");
                                         double targetHeightRatio = (float) 0.8;
@@ -358,11 +368,18 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
                                         double mid = (recognition.getLeft() + recognition.getRight()) / 2;
                                         if (strafeDone == false) {
+                                            //RobotLog.ii("CAL", "strafeDone = False");
                                             if (mid < (640 - 100)) {
+                                                //RobotLog.ii("CAL", "strafe Right");
+
                                                 robot.moveHolonomic(-1 * power, 0, 0);
                                             } else if (mid > (640 + 100)) {
+                                                //RobotLog.ii("CAL", "strafe Left");
+
                                                 robot.moveHolonomic(1*power, 0, 0);
                                             } else {
+                                                //RobotLog.ii("CAL", "strafe Done");
+
                                                 strafeDone = true;
                                                 robot.moveHolonomic(0, 0, 0);
                                             }
@@ -371,7 +388,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
                                             telemetry.addData(" ", " Shank Strafe done");
 
                                             if (objectHeightRatio < targetHeightRatio) {
-                                                telemetry.addData(" ", " SHANK object < target");
+                                                telemetry.addData(" ", " SHANK object < target power=%f", power);
 
                                                 robot.moveHolonomic(0, 1*power, 0);
                                             } else {
@@ -390,7 +407,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
                                         if (objectHeightRatio <= targetHeightRatio) {
                                             //telemetry.addData("The objectHeightRatio!", "is less than the targetHeightRatio.");
                                         }
-                                        RobotLog.ii("CAL", "Exit - if recognition.getLabel().equals(LABEL_SECOND_ELEMENT)");
+                                        //RobotLog.ii("CAL", "Exit - if recognition.getLabel().equals(LABEL_SECOND_ELEMENT)");
                                     } else {
                                         telemetry.addData("Not a skystone", " ");
 
@@ -402,7 +419,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
                     } else {
                         robot.moveHolonomic(0, 0, 0);
                     }
-                    RobotLog.ii("CAL", "while opModeIsActive and !isStopRequested - Enter");
+                    //RobotLog.ii("CAL", "while opModeIsActive and !isStopRequested - Enter");
                 }
                 RobotLog.ii("CAL", "Exit if opModeIsActive");
             }

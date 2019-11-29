@@ -102,6 +102,8 @@ public class JARVISHW
 
     //resets the power to zero before starting the action
     public void stopAllMotors() {
+        RobotLog.ii("CAL", "Stopping All motors");
+
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         backleftMotor.setPower(0);
@@ -123,11 +125,15 @@ public class JARVISHW
         double fr_power = Range.clip(y - x + z, min_power, max_power);
         double br_power = Range.clip(y + x + z, min_power, max_power);
         double bl_power = Range.clip(y - x - z, min_power, max_power);
+        RobotLog.ii("CAL", "moveHolonomic - Enter x(%f), y(%f), z(%f)", x, y, z);
+        RobotLog.ii("CAL", "moveHolonomic - Enter fl(%f), fr(%f), bl(%f), br(%f)", fl_power,fr_power, bl_power, br_power );
 
         leftMotor.setPower(fl_power);
         rightMotor.setPower(fr_power);
         backleftMotor.setPower(bl_power);
         backrightMotor.setPower(br_power);
+
+        RobotLog.ii("CAL", "moveHolonomic - Exit ");
 
     }
 
