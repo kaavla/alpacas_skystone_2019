@@ -36,6 +36,7 @@ public class JARVISHW
 
     Orientation lastAngles = new Orientation();  //?
     double globalAngle, power = .30, correction;  //?
+
     //sets the power used in each of the actions
 
     public BNO055IMU imu = null;
@@ -197,6 +198,15 @@ public class JARVISHW
     public void claw3()
     {
         clawServo.setPosition(1);
+    }
+
+    public void moveFoundationServoDown () {
+        FLServo.setPosition(0.5);
+        FRServo.setPosition(0.5);
+    }
+    public void moveFoundationServoUp() {
+        FLServo.setPosition(0);
+        FRServo.setPosition(0);
     }
 
 
