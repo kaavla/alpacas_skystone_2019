@@ -4,7 +4,6 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -15,7 +14,6 @@ import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-import java.security.spec.MGF1ParameterSpec;
 
 public class JARVISHW
 {
@@ -42,6 +40,8 @@ public class JARVISHW
 
     public BNO055IMU imu = null;
 
+
+
     /* Initialize standard Hardware interfaces */
     public void init(HardwareMap ahwMap) {
         RobotLog.ii("CAL", "Enter - init");
@@ -54,6 +54,7 @@ public class JARVISHW
         slide_1  = ahwMap.get(DcMotor.class, "slide_1");
         slide_2  = ahwMap.get(DcMotor.class, "slide_2");
         slide_3 = ahwMap.get(DcMotor.class, "slide_3");
+
         turnServo = ahwMap.get(CRServo.class, "tServo");
         clawServo = ahwMap.get(Servo.class, "cServo");
 
@@ -101,10 +102,18 @@ public class JARVISHW
 
     //resets the power to zero before starting the action
     public void stopAllMotors() {
+        RobotLog.ii("CAL", "Stopping All motors");
+
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         backleftMotor.setPower(0);
         backrightMotor.setPower(0);
+        slide_1.setPower(0);
+        slide_2.setPower(0);
+        slide_3.setPower(0);
+
+        turnServo.setPower(0);
+
     }
 
     public void moveHolonomic(double x, double y , double z)
@@ -116,13 +125,17 @@ public class JARVISHW
         double fr_power = Range.clip(y - x + z, min_power, max_power);
         double br_power = Range.clip(y + x + z, min_power, max_power);
         double bl_power = Range.clip(y - x - z, min_power, max_power);
+        RobotLog.ii("CAL", "moveHolonomic - Enter x(%f), y(%f), z(%f)", x, y, z);
+        RobotLog.ii("CAL", "moveHolonomic - Enter fl(%f), fr(%f), bl(%f), br(%f)", fl_power,fr_power, bl_power, br_power );
 
         leftMotor.setPower(fl_power);
         rightMotor.setPower(fr_power);
         backleftMotor.setPower(bl_power);
         backrightMotor.setPower(br_power);
 
-}
+        RobotLog.ii("CAL", "moveHolonomic - Exit ");
+
+    }
 
     //extra motions to move slowly go in case we are in a situation like that
     public void forwardSlow() {
@@ -139,41 +152,50 @@ public class JARVISHW
         backrightMotor.setPower(Range.clip(backrightMotor.getPower() - 0.01, -0.3, -1.0));
     }
 
-    public void slidesUp() {
-        slide_1.setPower(1);
-        slide_2.setPower(1);
+    public void slidesUp(double power)
+    {
+        slide_1.setPower(power);
+        slide_2.setPower(power);
     }
 
-    public void slidesDown() {
-        slide_1.setPower(-1);
-        slide_2.setPower(-1);
+    public void slidesDown(double power)
+    {
+        slidesUp(-1*power);
     }
 
-    public void slideOut() {
-        slide_3.setPower(1);
+
+    public void slideOut(double power)
+    {
+        slide_3.setPower(power);
     }
 
-    public void slideIn() {
-        slide_3.setPower(-1);
+    public void slideIn(double power)
+    {
+        slideOut(-1*power);
     }
 
-    public void clawTurn1() {
+    public void clawTurn1()
+    {
         turnServo.setPower(0.5);
     }
 
-    public void clawTurn2() {
+    public void clawTurn2()
+    {
         turnServo.setPower(-0.5);
     }
 
-    public void claw1() {
+    public void claw1()
+    {
         clawServo.setPosition(0);
     }
 
-    public void claw2() {
+    public void claw2()
+    {
         clawServo.setPosition(0.5);
     }
 
-    public void claw3() {
+    public void claw3()
+    {
         clawServo.setPosition(1);
     }
 
