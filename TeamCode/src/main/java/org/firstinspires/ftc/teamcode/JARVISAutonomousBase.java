@@ -28,6 +28,12 @@ public class JARVISAutonomousBase extends LinearOpMode {
     // public direction;
     double ref_angle = 0;
 
+    public Direction direction;
+    enum Direction
+    {
+        FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, ROBOT_UP, ROBOT_DOWN, SPINNER_FORWARD;
+    }
+
 
     static final double COUNTS_PER_MOTOR_REV = 145.6;    // eg: goBilda 5202 Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP

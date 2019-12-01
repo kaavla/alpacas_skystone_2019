@@ -57,12 +57,17 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase{
 
                     //myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 36, 10.0, SensorsToUse.NONE);
                     //rotate(90, 0.3);
+
                     myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
                     myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 72, 15.0, SensorsToUse.NONE);
+
                     myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 96, 15.0, SensorsToUse.NONE);
                     myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+
                     myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
-                    myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 48, 10.0, SensorsToUse.NONE);
+                    myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 96, 10.0, SensorsToUse.NONE);
+
+                    myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 48, 10.0, SensorsToUse.NONE);
 
 
 
