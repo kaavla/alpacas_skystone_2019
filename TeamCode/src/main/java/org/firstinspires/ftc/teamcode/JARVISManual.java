@@ -47,8 +47,8 @@ public class JARVISManual extends LinearOpMode {
 
             if ((gamepad1.left_stick_y != 0)  || (gamepad1.left_stick_x !=0) || (gamepad1.right_stick_x != 0)) {
                 //if (gamepad1.dpad_up) {
-                leftY = gamepad1.left_stick_y;
-                leftX = gamepad1.left_stick_x * -1;
+                leftY = gamepad1.left_stick_y* -1;
+                leftX = gamepad1.left_stick_x;
                 rightZ = gamepad1.right_stick_x * -1;
                 robotJARVIS.moveHolonomic(leftX, leftY, rightZ);
             }
@@ -60,11 +60,11 @@ public class JARVISManual extends LinearOpMode {
                 //backwards
                 robotJARVIS.moveHolonomic(0, motor_power * -1, 0);
             }
-            else if (gamepad1.left_bumper) {
+            else if (gamepad1.x) {
                 //strafe left
                 robotJARVIS.moveHolonomic(motor_power * -1, 0, 0);
             }
-            else if (gamepad1.right_bumper) {
+            else if (gamepad1.b) {
                 //strafe right
                 robotJARVIS.moveHolonomic(motor_power * 1, 0, 0);
             }
