@@ -28,8 +28,8 @@ public class JARVISAutonomousBase extends LinearOpMode {
     double ref_angle = 0;
 
     public Direction direction;
-    enum Direction
-    {
+
+    enum Direction {
         FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, ROBOT_UP, ROBOT_DOWN, SPINNER_FORWARD;
     }
 
@@ -90,6 +90,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
 
     }
+
     public void initMotorNoEncoders() {
         RobotLog.ii("CAL", "Enter -  initMotorNoEncoders");
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -351,11 +352,11 @@ public class JARVISAutonomousBase extends LinearOpMode {
                         for (Recognition recognition : updatedRecognitions) {
                             if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
                                 double targetHeightRatio = (float) 0.8;
-                                double imageHeight       = recognition.getImageHeight();
-                                double imageWidth        = recognition.getImageWidth();
-                                double objectHeight      = recognition.getHeight();
+                                double imageHeight = recognition.getImageHeight();
+                                double imageWidth = recognition.getImageWidth();
+                                double objectHeight = recognition.getHeight();
                                 double objectHeightRatio = objectHeight / imageHeight;
-                                double power = 0.3;
+                                double power = 0.1;
                                 double mid = (recognition.getLeft() + recognition.getRight()) / 2;
                                 double i_left = recognition.getLeft();
                                 double i_right = recognition.getRight();
@@ -368,11 +369,11 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
                                 if (strafeDone == false) {
                                     if (mid < (640 - 100)) {
-                                        telemetry.addData(String.format(" mid(%f) < 540 ", mid),"");
+                                        telemetry.addData(String.format(" mid(%f) < 540 ", mid), "");
                                         robot.moveHolonomic(-1 * power, 0, 0);
                                     } else if (mid > (640 + 100)) {
-                                        telemetry.addData(String.format(" mid(%f) > 740 ", mid),"");
-                                        robot.moveHolonomic(1*power, 0, 0);
+                                        telemetry.addData(String.format(" mid(%f) > 740 ", mid), "");
+                                        robot.moveHolonomic(1 * power, 0, 0);
                                     } else {
                                         strafeDone = true;
                                         robot.moveHolonomic(0, 0, 0);
@@ -385,7 +386,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
                                     if (objectHeightRatio < targetHeightRatio) {
                                         telemetry.addData(" ", " SHANK object < target power=%f", power);
 
-                                        robot.moveHolonomic(0, 1*power, 0);
+                                        robot.moveHolonomic(0, 1 * power, 0);
                                     } else {
                                         robot.moveHolonomic(0, 0, 0);
                                     }
@@ -412,14 +413,47 @@ public class JARVISAutonomousBase extends LinearOpMode {
         }
     }
 
+    public boolean myTFOD2(double timeoutS)
+    {
+        // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
+        // first.
+        boolean strafeDone = false;
+        RobotLog.ii("CAL", "myTFOD - Enter");
 
-    public void moveFoundationServoDown () {
-        robot.FLServo.setPosition(0.5);
-        robot.FRServo.setPosition(0.5);
-    }
-    public void moveFoundationServoUp() {
-        robot.FLServo.setPosition(0);
-        robot.FRServo.setPosition(0);
+        while (opModeIsActive() && !isStopRequested()) {
+
+            if (tfod == null) {
+                robot.moveHolonomic(0, 0, 0);
+                break;
+            }
+
+            List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+
+            if (updatedRecognitions != null) {
+                telemetry.addData("# Object Detected", updatedRecognitions.size());
+                // step through the list of recognitions and display boundary info.
+                if (updatedRecognitions.size() == 0) {
+                    robot.moveHolonomic(0, 0, 0);
+                } else {
+                    int i = 0;
+                    for (Recognition recognition : updatedRecognitions) {
+                        if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+                telemetry.update();
+                RobotLog.ii("CAL", "Exit if opModeIsActive");
+
+                if (tfod != null) {
+                    tfod.shutdown();
+                }
+                RobotLog.ii("CAL", "myTFOD - Exits");
+
+            }
+        }
+        return false;
     }
 }
-
