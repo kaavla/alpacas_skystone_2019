@@ -106,7 +106,7 @@ public class JARVISHW
     //resets the power to zero before starting the action
     public void stopAllMotors() {
         RobotLog.ii("CAL", "Stopping All motors");
-
+        moveFoundationServoUp();
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         backleftMotor.setPower(0);
