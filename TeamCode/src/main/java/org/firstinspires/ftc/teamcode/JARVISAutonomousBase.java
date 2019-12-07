@@ -422,10 +422,12 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
 
     public void moveFoundationServoDown () {
+        telemetry.addData("CAL", "THIS SHOULD WORK");
         robot.FLServo.setPosition(0.35);
         robot.FRServo.setPosition(0.35);
     }
     public void moveFoundationServoUp() {
+        telemetry.addData("CAL", "THIS SHOULD WORK");
         robot.FLServo.setPosition(0);
         robot.FRServo.setPosition(0);
     }

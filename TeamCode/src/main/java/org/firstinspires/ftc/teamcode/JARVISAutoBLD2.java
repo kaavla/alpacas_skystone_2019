@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
 
-@Autonomous(name="Jarvis Auto Build Site 1", group="JARVIS")
+@Autonomous(name="Jarvis Auto Build Site 2", group="JARVIS")
 
-public class JARVISAutoBLD1 extends JARVISAutonomousBase {
+public class JARVISAutoBLD2 extends JARVISAutonomousBase {
 
     JARVISHW robotJARVIS = new JARVISHW();
 
@@ -31,7 +31,7 @@ public class JARVISAutoBLD1 extends JARVISAutonomousBase {
     public void myDetectionRun(int position, double speed, double timeoutS)
     {
 
-        RobotLog.ii("CAL", "Enter - JARVISAutoBLD1");
+        RobotLog.ii("CAL", "Enter - JARVISAutoBLD2");
 
         //initialized the motor encoders
         initMotorEncoders();
@@ -42,29 +42,28 @@ public class JARVISAutoBLD1 extends JARVISAutonomousBase {
         if (opModeIsActive() && !isStopRequested() )
         {
             //move to the foundation
-            myEncoderDrive(Direction.FORWARD, 0.2, 24, 5, SensorsToUse.NONE);
+            myEncoderDrive(Direction.FORWARD, 0.3, 24, 5, SensorsToUse.NONE);
             //for the final stretch of moving toward the foundation, it goes at a slower speed to minimize chance of errors
             myEncoderDrive(Direction.FORWARD, 0.1, 4, 5, SensorsToUse.NONE);
             //move the foundation attachment down
-            //moveFoundationServoDown();
+            moveFoundationServoDown();
+
+            //move backwards with the foundation and bring it close to the wall
+            myEncoderDrive(Direction.BACKWARD, 0.2, 26, 5, SensorsToUse.NONE);
             //turn the foundation counterclockwise
             rotate(86, 0.1);
-            //wait for the servos to stop moving
-            sleep(1000);
-            //strafe left to move the foundation into the building site
-            myEncoderDrive(Direction.STRAFE_LEFT, 0.15, 32, 5, SensorsToUse.NONE);
-            //move the foundation attachment up
-            //moveFoundationServoUp();
-            //back away from the foundation to leave space to strafe
-            myEncoderDrive(Direction.BACKWARD, 0.1, 1, 5, SensorsToUse.NONE);
-            //strafe away from the wall
-            myEncoderDrive(Direction.STRAFE_RIGHT, 0.1, 1, 5, SensorsToUse.NONE);
-            //move to the foundation
-            myEncoderDrive(Direction.BACKWARD, 0.2, 41, 5, SensorsToUse.NONE);
-            //strafe left to move the robot up against the wall so it is out of the way of the other robot
-            myEncoderDrive(Direction.STRAFE_LEFT, 0.17, 3, 5, SensorsToUse.NONE);
+            //leave time for the robot to finish turning
+            sleep(500);
+            //push the foundation into the wall
+            myEncoderDrive(Direction.FORWARD, 0.1, 2.5, 5, SensorsToUse.NONE);
+            //move the foundation attachment up to release the foundation
+            moveFoundationServoUp();
+            //move backwards to the blue tape under the bridge
+            myEncoderDrive(Direction.BACKWARD, 0.3, 41, 5, SensorsToUse.NONE);
+            //strafe left to be as close to the wall as possible to stay out of the way for the other robot
+            myEncoderDrive(Direction.STRAFE_LEFT, 0.1, 5, 5, SensorsToUse.NONE);
         }
-        RobotLog.ii("CAL", "Exit - JARVISAutoBLD1");
+        RobotLog.ii("CAL", "Exit - JARVISAutoBLD2");
     }
 
 }
