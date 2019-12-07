@@ -100,12 +100,14 @@ public class JARVISManual extends LinearOpMode {
             else if (gamepad2.b){
                 robotJARVIS.claw3();
             }
-            else if(gamepad2.left_bumper){
+            /*else if(gamepad2.left_bumper){
                 robotJARVIS.clawTurn1();
             }
             else if(gamepad2.right_bumper){
                 robotJARVIS.clawTurn2();
             }
+
+             */
             else if(gamepad2.left_bumper) {
                 robotJARVIS.moveFoundationServoUp();
             }
