@@ -181,11 +181,16 @@ public class JARVISAutonomousBase extends LinearOpMode {
         // restart imu movement tracking.
         resetAngle();
 
-        if (degrees < 0) {   // turn right.
-            robot.moveHolonomic(0, 0, power * -1);
-        } else if (degrees > 0) {   // turn left.
-            robot.moveHolonomic(0, 0, power * 1);
-        } else return;
+        if (degrees < 0)
+        {   // turn right.
+            robot.moveHolonomic(0, 0, power*1);
+        }
+        else if (degrees > 0)
+        {   // turn left.
+            robot.moveHolonomic(0, 0, power*-1);
+        }
+        else return;
+
 
 
         // rotate until turn is completed.
@@ -413,12 +418,12 @@ public class JARVISAutonomousBase extends LinearOpMode {
         }
     }
 
-    public boolean myTFOD2(double timeoutS)
-    {
+    public boolean myTFOD2(double timeoutS) {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         boolean strafeDone = false;
         RobotLog.ii("CAL", "myTFOD - Enter");
+
 
         while (opModeIsActive() && !isStopRequested()) {
 
@@ -455,5 +460,17 @@ public class JARVISAutonomousBase extends LinearOpMode {
             }
         }
         return false;
+    }
+
+    public void moveFoundationServoDown () {
+        telemetry.addData("CAL", "THIS SHOULD WORK");
+        robot.FLServo.setPosition(0.35);
+        robot.FRServo.setPosition(0.35);
+    }
+    
+    public void moveFoundationServoUp() {
+        telemetry.addData("CAL", "THIS SHOULD WORK");
+        robot.FLServo.setPosition(0);
+        robot.FRServo.setPosition(0);
     }
 }
