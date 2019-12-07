@@ -47,8 +47,8 @@ public class JARVISManual extends LinearOpMode {
 
             if ((gamepad1.left_stick_y != 0)  || (gamepad1.left_stick_x !=0) || (gamepad1.right_stick_x != 0)) {
                 //if (gamepad1.dpad_up) {
-                leftY = gamepad1.left_stick_y;
-                leftX = gamepad1.left_stick_x * -1;
+                leftY = gamepad1.left_stick_y* -1;
+                leftX = gamepad1.left_stick_x;
                 rightZ = gamepad1.right_stick_x * -1;
                 robotJARVIS.moveHolonomic(leftX, leftY, rightZ);
             }
@@ -60,36 +60,36 @@ public class JARVISManual extends LinearOpMode {
                 //backwards
                 robotJARVIS.moveHolonomic(0, motor_power * -1, 0);
             }
-            else if (gamepad1.left_bumper) {
+            else if (gamepad1.x) {
                 //strafe left
                 robotJARVIS.moveHolonomic(motor_power * -1, 0, 0);
             }
-            else if (gamepad1.right_bumper) {
+            else if (gamepad1.b) {
                 //strafe right
                 robotJARVIS.moveHolonomic(motor_power * 1, 0, 0);
             }
             else if (gamepad1.dpad_left) {
                 //rotate counter-clockwise
+                telemetry.addData("Status - dpad_left pressed - counter clockwise", "Run Time: " + runtime.toString());
+
                 robotJARVIS.moveHolonomic(0, 0, motor_power * 1);
             }
             else if (gamepad1.dpad_right) {
                 //rotate clockwise
+                telemetry.addData("Status - dpad_right pressed - clockwise", "Run Time: " + runtime.toString());
                 robotJARVIS.moveHolonomic(0, 0, motor_power * -1);
-            }
-            else if (gamepad2.dpad_up) {
-                //Slide Down
-                robotJARVIS.slide_1.setPower(0.3);
+            } else if (gamepad2.dpad_up){
+                robotJARVIS.slidesUp(0.3);
             }
             else if (gamepad2.dpad_down) {
                 //Slide Down
-                robotJARVIS.slide_1.setPower(-0.3);
+                robotJARVIS.slidesDown(0.3);
             }
-
-            else if (gamepad2.dpad_up){
-                robotJARVIS.slidesUp();
+            else if(gamepad2.dpad_left) {
+                robotJARVIS.slideIn(0.3);
             }
-            else if (gamepad2.dpad_down){
-                robotJARVIS.slidesDown();
+            else if(gamepad2.dpad_right){
+                robotJARVIS.slideOut(0.3);
             }
             else if (gamepad2.x){
                 robotJARVIS.claw1();
@@ -106,11 +106,11 @@ public class JARVISManual extends LinearOpMode {
             else if(gamepad2.right_bumper){
                 robotJARVIS.clawTurn2();
             }
-            else if(gamepad2.dpad_left) {
-                robotJARVIS.slideIn();
+            else if(gamepad2.left_bumper) {
+                robotJARVIS.moveFoundationServoUp();
             }
-            else if(gamepad2.dpad_right){
-                robotJARVIS.slideOut();
+            else if(gamepad2.right_bumper) {
+                robotJARVIS.moveFoundationServoDown();
             }
             else
             {

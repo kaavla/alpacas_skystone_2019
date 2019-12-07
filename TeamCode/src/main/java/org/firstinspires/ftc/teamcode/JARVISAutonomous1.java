@@ -3,7 +3,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
 
 import java.util.List;
-@Autonomous(name="Jarvis Auto Test 1", group="JARVIS")
+@Autonomous(name="Jarvis Auto Test 3", group="JARVIS")
 
 public class JARVISAutonomous1 extends JARVISAutonomousBase{
 
@@ -42,13 +42,15 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase{
 
             RobotLog.ii("CAL", "Enter - myDetectionRun");
 
+            initMotorNoEncoders();
+            myTFOD(30.0);
+
             //initialized the motor encoders
             initMotorEncoders();
 
             RobotLog.ii("CAL", "initMotorEncoders-Done");
 
 
-            myTFOD(30.0);
             RobotLog.ii("CAL", "myTFOD Done");
 
             // Ensure that the op mode is still active
@@ -57,12 +59,17 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase{
 
                     //myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 36, 10.0, SensorsToUse.NONE);
                     //rotate(90, 0.3);
+
                     myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
                     myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 72, 15.0, SensorsToUse.NONE);
+
                     myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 96, 15.0, SensorsToUse.NONE);
                     myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+
                     myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
-                    myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 48, 10.0, SensorsToUse.NONE);
+                    myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 96, 10.0, SensorsToUse.NONE);
+
+                    myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 48, 10.0, SensorsToUse.NONE);
 
 
 

@@ -21,12 +21,17 @@ import java.util.List;
 public class JARVISAutonomousBase extends LinearOpMode {
 
     public JARVISHW robot = new JARVISHW();
-    //public JARVISHW robotJARVIS = new JARVISHW();
     public ElapsedTime runtime = new ElapsedTime();
     private Orientation lastAngles = new Orientation();
     private double globalAngle = 0;
     // public direction;
     double ref_angle = 0;
+
+    public Direction direction;
+    enum Direction
+    {
+        FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, ROBOT_UP, ROBOT_DOWN, SPINNER_FORWARD;
+    }
 
 
     static final double COUNTS_PER_MOTOR_REV = 145.6;    // eg: goBilda 5202 Motor Encoder
@@ -41,7 +46,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Stone";
     private static final String LABEL_SECOND_ELEMENT = "Skystone";
-    final String VUFORIA_KEY = "AXSRCQP/////AAABmZeKs8E+bExYlViUoU4W3x9D+ZqA3HLfy3PxlWiz0h5wh/awa/Oe9lra0C0CqlyRducvIyV5egl7zTYvGsbA34h3hCAV1eQtpnzQtYulVYRxD6W2Lnl47omLOHjXv3fTXLPnPDBugwDQUCqw4tN58FFEN5xoKEIPWwaQuOg43WHpfa6wenMv+bxuiwxM0Ciy+2gad/kkc+MTWzsFAL/yjTQhq718BNLr1FYZveMEwFHS43kILSKaL/+3/YGqd677av/z5tVDLkSRPUDuEYKIB1P0uCJd5AhIPnVvNigICEUxETMZiEt0RmKoQ3x9S6Y8AelTJgpHeuVgDHy5BmNP877er8Bsqr+WfHGho64CNbUx\n";
+    final String VUFORIA_KEY = "ATVrdOT/////AAABmegFa9L6UUB2ljwRjEStPmU7NS6gi/+GLAe6uAv7o+cB7+pj9EORNLk32cxovTaRj+rUeNw75EMjs5jM0K2OlNn8iO861FyZ5bqnHeBQRr/tR4NIZkQq4ak2zpPLQyyGFzhEkHjnhenYh0dyvxluXF79u8VwJ+g77slCyrCjvgMp6VfEAPLpVJmjzq4hRJMtjYpoRp/agnYFU8HVnmQeGRbjKi1PHLbhP98IkGMowt6Hlobdd2l0vt7msVhwNombHz0XcwJEjwnRKoOkeg7s+kIWvd5paYiO/bnClo9DahFboEFWw1/9wutXgI6/7AGcvwZzkk1HwRh3qZRAWNUSq1hrcjdq9f2QXAYyiqd3wLpT";
 
 
     public TFObjectDetector tfod = null;
@@ -83,6 +88,16 @@ public class JARVISAutonomousBase extends LinearOpMode {
         telemetry.addData("Path1", "Init Vuforia Done");
         telemetry.update();
 
+
+    }
+    public void initMotorNoEncoders() {
+        RobotLog.ii("CAL", "Enter -  initMotorNoEncoders");
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backleftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backrightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        RobotLog.ii("CAL", "Exit -  initMotorNoEncoders");
 
     }
 
@@ -322,95 +337,77 @@ public class JARVISAutonomousBase extends LinearOpMode {
             boolean strafeDone = false;
             RobotLog.ii("CAL", "myTFOD - Enter");
 
-            if (opModeIsActive()) {
-                RobotLog.ii("CAL", "if opModeIsActive - Enter");
-                while (opModeIsActive() && !isStopRequested()) {
-                    RobotLog.ii("CAL", "while opModeIsActive and !isStopRequested - Enter");
-                    if (tfod != null) {
-                        RobotLog.ii("CAL", "if tfod != null - Enter");
-                        List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+            while (opModeIsActive() && !isStopRequested()) {
 
-                        if (updatedRecognitions != null) {
-                            telemetry.addData("# Object Detected", updatedRecognitions.size());
-                            RobotLog.ii("CAL", "if updatedRecognitions != null - Enter");
-                            // step through the list of recognitions and display boundary info.
-                            if (updatedRecognitions.size() == 0) {
-                                RobotLog.ii("CAL", "if updatedRecognitions.size() == 0 - Enter");
-                                robot.moveHolonomic(0, 0, 0);
-                                RobotLog.ii("CAL", "if updatedRecognitions.size() == 0 - Exit");
-                            } else {
-                                int i = 0;
-                                for (Recognition recognition : updatedRecognitions) {
-                                    RobotLog.ii("CAL", "for Recognition recognition : updatedRecognitions - Enter");
-                                    if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
-                                        RobotLog.ii("CAL", "Enter - if recognition.getLabel().equals(LABEL_SECOND_ELEMENT)");
-                                        double targetHeightRatio = (float) 0.8;
-                                        double imageHeight = recognition.getImageHeight();
-                                        double imageWidth = recognition.getImageWidth();
-                                        double objectHeight = recognition.getHeight();
-                                        double objectHeightRatio = objectHeight / imageHeight;
+                if (tfod == null) {
+                    robot.moveHolonomic(0, 0, 0);
+                    break;
+                }
 
-                                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                                        telemetry.addData(" ", "Image Width (%.1f), image Height (%.1f), object Height (%.1f)",
-                                                imageWidth, imageHeight, objectHeight);
-                                        telemetry.addData(String.format("  left,right (%d)", i), "%.03f , %.03f",
-                                                recognition.getLeft(), recognition.getRight());
+                List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
 
-                                        //double obj_h_mm = objectHeight * 25.4 / 424.0;
-                                        //double f2 = (60 * 5.5 * 25.4 / obj_h_mm) + 60;
-                                        //telemetry.addData(" ", " Distance = %.1f, inch", f2 / 25.4);
-                                        double power = 0.4;
+                if (updatedRecognitions != null) {
+                    telemetry.addData("# Object Detected", updatedRecognitions.size());
+                    // step through the list of recognitions and display boundary info.
+                    if (updatedRecognitions.size() == 0) {
+                        robot.moveHolonomic(0, 0, 0);
+                    } else {
+                        int i = 0;
+                        for (Recognition recognition : updatedRecognitions) {
+                            if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
+                                double targetHeightRatio = (float) 0.8;
+                                double imageHeight       = recognition.getImageHeight();
+                                double imageWidth        = recognition.getImageWidth();
+                                double objectHeight      = recognition.getHeight();
+                                double objectHeightRatio = objectHeight / imageHeight;
+                                double power = 0.3;
+                                double mid = (recognition.getLeft() + recognition.getRight()) / 2;
+                                double i_left = recognition.getLeft();
+                                double i_right = recognition.getRight();
 
-                                        double mid = (recognition.getLeft() + recognition.getRight()) / 2;
-                                        if (mid < (640 - 100)) {
-                                            robot.moveHolonomic(-1 * power, 0, 0);
-                                        } else if (mid > (640 + 100)) {
-                                            robot.moveHolonomic(power, 0, 0);
-                                        } else {
-                                            strafeDone = true;
-                                            robot.moveHolonomic(0, 0, 0);
-                                        }
+                                telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                                telemetry.addData(" ", "Image Width (%.1f), image Height (%.1f), object Height (%.1f)",
+                                        imageWidth, imageHeight, objectHeight);
+                                telemetry.addData(String.format(" init left,right (%d)", i), "%.03f , %.03f",
+                                        i_left, i_right);
 
-                                        if (strafeDone == true) {
-                                            telemetry.addData(" ", " Shank Strafe done");
-
-                                            if (objectHeightRatio < targetHeightRatio) {
-                                                telemetry.addData(" ", " SHANK object < target");
-
-                                                robot.moveHolonomic(0, power, 0);
-                                            } else {
-                                                robot.moveHolonomic(0, 0, 0);
-                                            }
-                                        }
-
-                                        if (strafeDone == true) {
-                                            //telemetry.addData(" ", " Strafe done");
-                                        } else {
-                                            //telemetry.addData(" ", " Strafing....");
-
-                                        }
-
-
-                                        if (objectHeightRatio <= targetHeightRatio) {
-                                            //telemetry.addData("The objectHeightRatio!", "is less than the targetHeightRatio.");
-                                        }
-                                        RobotLog.ii("CAL", "Exit - if recognition.getLabel().equals(LABEL_SECOND_ELEMENT)");
+                                if (strafeDone == false) {
+                                    if (mid < (640 - 100)) {
+                                        telemetry.addData(String.format(" mid(%f) < 540 ", mid),"");
+                                        robot.moveHolonomic(-1 * power, 0, 0);
+                                    } else if (mid > (640 + 100)) {
+                                        telemetry.addData(String.format(" mid(%f) > 740 ", mid),"");
+                                        robot.moveHolonomic(1*power, 0, 0);
                                     } else {
-                                        telemetry.addData("Not a skystone", " ");
-
+                                        strafeDone = true;
+                                        robot.moveHolonomic(0, 0, 0);
                                     }
                                 }
-                            }
-                            telemetry.update();
-                        }
-                    } else {
-                        robot.moveHolonomic(0, 0, 0);
-                    }
-                    RobotLog.ii("CAL", "while opModeIsActive and !isStopRequested - Enter");
-                }
-                RobotLog.ii("CAL", "Exit if opModeIsActive");
-            }
 
+                                if (strafeDone == true) {
+                                    telemetry.addData(" ", " Shank Strafe done");
+
+                                    if (objectHeightRatio < targetHeightRatio) {
+                                        telemetry.addData(" ", " SHANK object < target power=%f", power);
+
+                                        robot.moveHolonomic(0, 1*power, 0);
+                                    } else {
+                                        robot.moveHolonomic(0, 0, 0);
+                                    }
+                                }
+
+                            } else {
+                                telemetry.addData("Not a skystone", " ");
+
+                            }
+                        }
+                    }
+                    telemetry.update();
+                }
+
+                //RobotLog.ii("CAL", "while opModeIsActive and !isStopRequested - Enter");
+            }
+            RobotLog.ii("CAL", "Exit if opModeIsActive");
 
             if (tfod != null) {
                 tfod.shutdown();
