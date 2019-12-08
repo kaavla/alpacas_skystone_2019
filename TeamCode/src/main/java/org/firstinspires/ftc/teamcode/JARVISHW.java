@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -29,11 +31,11 @@ public class JARVISHW
     public Servo turnServo = null;
     public Servo clawServo = null;
 
-
     public Servo FLServo = null;
     public Servo FRServo = null;
 
-    //public ColorSensor sensorColor = null;
+    // public DistanceSensor sensorDistance = null;
+    // public ColorSensor sensorColor = null;
 
     Orientation lastAngles = new Orientation();  //?
     double globalAngle, power = .30, correction;  //?
@@ -63,8 +65,10 @@ public class JARVISHW
 
         FLServo  = ahwMap.get(Servo.class, "FLServo");
         FRServo  = ahwMap.get(Servo.class, "FRServo");
+        FRServo  = ahwMap.get(Servo.class, "FRServo");
 
-        //sensorColor = ahwMap.get(ColorSensor.class, "sensor_color_distance");
+        // sensorColor = ahwMap.get(ColorSensor.class, "sensorColor");
+        // sensorDistance = ahwMap.get(DistanceSensor.class, "sensorDistance");
 
         imu = ahwMap.get(BNO055IMU.class, "imu 1");
 
@@ -114,7 +118,6 @@ public class JARVISHW
         slide_1.setPower(0);
         slide_2.setPower(0);
         slide_3.setPower(0);
-
 
     }
 
@@ -232,12 +235,13 @@ public class JARVISHW
     }
 
     public void moveFoundationServoDown () {
-        FLServo.setPosition(0.2);
-        FRServo.setPosition(0.2);
+        FLServo.setPosition(0.3);
+        FRServo.setPosition(0.3);
+
     }
     public void moveFoundationServoUp() {
-        FLServo.setPosition(0);
-        FRServo.setPosition(0);
+        FLServo.setPosition(0.8);
+        FRServo.setPosition(0.8);
     }
 
 
