@@ -78,8 +78,8 @@ public class JARVISHW
         imu.initialize(parameters);
 
         //Invert direction for left motors
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backleftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backrightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         FLServo.setDirection(Servo.Direction.REVERSE);
 
 
@@ -115,9 +115,7 @@ public class JARVISHW
         slide_2.setPower(0);
         slide_3.setPower(0);
 
-<<<<<<< HEAD
-=======
-        turnServo.setPower(0);
+
     }
 
     public void initMotorNoEncoders() {
@@ -131,7 +129,6 @@ public class JARVISHW
         RobotLog.ii("CAL", "Exit -  initMotorNoEncoders");
     }
 
->>>>>>> c283f23e6f2f8a5820ac5c312f49865dc9fa392f
 
     public void initMotorEncoders() {
         RobotLog.ii("CAL", "Enter -  initMotorEncoders");
@@ -235,13 +232,14 @@ public class JARVISHW
     }
 
     public void moveFoundationServoDown () {
-        FLServo.setPosition(0.5);
-        FRServo.setPosition(0.5);
+        FLServo.setPosition(0.2);
+        FRServo.setPosition(0.2);
     }
     public void moveFoundationServoUp() {
         FLServo.setPosition(0);
         FRServo.setPosition(0);
     }
+
 
 
 }

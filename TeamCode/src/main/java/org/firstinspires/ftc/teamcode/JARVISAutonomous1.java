@@ -57,7 +57,7 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
         if (opModeIsActive() && !isStopRequested()) {
 
             //MOve forward
-            if (myTFOD2(10) == false) {
+            /*if (myTFOD2(10) == false) {
                 //strafe right some distance
                 myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
                 if (myTFOD2(10) == false) {
@@ -66,21 +66,22 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
                 }
             }
 
+             */
+
 //after these too we assume that the skystone is the third and it will play out the code below
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 7, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 27, 10,SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 52, 15.0, SensorsToUse.NONE);
 
-            /*myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
-            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 72, 15.0, SensorsToUse.NONE);
-
-            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 96, 15.0, SensorsToUse.NONE);
-            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 75, 15.0, SensorsToUse.NONE);
+            //84
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 5, 5.0, SensorsToUse.NONE);
 
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
-            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 96, 10.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 72, 10.0, SensorsToUse.NONE);
+            //70
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 19, 10.0, SensorsToUse.NONE);
 
-            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 48, 10.0, SensorsToUse.NONE);
-
-            */
         }
         RobotLog.ii("CAL", "Exit - myDetectionRun");
     }
