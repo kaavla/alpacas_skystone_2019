@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @TeleOp(name = "Shank Sensor: REV2mDistance", group = "Sensor")
-//@Disabled
+@Disabled
 public class ShankDistanceSensor extends LinearOpMode
 {
 

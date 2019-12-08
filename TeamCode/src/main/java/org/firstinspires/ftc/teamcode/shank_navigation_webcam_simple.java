@@ -86,7 +86,7 @@ package org.firstinspires.ftc.teamcode;
  */
 
 @TeleOp(name="SHANK - Navigation WEBCSAM Simple", group ="Concept")
-//@Disabled
+@Disabled
 
 
 public class shank_navigation_webcam_simple extends LinearOpMode {

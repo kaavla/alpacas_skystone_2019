@@ -34,7 +34,7 @@ public class JARVISAutoBLD2 extends JARVISAutonomousBase {
         RobotLog.ii("CAL", "Enter - JARVISAutoBLD2");
 
         //initialized the motor encoders
-        initMotorEncoders();
+        robot.initMotorEncoders();
         //move the foundation attachment up to the start position
         //moveFoundationServoUp();
 
@@ -46,7 +46,7 @@ public class JARVISAutoBLD2 extends JARVISAutonomousBase {
             //for the final stretch of moving toward the foundation, it goes at a slower speed to minimize chance of errors
             myEncoderDrive(Direction.FORWARD, 0.1, 4, 5, SensorsToUse.NONE);
             //move the foundation attachment down
-            moveFoundationServoDown();
+            robot.moveFoundationServoDown();
 
             //move backwards with the foundation and bring it close to the wall
             myEncoderDrive(Direction.BACKWARD, 0.2, 26, 5, SensorsToUse.NONE);
@@ -57,7 +57,7 @@ public class JARVISAutoBLD2 extends JARVISAutonomousBase {
             //push the foundation into the wall
             myEncoderDrive(Direction.FORWARD, 0.1, 2.5, 5, SensorsToUse.NONE);
             //move the foundation attachment up to release the foundation
-            moveFoundationServoUp();
+            robot.moveFoundationServoUp();
             //move backwards to the blue tape under the bridge
             myEncoderDrive(Direction.BACKWARD, 0.3, 41, 5, SensorsToUse.NONE);
             //strafe left to be as close to the wall as possible to stay out of the way for the other robot

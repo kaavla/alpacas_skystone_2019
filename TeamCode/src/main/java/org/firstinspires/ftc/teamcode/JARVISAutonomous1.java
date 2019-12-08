@@ -42,11 +42,11 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
 
         RobotLog.ii("CAL", "Enter - myDetectionRun");
 
-        initMotorNoEncoders();
+        robot.initMotorNoEncoders();
         //myTFOD(30.0);
 
         //initialized the motor encoders
-        initMotorEncoders();
+        robot.initMotorEncoders();
 
         RobotLog.ii("CAL", "initMotorEncoders-Done");
 
