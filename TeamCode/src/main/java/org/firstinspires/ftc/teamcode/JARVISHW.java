@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -29,11 +31,11 @@ public class JARVISHW
     public CRServo turnServo = null;
     public Servo clawServo = null;
 
-
     public Servo FLServo = null;
     public Servo FRServo = null;
 
-    //public ColorSensor sensorColor = null;
+    // public DistanceSensor sensorDistance = null;
+    // public ColorSensor sensorColor = null;
 
     Orientation lastAngles = new Orientation();  //?
     double globalAngle, power = .30, correction;  //?
@@ -63,8 +65,10 @@ public class JARVISHW
 
         FLServo  = ahwMap.get(Servo.class, "FLServo");
         FRServo  = ahwMap.get(Servo.class, "FRServo");
+        FRServo  = ahwMap.get(Servo.class, "FRServo");
 
-        //sensorColor = ahwMap.get(ColorSensor.class, "sensor_color_distance");
+        // sensorColor = ahwMap.get(ColorSensor.class, "sensorColor");
+        // sensorDistance = ahwMap.get(DistanceSensor.class, "sensorDistance");
 
         imu = ahwMap.get(BNO055IMU.class, "imu 1");
 
@@ -78,8 +82,8 @@ public class JARVISHW
         imu.initialize(parameters);
 
         //Invert direction for left motors
-        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backrightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backleftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         FLServo.setDirection(Servo.Direction.REVERSE);
 
 
@@ -116,11 +120,6 @@ public class JARVISHW
         slide_3.setPower(0);
 
         turnServo.setPower(0);
-
-
-
-
-
     }
 
     public void moveHolonomic(double x, double y , double z)
@@ -207,12 +206,12 @@ public class JARVISHW
     }
 
     public void moveFoundationServoDown () {
-        FLServo.setPosition(0.5);
-        FRServo.setPosition(0.5);
+        FLServo.setPosition(0.3);
+        FRServo.setPosition(0.3);
     }
     public void moveFoundationServoUp() {
-        FLServo.setPosition(0);
-        FRServo.setPosition(0);
+        FLServo.setPosition(0.8);
+        FRServo.setPosition(0.8);
     }
 
 

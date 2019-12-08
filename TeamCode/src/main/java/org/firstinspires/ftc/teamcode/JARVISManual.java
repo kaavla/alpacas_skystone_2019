@@ -47,8 +47,8 @@ public class JARVISManual extends LinearOpMode {
 
             if ((gamepad1.left_stick_y != 0)  || (gamepad1.left_stick_x !=0) || (gamepad1.right_stick_x != 0)) {
                 //if (gamepad1.dpad_up) {
-                leftY = gamepad1.left_stick_y* -1;
-                leftX = gamepad1.left_stick_x;
+                leftY = gamepad1.left_stick_y;
+                leftX = gamepad1.left_stick_x* -1;
                 rightZ = gamepad1.right_stick_x * -1;
                 robotJARVIS.moveHolonomic(leftX, leftY, rightZ);
             }
@@ -100,22 +100,14 @@ public class JARVISManual extends LinearOpMode {
             else if (gamepad2.b){
                 robotJARVIS.claw3();
             }
-            else if(gamepad2.left_bumper){
-                robotJARVIS.clawTurn1();
-            }
-            else if(gamepad2.right_bumper){
-                robotJARVIS.clawTurn2();
-            }
             else if(gamepad2.left_bumper) {
-                robotJARVIS.moveFoundationServoUp();
-            }
-            else if(gamepad2.right_bumper) {
                 robotJARVIS.moveFoundationServoDown();
             }
-            else
-            {
+            else if(gamepad2.right_bumper) {
+                robotJARVIS.moveFoundationServoUp();
+            }
+            else {
                 robotJARVIS.stopAllMotors();
-                robotJARVIS.slide_1.setPower(0);
             }
         }
         telemetry.addData("Status", "Run Time: " + runtime.toString());

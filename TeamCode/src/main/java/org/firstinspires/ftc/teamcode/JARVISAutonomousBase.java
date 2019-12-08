@@ -1,7 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.View;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.RobotLog;
 
@@ -9,12 +15,14 @@ import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
+import java.util.Locale;
 
 //still changing
 //@Disabled
@@ -294,15 +302,65 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
             while (opModeIsActive() && !isStopRequested() &&
                     (runtime.seconds() < timeoutS) &&
-                    (robot.leftMotor.isBusy()))
+                    (robot.leftMotor.isBusy())) {
 
+               /* if (sensors_2_use == SensorsToUse.USE_DISTANCE) {
+
+                    DistanceSensor sensorDistance = null;
+
+                    if(sensorDistance.getDistance(DistanceUnit.INCH) <= 4) {
+                        robot.stopAllMotors();
+
+                        telemetry.addData("DistSensor", "The robot is %7d inches from crashing.",
+                                sensorDistance.getDistance(DistanceUnit.INCH));
+                    }
+                }
+
+                if (sensors_2_use == SensorsToUse.USE_COLOR) {
+
+                    ColorSensor sensorColor = null;
+
+                    // hsvValues is an array that will hold the hue, saturation, and value information.
+                    float hsvValues[] = {0F, 0F, 0F};
+
+                    // values is a reference to the hsvValues array.
+                    final float values[] = hsvValues;
+
+                    // sometimes it helps to multiply the raw RGB values with a scale factor
+                    // to amplify/attentuate the measured values.
+                    final double SCALE_FACTOR = 255;
+
+                    // convert the RGB values to HSV values.
+                    // multiply by the SCALE_FACTOR.
+                    // then cast it back to int (SCALE_FACTOR is a double)
+                    Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
+                            (int) (sensorColor.green() * SCALE_FACTOR),
+                            (int) (sensorColor.blue() * SCALE_FACTOR),
+                            hsvValues);
+
+                    // get a reference to the RelativeLayout so we can change the background
+                    // color of the Robot Controller app to match the hue detected by the RGB sensor.
+                    int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier
+                            ("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
+                    final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+
+                    if (hsvValues[0] <= 270 && hsvValues[0] >= 210) {
+                        //This will stop the robot if the color sensor detects the color blue.
+                        robot.stopAllMotors();
+
+                        telemetry.addData("Blue", sensorColor.blue() + " Detected");
+                    }
+                }
+
+                */
 
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
-            telemetry.addData("Path2", "Running at %7d :%7d",
-                    robot.leftMotor.getCurrentPosition(),
-                    robot.rightMotor.getCurrentPosition());
-            telemetry.update();
+                telemetry.addData("Path2", "Running at %7d :%7d",
+                        robot.leftMotor.getCurrentPosition(),
+                        robot.rightMotor.getCurrentPosition());
+                telemetry.update();
+            }
         }
 
         // Stop all motion;
@@ -415,18 +473,6 @@ public class JARVISAutonomousBase extends LinearOpMode {
             RobotLog.ii("CAL", "myTFOD - Exits");
 
         }
-    }
-
-
-    public void moveFoundationServoDown () {
-        telemetry.addData("CAL", "THIS SHOULD WORK");
-        robot.FLServo.setPosition(0.35);
-        robot.FRServo.setPosition(0.35);
-    }
-    public void moveFoundationServoUp() {
-        telemetry.addData("CAL", "THIS SHOULD WORK");
-        robot.FLServo.setPosition(0);
-        robot.FRServo.setPosition(0);
     }
 }
 
