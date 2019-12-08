@@ -26,7 +26,7 @@ public class JARVISHW
     public DcMotor slide_1 = null;
     public DcMotor slide_2 = null;
     public DcMotor slide_3 = null;
-    public CRServo turnServo = null;
+    public Servo turnServo = null;
     public Servo clawServo = null;
 
 
@@ -57,7 +57,7 @@ public class JARVISHW
         slide_2  = ahwMap.get(DcMotor.class, "slide_2");
         slide_3 = ahwMap.get(DcMotor.class, "slide_3");
 
-        turnServo = ahwMap.get(CRServo.class, "tServo");
+        turnServo = ahwMap.get(Servo.class, "tServo");
         clawServo = ahwMap.get(Servo.class, "cServo");
 
 
@@ -114,9 +114,6 @@ public class JARVISHW
         slide_1.setPower(0);
         slide_2.setPower(0);
         slide_3.setPower(0);
-
-        turnServo.setPower(0);
-
 
 
 
@@ -183,12 +180,12 @@ public class JARVISHW
 
     public void clawTurn1()
     {
-        turnServo.setPower(0.5);
+        turnServo.setPosition(0);
     }
 
     public void clawTurn2()
     {
-        turnServo.setPower(-0.5);
+        turnServo.setPosition(0.25);
     }
 
     public void claw1()
@@ -200,6 +197,7 @@ public class JARVISHW
     {
         clawServo.setPosition(0.5);
     }
+
 
     public void claw3()
     {
