@@ -26,7 +26,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 
 @TeleOp(name="SHANK Vuforia Nav Webcam - 1", group ="Concept")
-//@Disabled
+@Disabled
 public class ShankVuforiaNavigation extends LinearOpMode {
 
     // IMPORTANT: If you are using a USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;

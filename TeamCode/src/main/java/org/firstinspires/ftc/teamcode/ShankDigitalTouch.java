@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 @TeleOp(name = "Shank: Sensor: Digital touch", group = "Sensor")
-//@Disabled
+@Disabled
 public class ShankDigitalTouch extends LinearOpMode
 {
     /**

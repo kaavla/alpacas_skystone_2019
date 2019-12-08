@@ -28,7 +28,7 @@ public class JARVISHW
     public DcMotor slide_1 = null;
     public DcMotor slide_2 = null;
     public DcMotor slide_3 = null;
-    public CRServo turnServo = null;
+    public Servo turnServo = null;
     public Servo clawServo = null;
 
     public Servo FLServo = null;
@@ -59,7 +59,7 @@ public class JARVISHW
         slide_2  = ahwMap.get(DcMotor.class, "slide_2");
         slide_3 = ahwMap.get(DcMotor.class, "slide_3");
 
-        turnServo = ahwMap.get(CRServo.class, "tServo");
+        turnServo = ahwMap.get(Servo.class, "tServo");
         clawServo = ahwMap.get(Servo.class, "cServo");
 
 
@@ -110,7 +110,7 @@ public class JARVISHW
     //resets the power to zero before starting the action
     public void stopAllMotors() {
         RobotLog.ii("CAL", "Stopping All motors");
-
+        moveFoundationServoUp();
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         backleftMotor.setPower(0);
@@ -119,8 +119,37 @@ public class JARVISHW
         slide_2.setPower(0);
         slide_3.setPower(0);
 
-        turnServo.setPower(0);
+        //turnServo.setPower(0);
     }
+
+    public void initMotorNoEncoders() {
+        RobotLog.ii("CAL", "Enter -  initMotorNoEncoders");
+
+        leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backleftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backrightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        RobotLog.ii("CAL", "Exit -  initMotorNoEncoders");
+    }
+
+
+    public void initMotorEncoders() {
+        RobotLog.ii("CAL", "Enter -  initMotorEncoders");
+        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backleftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backrightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backrightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backleftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        RobotLog.ii("CAL", "Exit -  initMotorEncoders");
+    }
+
+
 
     public void moveHolonomic(double x, double y , double z)
     {
@@ -182,12 +211,12 @@ public class JARVISHW
 
     public void clawTurn1()
     {
-        turnServo.setPower(0.5);
+        turnServo.setPosition(0);
     }
 
     public void clawTurn2()
     {
-        turnServo.setPower(-0.5);
+        turnServo.setPosition(0.25);
     }
 
     public void claw1()
@@ -199,6 +228,7 @@ public class JARVISHW
     {
         clawServo.setPosition(0.5);
     }
+
 
     public void claw3()
     {
