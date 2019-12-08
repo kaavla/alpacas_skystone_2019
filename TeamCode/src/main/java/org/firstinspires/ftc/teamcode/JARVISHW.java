@@ -116,12 +116,36 @@ public class JARVISHW
         slide_3.setPower(0);
 
         turnServo.setPower(0);
-
-
-
-
-
     }
+
+    public void initMotorNoEncoders() {
+        RobotLog.ii("CAL", "Enter -  initMotorNoEncoders");
+
+        leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backleftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backrightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        RobotLog.ii("CAL", "Exit -  initMotorNoEncoders");
+    }
+
+
+    public void initMotorEncoders() {
+        RobotLog.ii("CAL", "Enter -  initMotorEncoders");
+        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backleftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backrightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backrightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backleftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        RobotLog.ii("CAL", "Exit -  initMotorEncoders");
+    }
+
+
 
     public void moveHolonomic(double x, double y , double z)
     {

@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
     @TeleOp(name = "Sensor: REV2mDistance", group = "Sensor")
-    //Disabled
+    @Disabled
     public class Meow_Distance_Sensor extends LinearOpMode {
 
         private DistanceSensor sensorRange;

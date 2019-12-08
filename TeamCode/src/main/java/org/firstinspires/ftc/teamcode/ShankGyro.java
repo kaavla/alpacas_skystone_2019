@@ -23,7 +23,7 @@ import java.io.File;
 import java.util.Locale;
 
 @TeleOp(name = "Sensor: Shank Gyro", group = "Sensor")
-//@Disabled                            // Comment this out to add to the opmode list
+@Disabled                            // Comment this out to add to the opmode list
 public class ShankGyro extends LinearOpMode
 {
     //----------------------------------------------------------------------------------------------

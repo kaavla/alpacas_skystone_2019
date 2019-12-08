@@ -16,9 +16,18 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
-//still changing
 //@Disabled
 public class JARVISAutonomousBase extends LinearOpMode {
+
+    enum Direction
+    {
+        FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, ROBOT_UP, ROBOT_DOWN, SPINNER_FORWARD;
+    }
+
+    enum SensorsToUse
+    {
+        NONE, USE_COLOR, USE_DISTANCE, USE_TOUCH;
+    }
 
     public JARVISHW robot = new JARVISHW();
     public ElapsedTime runtime = new ElapsedTime();
@@ -29,27 +38,21 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     public Direction direction;
 
-    enum Direction {
-        FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, ROBOT_UP, ROBOT_DOWN, SPINNER_FORWARD;
-    }
-
-
-    static final double COUNTS_PER_MOTOR_REV = 145.6;    // eg: goBilda 5202 Motor Encoder
-    static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
+    static final double COUNTS_PER_MOTOR_REV  = 145.6;    // eg: goBilda 5202 Motor Encoder
+    static final double DRIVE_GEAR_REDUCTION  = 2.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
-    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double COUNTS_PER_INCH       = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
 
     static final double DRIVE_SPEED = 0.3;
-    static final double TURN_SPEED = 0.7;
-    //maybe change to 0.6
+    static final double TURN_SPEED  = 0.7;
 
-    private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
-    private static final String LABEL_FIRST_ELEMENT = "Stone";
+    private static final String TFOD_MODEL_ASSET     = "Skystone.tflite";
+    private static final String LABEL_FIRST_ELEMENT  = "Stone";
     private static final String LABEL_SECOND_ELEMENT = "Skystone";
     final String VUFORIA_KEY = "ATVrdOT/////AAABmegFa9L6UUB2ljwRjEStPmU7NS6gi/+GLAe6uAv7o+cB7+pj9EORNLk32cxovTaRj+rUeNw75EMjs5jM0K2OlNn8iO861FyZ5bqnHeBQRr/tR4NIZkQq4ak2zpPLQyyGFzhEkHjnhenYh0dyvxluXF79u8VwJ+g77slCyrCjvgMp6VfEAPLpVJmjzq4hRJMtjYpoRp/agnYFU8HVnmQeGRbjKi1PHLbhP98IkGMowt6Hlobdd2l0vt7msVhwNombHz0XcwJEjwnRKoOkeg7s+kIWvd5paYiO/bnClo9DahFboEFWw1/9wutXgI6/7AGcvwZzkk1HwRh3qZRAWNUSq1hrcjdq9f2QXAYyiqd3wLpT";
 
 
-    public TFObjectDetector tfod = null;
+    public TFObjectDetector tfod    = null;
     public VuforiaLocalizer vuforia = null;
 
     @Override
@@ -57,10 +60,37 @@ public class JARVISAutonomousBase extends LinearOpMode {
         //Empty Function
     }
 
+    private void initVuforia() {
+        RobotLog.ii("CAL", "Enter -  initVuforia");
+
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+        parameters.vuforiaLicenseKey           = VUFORIA_KEY;
+        parameters.cameraDirection             = VuforiaLocalizer.CameraDirection.BACK;
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        RobotLog.ii("CAL", "Exit -  initVuforia");
+        telemetry.addData("Path1", "Init Vuforia Done");
+        telemetry.update();
+    }
+
+    private void initTfod() {
+        RobotLog.ii("CAL", "Enter -  initTfod");
+        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfodParameters.minimumConfidence = 0.8;
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
+
+        RobotLog.ii("CAL", "Exit -  initTfod");
+        telemetry.addData("Path1", "initTfod Done");
+        telemetry.update();
+    }
+
     public void initHW() {
         RobotLog.ii("CAL", "Enter -  initHW");
         robot.init(hardwareMap);
-        initMotorEncoders();
+        robot.initMotorEncoders();
         initVuforia();
 
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
@@ -72,54 +102,11 @@ public class JARVISAutonomousBase extends LinearOpMode {
         if (tfod != null) {
             tfod.activate();
         }
+
         telemetry.addData("Path1", "Init HW Done");
         telemetry.update();
 
         RobotLog.ii("CAL", "Exit -  initHW");
-    }
-
-    private void initVuforia() {
-        RobotLog.ii("CAL", "Enter -  initVuforia");
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
-        parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-        vuforia = ClassFactory.getInstance().createVuforia(parameters);
-        RobotLog.ii("CAL", "Exit -  initVuforia");
-        telemetry.addData("Path1", "Init Vuforia Done");
-        telemetry.update();
-
-
-    }
-
-    public void initMotorNoEncoders() {
-        RobotLog.ii("CAL", "Enter -  initMotorNoEncoders");
-        robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backleftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.backrightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        RobotLog.ii("CAL", "Exit -  initMotorNoEncoders");
-
-    }
-
-
-    public void initMotorEncoders() {
-        RobotLog.ii("CAL", "Enter -  initMotorEncoders");
-        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backleftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backrightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backrightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backleftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        RobotLog.ii("CAL", "Exit -  initMotorEncoders");
-
-        telemetry.addData("Path1", "Init MotorEncoders Done");
-        telemetry.update();
-
     }
 
     private void resetAngle() {
@@ -321,16 +308,6 @@ public class JARVISAutonomousBase extends LinearOpMode {
         sleep(50);   // optional pause after each move
     }
 
-    private void initTfod() {
-        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-        tfodParameters.minimumConfidence = 0.8;
-        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
-        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
-
-    }
-
     public void myTFOD(double timeoutS) {
         {
             // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
@@ -460,17 +437,5 @@ public class JARVISAutonomousBase extends LinearOpMode {
             }
         }
         return false;
-    }
-
-    public void moveFoundationServoDown () {
-        telemetry.addData("CAL", "THIS SHOULD WORK");
-        robot.FLServo.setPosition(0.35);
-        robot.FRServo.setPosition(0.35);
-    }
-
-    public void moveFoundationServoUp() {
-        telemetry.addData("CAL", "THIS SHOULD WORK");
-        robot.FLServo.setPosition(0);
-        robot.FRServo.setPosition(0);
     }
 }

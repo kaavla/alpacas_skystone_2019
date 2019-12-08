@@ -34,7 +34,7 @@ public class JARVISAutoBLD1 extends JARVISAutonomousBase {
         RobotLog.ii("CAL", "Enter - JARVISAutoBLD1");
 
         //initialized the motor encoders
-        initMotorEncoders();
+        robot.initMotorEncoders();
         //move the foundation attachment up to the start position
         //moveFoundationServoUp();
 
