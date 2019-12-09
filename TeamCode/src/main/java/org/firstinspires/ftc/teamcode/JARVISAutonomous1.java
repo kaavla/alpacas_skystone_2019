@@ -56,15 +56,17 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
         // Ensure that the op mode is still active
         if (opModeIsActive() && !isStopRequested()) {
 
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 20, 5.0, SensorsToUse.NONE);
             //MOve forward
-            if (myTFOD2(10) == false) {
+            if (myDetectSkystone(10) == false) {
                 //strafe right some distance
-                myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
-                if (myTFOD2(10) == false) {
-                    myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+                myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+                if (myDetectSkystone(10) == false) {
+                    myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
                     //strafe right
                 }
             }
+
 
 //after these too we assume that the skystone is the third and it will play out the code below
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 7, 5.0, SensorsToUse.NONE);
