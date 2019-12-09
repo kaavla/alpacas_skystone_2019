@@ -85,20 +85,19 @@ public class JARVISManual extends LinearOpMode {
                 robotJARVIS.claw1();
             } else if (gamepad2.b) {
                 robotJARVIS.claw3();
+            } else if (gamepad2.y) {
+                robotJARVIS.clawTurn1();
+            } else if (gamepad2.a) {
+                robotJARVIS.clawTurn2();
+            } else {
+                robotJARVIS.stopAllMotors();
             }
-            else if (gamepad2.y) {
-                    robotJARVIS.clawTurn1();
-                } else if (gamepad2.a) {
-                    robotJARVIS.clawTurn2();
-                } else {
-                    robotJARVIS.stopAllMotors();
-                }
-            }
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.update();
-
         }
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.update();
+
     }
+}
 
 
 

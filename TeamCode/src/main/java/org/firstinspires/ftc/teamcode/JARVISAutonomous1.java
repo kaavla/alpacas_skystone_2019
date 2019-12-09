@@ -69,17 +69,31 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
              */
 
 //after these too we assume that the skystone is the third and it will play out the code below
-            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 27, 10,SensorsToUse.NONE);
+            robot.claw1();
+            sleep(1000);
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 30, 10,SensorsToUse.NONE);
+            mySlideAuto(-0.3, 1);
+            sleep(1000);
+            robot.clawTurn1();
+            sleep(1000);
+            mySlidesAuto(0.3, 4.0);
+            sleep(1000);
+            robot.claw3();
+            sleep(1000);
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
             myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 52, 15.0, SensorsToUse.NONE);
-
+            robot.claw1();
+            sleep(1000);
             myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 75, 15.0, SensorsToUse.NONE);
-            //84
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 5, 5.0, SensorsToUse.NONE);
-
+            mySlidesAuto(-0.3, 5.0);
+            sleep(1000);
+            robot.claw3();
+            sleep(1000);
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
             myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 72, 10.0, SensorsToUse.NONE);
-            //70
+            robot.claw1();
+            sleep(1000);
             myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 19, 10.0, SensorsToUse.NONE);
 
         }

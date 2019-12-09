@@ -38,7 +38,7 @@ public class JARVISHW
     // public ColorSensor sensorColor = null;
 
     Orientation lastAngles = new Orientation();  //?
-    double globalAngle, power = .30, correction;  //?
+    double globalAngle, power = .40, correction;  //?
 
     //sets the power used in each of the actions
 
