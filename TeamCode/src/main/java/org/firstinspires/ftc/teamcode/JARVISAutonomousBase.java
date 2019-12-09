@@ -524,4 +524,19 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     }
 
+    public void mySlidesAuto (double speed, double timeoutS) {
+        while (opModeIsActive() && !isStopRequested() &&
+                (runtime.seconds() < timeoutS))
+        {
+            robot.slide_1.setPower(speed);
+            robot.slide_2.setPower(-1*speed);
+        }
+    }
+    public void mySlideAuto (double speed, double timeoutS) {
+        while (opModeIsActive() && !isStopRequested() &&
+                (runtime.seconds() < timeoutS))
+        {
+            robot.slide_3.setPower(speed);
+        }
+    }
 }

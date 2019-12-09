@@ -39,7 +39,7 @@ public class JARVISHW
     public ColorSensor sensorColor = null;
 
     Orientation lastAngles = new Orientation();  //?
-    double globalAngle, power = .30, correction;  //?
+    double globalAngle, power = .40, correction;  //?
 
     //sets the power used in each of the actions
 
@@ -83,8 +83,8 @@ public class JARVISHW
         imu.initialize(parameters);
 
         //Invert direction for left motors
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backleftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backrightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         FLServo.setDirection(Servo.Direction.REVERSE);
 
 
@@ -120,7 +120,6 @@ public class JARVISHW
         slide_2.setPower(0);
         slide_3.setPower(0);
 
-        //turnServo.setPower(0);
     }
 
     public void initMotorNoEncoders() {
@@ -239,11 +238,13 @@ public class JARVISHW
     public void moveFoundationServoDown () {
         FLServo.setPosition(0.3);
         FRServo.setPosition(0.3);
+
     }
     public void moveFoundationServoUp() {
         FLServo.setPosition(0.8);
         FRServo.setPosition(0.8);
     }
+
 
 
 }
