@@ -496,4 +496,32 @@ public class JARVISAutonomousBase extends LinearOpMode {
         }
         return false;
     }
+
+    public boolean myDetectSkystone(double timeoutS) {
+        RobotLog.ii("CAL", "myDetectSkystone - Enter");
+        float hsvValues[] = {0F, 0F, 0F};
+
+        // values is a reference to the hsvValues array.
+        final float values[] = hsvValues;
+
+        // sometimes it helps to multiply the raw RGB values with a scale factor
+        // to amplify/attentuate the measured values.
+        final double SCALE_FACTOR = 255;
+
+        Color.RGBToHSV((int) (robot.sensorColor.red() * SCALE_FACTOR),
+                (int) (robot.sensorColor.green() * SCALE_FACTOR),
+                (int) (robot.sensorColor.blue() * SCALE_FACTOR),
+                hsvValues);
+
+        // send the info back to driver station using telemetry function.
+        telemetry.addData("Hue", hsvValues[0]);
+        telemetry.update();
+
+        if (hsvValues[0] > 100 && hsvValues[0] < 150) {
+            return true;
+        }
+        return false;
+
+    }
+
 }
