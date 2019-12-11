@@ -29,7 +29,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     enum Direction
     {
-        FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, ROBOT_UP, ROBOT_DOWN, SPINNER_FORWARD;
+        FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, SLIDE_UP, SLIDE_DOWN;
     }
 
     enum SensorsToUse
@@ -46,10 +46,11 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     public Direction direction;
 
-    static final double COUNTS_PER_MOTOR_REV  = 145.6;    // eg: goBilda 5202 Motor Encoder
+    static final double COUNTS_PER_MOTOR_REV  = 145.6;    // eg: goBilda 5202 Motor Encoder 5.2*28
     static final double DRIVE_GEAR_REDUCTION  = 2.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH       = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double PULLEY_COUNTS_PER_INCH       = (50.9 * 28 ) / (1 * 3.1415); //gobilda 5202 117 rpm motors
 
     static final double DRIVE_SPEED = 0.3;
     static final double TURN_SPEED  = 0.7;
@@ -365,6 +366,72 @@ public class JARVISAutonomousBase extends LinearOpMode {
         robot.backrightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         sleep(50);   // optional pause after each move
+    }
+
+    public void myEncoderSlide(Direction direction, double speed, double Inches, double timeoutS, SensorsToUse sensors_2_use) {
+        int newLeftTarget = 0;
+        int newRightTarget = 0;
+        RobotLog.ii("CAL", "Enter - myEncoderSlide -  speed=%f, Inches=%f, timeout=%f",
+                speed, Inches, timeoutS);
+
+        //Reset the encoder
+        robot.slide_1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.slide_2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // Ensure that the op mode is still active
+        if (opModeIsActive() && !isStopRequested()) {
+
+            // Determine new target position, and pass to motor controller
+            if (direction == Direction.SLIDE_UP) {
+                //Go forward
+                newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
+                newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
+
+            } else if (direction == Direction.SLIDE_DOWN) {
+                //Go backward
+                newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (-1 * Inches * PULLEY_COUNTS_PER_INCH);
+                newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (-1 * Inches * PULLEY_COUNTS_PER_INCH);
+            } else {
+                Inches = 0;
+                newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
+                newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
+            }
+
+
+            robot.slide_1.setTargetPosition(newLeftTarget);
+            robot.slide_2.setTargetPosition(newRightTarget);
+
+            // Turn On RUN_TO_POSITION
+            robot.slide_1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.slide_2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+
+            robot.slide_1.setPower(Math.abs(speed));
+            robot.slide_2.setPower(Math.abs(speed));
+
+            while (opModeIsActive() && !isStopRequested() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.slide_1.isBusy())) {
+
+
+                // Display it for the driver.
+                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d",
+                        robot.slide_1.getCurrentPosition(),
+                        robot.slide_2.getCurrentPosition());
+                telemetry.update();
+            }
+        }
+
+        // Stop all motion;
+        robot.slide_1.setPower(0);
+        robot.slide_2.setPower(0);
+
+        // Turn off RUN_TO_POSITION
+        robot.slide_1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.slide_2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void myTFOD(double timeoutS) {
