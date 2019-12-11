@@ -83,8 +83,8 @@ public class JARVISHW
         imu.initialize(parameters);
 
         //Invert direction for left motors
-        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backrightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backleftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         FLServo.setDirection(Servo.Direction.REVERSE);
 
 

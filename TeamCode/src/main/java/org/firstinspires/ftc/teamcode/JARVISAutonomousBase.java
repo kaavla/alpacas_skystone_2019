@@ -99,6 +99,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
         RobotLog.ii("CAL", "Enter -  initHW");
         robot.init(hardwareMap);
         robot.initMotorEncoders();
+        /*
         initVuforia();
 
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
@@ -110,7 +111,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
         if (tfod != null) {
             tfod.activate();
         }
-
+        */
         telemetry.addData("Path1", "Init HW Done");
         telemetry.update();
 
@@ -528,15 +529,15 @@ public class JARVISAutonomousBase extends LinearOpMode {
         while (opModeIsActive() && !isStopRequested() &&
                 (runtime.seconds() < timeoutS))
         {
-            robot.slide_1.setPower(speed);
-            robot.slide_2.setPower(-1*speed);
+            robot.slide_1.setPower(1*speed);
+            robot.slide_2.setPower(1*speed);
         }
     }
     public void mySlideAuto (double speed, double timeoutS) {
         while (opModeIsActive() && !isStopRequested() &&
                 (runtime.seconds() < timeoutS))
         {
-            robot.slide_3.setPower(speed);
+            robot.slide_3.setPower(1*speed);
         }
     }
 }
