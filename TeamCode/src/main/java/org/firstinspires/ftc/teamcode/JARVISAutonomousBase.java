@@ -29,7 +29,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     enum Direction
     {
-        FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, SLIDE_UP, SLIDE_DOWN;
+        FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, SLIDE_UP, SLIDE_DOWN, SLIDE_IN, SLIDE_OUT;
     }
 
     enum SensorsToUse
@@ -51,6 +51,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH       = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double PULLEY_COUNTS_PER_INCH       = (50.9 * 28 ) / (1 * 3.1415); //gobilda 5202 117 rpm motors
+    static final double INOUT_COUNTS_PER_INCH       = (26.9 * 28 ) / (1 * 3.1415); //gobilda 5202 117 rpm motors
 
     static final double DRIVE_SPEED = 0.3;
     static final double TURN_SPEED  = 0.7;
@@ -435,19 +436,19 @@ public class JARVISAutonomousBase extends LinearOpMode {
         if (opModeIsActive() && !isStopRequested()) {
 
             // Determine new target position, and pass to motor controller
-            if (direction == Direction.SLIDE_UP) {
+            if (direction == Direction.SLIDE_DOWN) {
                 //Go forward
-                newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
-                newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
+                newLeftTarget = robot.slide_1.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
+                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (-1*Inches * PULLEY_COUNTS_PER_INCH);
 
-            } else if (direction == Direction.SLIDE_DOWN) {
+            } else if (direction == Direction.SLIDE_UP) {
                 //Go backward
-                newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (-1 * Inches * PULLEY_COUNTS_PER_INCH);
-                newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (-1 * Inches * PULLEY_COUNTS_PER_INCH);
+                newLeftTarget = robot.slide_1.getCurrentPosition() + (int) (-1 * Inches * PULLEY_COUNTS_PER_INCH);
+                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (1* Inches * PULLEY_COUNTS_PER_INCH);
             } else {
                 Inches = 0;
-                newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
-                newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
+                newLeftTarget = robot.slide_1.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
+                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
             }
 
 
@@ -487,10 +488,67 @@ public class JARVISAutonomousBase extends LinearOpMode {
         robot.slide_2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    public void myEncoderInOutSlide(Direction direction, double speed, double Inches, double timeoutS, SensorsToUse sensors_2_use) {
+        int newLeftTarget = 0;
+        RobotLog.ii("CAL", "Enter - myEncoderInOutSlide -  speed=%f, Inches=%f, timeout=%f",
+                speed, Inches, timeoutS);
+
+        //Reset the encoder
+        robot.slide_3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // Ensure that the op mode is still active
+        if (opModeIsActive() && !isStopRequested()) {
+
+            // Determine new target position, and pass to motor controller
+            if (direction == Direction.SLIDE_IN) {
+                //Go forward
+                newLeftTarget = robot.slide_3.getCurrentPosition() + (int) (Inches * INOUT_COUNTS_PER_INCH);
+
+            } else if (direction == Direction.SLIDE_OUT) {
+                //Go backward
+                newLeftTarget = robot.slide_3.getCurrentPosition() + (int) (-1 * Inches * INOUT_COUNTS_PER_INCH);
+            } else {
+                Inches = 0;
+                newLeftTarget = robot.slide_3.getCurrentPosition() + (int) (Inches * INOUT_COUNTS_PER_INCH);
+            }
+
+
+            robot.slide_3.setTargetPosition(newLeftTarget);
+
+            // Turn On RUN_TO_POSITION
+            robot.slide_3.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+
+            robot.slide_3.setPower(Math.abs(speed));
+
+            while (opModeIsActive() && !isStopRequested() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.slide_3.isBusy())) {
+
+
+                // Display it for the driver.
+                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newLeftTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d",
+                        robot.slide_3.getCurrentPosition(),
+                        robot.slide_3.getCurrentPosition());
+                telemetry.update();
+            }
+        }
+
+        // Stop all motion;
+        robot.slide_3.setPower(0);
+
+        // Turn off RUN_TO_POSITION
+        robot.slide_3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
     public void myTFOD(double timeoutS) {
         {
             // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
-            // first.
+            // first.eiihcckgbrrrclggufrhectgugjvlcvndchkjhjilldl
+
             boolean strafeDone = false;
             RobotLog.ii("CAL", "myTFOD - Enter");
 

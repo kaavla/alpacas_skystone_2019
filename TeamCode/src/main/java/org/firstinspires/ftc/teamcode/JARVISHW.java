@@ -82,6 +82,7 @@ public class JARVISHW
         //Invert direction for left motors
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backleftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        slide_2.setDirection(DcMotorSimple.Direction.REVERSE);
         FLServo.setDirection(Servo.Direction.REVERSE);
 
 
