@@ -37,14 +37,12 @@ public class JARVISHW
     // public DistanceSensor sensorDistance = null;
     // public ColorSensor sensorColor = null;
 
+    public BNO055IMU imu = null;
+
     Orientation lastAngles = new Orientation();  //?
     double globalAngle, power = .30, correction;  //?
 
     //sets the power used in each of the actions
-
-    public BNO055IMU imu = null;
-
-
 
     /* Initialize standard Hardware interfaces */
     public void init(HardwareMap ahwMap) {
@@ -63,9 +61,8 @@ public class JARVISHW
         clawServo = ahwMap.get(Servo.class, "cServo");
 
 
-        FLServo  = ahwMap.get(Servo.class, "FLServo");
-        FRServo  = ahwMap.get(Servo.class, "FRServo");
-        FRServo  = ahwMap.get(Servo.class, "FRServo");
+        FLServo = ahwMap.get(Servo.class, "FLServo");
+        FRServo = ahwMap.get(Servo.class, "FRServo");
 
         // sensorColor = ahwMap.get(ColorSensor.class, "sensorColor");
         // sensorDistance = ahwMap.get(DistanceSensor.class, "sensorDistance");
@@ -110,7 +107,6 @@ public class JARVISHW
     //resets the power to zero before starting the action
     public void stopAllMotors() {
         RobotLog.ii("CAL", "Stopping All motors");
-        moveFoundationServoUp();
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         backleftMotor.setPower(0);
@@ -125,6 +121,7 @@ public class JARVISHW
     public void initMotorNoEncoders() {
         RobotLog.ii("CAL", "Enter -  initMotorNoEncoders");
 
+        // Sets the mode of the motors to run without encoders
         leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backleftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -136,6 +133,8 @@ public class JARVISHW
 
     public void initMotorEncoders() {
         RobotLog.ii("CAL", "Enter -  initMotorEncoders");
+
+        // Sets the mode of the motors to run WITH encoders
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backleftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -153,7 +152,7 @@ public class JARVISHW
 
     public void moveHolonomic(double x, double y , double z)
     {
-        double max_power = 0.7;
+        double max_power = 0.6;
         double min_power = -1*max_power;
 
         double fl_power = Range.clip(y + x - z, min_power, max_power);
@@ -163,6 +162,7 @@ public class JARVISHW
         RobotLog.ii("CAL", "moveHolonomic - Enter x(%f), y(%f), z(%f)", x, y, z);
         RobotLog.ii("CAL", "moveHolonomic - Enter fl(%f), fr(%f), bl(%f), br(%f)", fl_power,fr_power, bl_power, br_power );
 
+        // Sets the power of the motors to the power defined above
         leftMotor.setPower(fl_power);
         rightMotor.setPower(fr_power);
         backleftMotor.setPower(bl_power);
@@ -187,6 +187,7 @@ public class JARVISHW
         backrightMotor.setPower(Range.clip(backrightMotor.getPower() - 0.01, -0.3, -1.0));
     }
 
+    // All of the functions that move the motors and servos are below
     public void slidesUp(double power)
     {
         slide_1.setPower(power);
@@ -197,7 +198,6 @@ public class JARVISHW
     {
         slidesUp(-1*power);
     }
-
 
     public void slideOut(double power)
     {
@@ -236,12 +236,13 @@ public class JARVISHW
     }
 
     public void moveFoundationServoDown () {
-        FLServo.setPosition(0.3);
-        FRServo.setPosition(0.3);
-    }
-    public void moveFoundationServoUp() {
         FLServo.setPosition(0.8);
         FRServo.setPosition(0.8);
+    }
+
+    public void moveFoundationServoUp() {
+        FLServo.setPosition(0);
+        FRServo.setPosition(0);
     }
 
 

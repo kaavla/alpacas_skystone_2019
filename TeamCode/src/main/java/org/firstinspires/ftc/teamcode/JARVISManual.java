@@ -52,6 +52,8 @@ public class JARVISManual extends LinearOpMode {
                 rightZ = gamepad1.right_stick_x * -1;
                 robotJARVIS.moveHolonomic(leftX, leftY, rightZ);
             }
+            // All the if statements get the value of the buttons and run the motors based on if
+            // they are pressed or not.
             else if (gamepad1.dpad_up) {
                 //forward
                 robotJARVIS.moveHolonomic(0, motor_power * 1, 0);
@@ -86,24 +88,31 @@ public class JARVISManual extends LinearOpMode {
                 robotJARVIS.slidesDown(0.3);
             }
             else if(gamepad2.dpad_left) {
+                // Moves the top slides in
                 robotJARVIS.slideIn(0.3);
             }
             else if(gamepad2.dpad_right){
+                // Moves the top slides out
                 robotJARVIS.slideOut(0.3);
             }
             else if (gamepad2.x){
+                // Sets the claw to closed
                 robotJARVIS.claw1();
             }
             else if (gamepad2.y){
+                // Sets the claw to half open
                 robotJARVIS.claw2();
             }
             else if (gamepad2.b){
+                // Sets the claw to fully open
                 robotJARVIS.claw3();
             }
             else if(gamepad2.left_bumper) {
+                // Sets the foundation servos to the down position
                 robotJARVIS.moveFoundationServoDown();
             }
             else if(gamepad2.right_bumper) {
+                // Sets the foundation servos to the up position
                 robotJARVIS.moveFoundationServoUp();
             }
             else {
