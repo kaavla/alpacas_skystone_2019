@@ -36,11 +36,12 @@ public class JARVISHW
 
     // public DistanceSensor sensorDistance = null;
     // public ColorSensor sensorColor = null;
+    public ColorSensor sensorColor = null;
 
     public BNO055IMU imu = null;
 
     Orientation lastAngles = new Orientation();  //?
-    double globalAngle, power = .30, correction;  //?
+    double globalAngle, power = .40, correction;  //?
 
     //sets the power used in each of the actions
 
@@ -64,8 +65,8 @@ public class JARVISHW
         FLServo = ahwMap.get(Servo.class, "FLServo");
         FRServo = ahwMap.get(Servo.class, "FRServo");
 
-        // sensorColor = ahwMap.get(ColorSensor.class, "sensorColor");
-        // sensorDistance = ahwMap.get(DistanceSensor.class, "sensorDistance");
+        sensorColor = ahwMap.get(ColorSensor.class, "sensor_color_distance");
+        //sensorDistance = ahwMap.get(DistanceSensor.class, "sensorDistance");
 
         imu = ahwMap.get(BNO055IMU.class, "imu 1");
 
@@ -115,7 +116,6 @@ public class JARVISHW
         slide_2.setPower(0);
         slide_3.setPower(0);
 
-        //turnServo.setPower(0);
     }
 
     public void initMotorNoEncoders() {
@@ -244,6 +244,7 @@ public class JARVISHW
         FLServo.setPosition(0);
         FRServo.setPosition(0);
     }
+
 
 
 }

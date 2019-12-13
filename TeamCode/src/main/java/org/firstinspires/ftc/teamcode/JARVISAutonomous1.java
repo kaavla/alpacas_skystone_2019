@@ -56,31 +56,60 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
         // Ensure that the op mode is still active
         if (opModeIsActive() && !isStopRequested()) {
 
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 24, 5.0, SensorsToUse.NONE);
             //MOve forward
-            if (myTFOD2(10) == false) {
+
+            if (myDetectSkystone(10) == false) {
                 //strafe right some distance
-                myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
-                if (myTFOD2(10) == false) {
-                    myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+                myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+                if (myDetectSkystone(10) == false) {
+                    myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
                     //strafe right
                 }
             }
 
+
+            //after these too we assume that the skystone is the third and it will play out the code below
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,7, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 2, 5.0, SensorsToUse.NONE);
+            //myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 72, 15.0, SensorsToUse.NONE);
+
+            //myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 96, 15.0, SensorsToUse.NONE);
+            //myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+
 //after these too we assume that the skystone is the third and it will play out the code below
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 7, 5.0, SensorsToUse.NONE);
-
-            /*myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
-            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 72, 15.0, SensorsToUse.NONE);
-
-            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 96, 15.0, SensorsToUse.NONE);
+            //robot.claw1();
+            //sleep(1000);
+            //myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 30, 10,SensorsToUse.NONE);
+            mySlideAuto(0.3, 0.6);
+            sleep(1000);
+            //robot.clawTurn1();
+            //sleep(1000);
+            //mySlidesAuto(0.3, 4.0);
+            //sleep(1000);
+            //robot.claw3();
+            //sleep(1000);
+            //mySlidesAuto(-0.3, 1.0);
+            //sleep(1000);
+            mySlideAuto(-0.3, 0.6);
+            sleep(1000);
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 52, 15.0, SensorsToUse.NONE);
+            //robot.claw1();
+            //sleep(1000);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 75, 15.0, SensorsToUse.NONE);
+            mySlidesAuto(0.3, 5.0);
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 5, 5.0, SensorsToUse.NONE);
+            mySlidesAuto(-0.3, 5.0);
+            sleep(1000);
+            robot.claw3();
+            sleep(1000);
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 72, 10.0, SensorsToUse.NONE);
+            robot.claw1();
+            sleep(1000);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 19, 10.0, SensorsToUse.NONE);
 
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
-            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 96, 10.0, SensorsToUse.NONE);
-
-            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 48, 10.0, SensorsToUse.NONE);
-
-            */
         }
         RobotLog.ii("CAL", "Exit - myDetectionRun");
     }
