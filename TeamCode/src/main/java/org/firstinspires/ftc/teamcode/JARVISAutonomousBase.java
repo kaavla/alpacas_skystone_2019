@@ -51,7 +51,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH       = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double PULLEY_COUNTS_PER_INCH       = (50.9 * 28 ) / (1 * 3.1415); //gobilda 5202 117 rpm motors
-    static final double INOUT_COUNTS_PER_INCH       = (26.9 * 28 ) / (1 * 3.1415); //gobilda 5202 117 rpm motors
+    static final double INOUT_COUNTS_PER_INCH       = (19.2 * 28 ) / (2 * 3.1415); //gobilda 5202 117 rpm motors
 
     static final double DRIVE_SPEED = 0.3;
     static final double TURN_SPEED  = 0.7;
@@ -529,7 +529,12 @@ public class JARVISAutonomousBase extends LinearOpMode {
             runtime.reset();
 
             robot.slide_1.setPower(Math.abs(speed));
-            robot.slide_2.setPower(Math.abs(speed));
+            if (direction == Direction.SLIDE_DOWN){
+                robot.slide_2.setPower((-1*speed));
+            }else {
+                robot.slide_2.setPower((1*speed));
+
+            }
 
             while (opModeIsActive() && !isStopRequested() &&
                     (runtime.seconds() < timeoutS) &&

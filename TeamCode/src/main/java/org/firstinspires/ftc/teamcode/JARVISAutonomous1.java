@@ -48,16 +48,17 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
         if (opModeIsActive() && !isStopRequested()) {
 
             //Move Slide Up and open Claw
-            myEncoderSlide1(Direction.SLIDE_UP, DRIVE_SPEED, 6, 7, SensorsToUse.NONE);
+            myEncoderSlide1(Direction.SLIDE_UP, DRIVE_SPEED, 6, 2, SensorsToUse.NONE);
             robot.rotateClawInline();
             robot.openClaw();
 
             //MOve towards the skystones
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 25, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 24, 5.0, SensorsToUse.NONE);
 
             if (myDetectSkystone(10) == false) {
                 //detected stone. Strafe left to test the next one.
                 myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+
                 strafe_back = strafe_back + 6;
                 if (myDetectSkystone(10) == false) {
                     //detected stone. Strafe left to test the next one.
@@ -67,33 +68,34 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             }
 
             //Strafe the opposite direction so claw is in middle
-            //myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,7, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 1, 5.0, SensorsToUse.NONE);
 
             //Get slide Out so claw is on top of skystone
-            myEncoderInOutSlide(Direction.SLIDE_OUT, DRIVE_SPEED, 6, 5, SensorsToUse.NONE);
+            myEncoderInOutSlide(Direction.SLIDE_OUT, DRIVE_SPEED, 8, 5, SensorsToUse.NONE);
             //Get the slide down to collect the skystone by closing the claw
-            myEncoderSlide1(Direction.SLIDE_DOWN, DRIVE_SPEED, 4, 5, SensorsToUse.NONE);
+            myEncoderSlide1(Direction.SLIDE_DOWN, DRIVE_SPEED, 1, 2, SensorsToUse.NONE);
             robot.closeClaw();
 
             //Move the slide up and linear slide in
-            myEncoderSlide(Direction.SLIDE_UP, DRIVE_SPEED, 2, 5, SensorsToUse.NONE);
-            myEncoderInOutSlide(Direction.SLIDE_IN, DRIVE_SPEED, 4, 5, SensorsToUse.NONE);
+            myEncoderSlide(Direction.SLIDE_UP, DRIVE_SPEED, 4, 1, SensorsToUse.NONE);
+            //myEncoderInOutSlide(Direction.SLIDE_IN, DRIVE_SPEED, 4, 5, SensorsToUse.NONE);
 
 
             //after these too we assume that the skystone is the third and it will play out the code below
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 2, 5.0, SensorsToUse.NONE);
-            //myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 72, 15.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 4, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 72, 15.0, SensorsToUse.NONE);
+            robot.openClaw();
 
-            //myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 96, 15.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 96, 15.0, SensorsToUse.NONE);
             //myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
 
 //after these too we assume that the skystone is the third and it will play out the code below
             //robot.claw1();
             //sleep(1000);
             //myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 30, 10,SensorsToUse.NONE);
-            mySlideAuto(0.3, 0.6);
-            sleep(1000);
+            //mySlideAuto(0.3, 0.6);
+            //sleep(1000);
             //robot.clawTurn1();
             //sleep(1000);
             //mySlidesAuto(0.3, 4.0);
@@ -102,16 +104,18 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             //sleep(1000);
             //mySlidesAuto(-0.3, 1.0);
             //sleep(1000);
-            mySlideAuto(-0.3, 0.6);
-            sleep(1000);
+            //mySlideAuto(-0.3, 0.6);
+            //sleep(1000);
+
+            /*
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
             myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 52, 15.0, SensorsToUse.NONE);
             //robot.claw1();
             //sleep(1000);
             myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 75, 15.0, SensorsToUse.NONE);
-            mySlidesAuto(0.3, 5.0);
+            //mySlidesAuto(0.3, 5.0);
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 5, 5.0, SensorsToUse.NONE);
-            mySlidesAuto(-0.3, 5.0);
+            //mySlidesAuto(-0.3, 5.0);
             sleep(1000);
             robot.closeClaw();
             sleep(1000);
@@ -120,7 +124,7 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             robot.openClaw();
             sleep(1000);
             myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 19, 10.0, SensorsToUse.NONE);
-
+*/
         }
         RobotLog.ii("CAL", "Exit - myDetectionRun");
     }
