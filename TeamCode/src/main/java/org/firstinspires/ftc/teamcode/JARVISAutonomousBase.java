@@ -175,7 +175,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
         //logs that get added to a file to see what was wrong with the robot and the sequences of it
         RobotLog.ii("CAL", "Enter - rotate - degrees=%d, power=%f",
                 degrees, power);
-
+        robot.initMotorNoEncoders();
         // restart imu movement tracking.
         resetAngle();
 
