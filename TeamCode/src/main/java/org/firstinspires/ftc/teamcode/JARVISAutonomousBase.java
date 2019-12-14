@@ -181,11 +181,11 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
         if (degrees < 0)
         {   // turn right.
-            robot.moveHolonomic(0, 0, power*1);
+            robot.moveHolonomic(0, 0, power*-1);
         }
         else if (degrees > 0)
         {   // turn left.
-            robot.moveHolonomic(0, 0, power*-1);
+            robot.moveHolonomic(0, 0, power*1);
         }
         else return;
 
@@ -205,6 +205,59 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
         // turn the motors off.
         power = 0;
+        robot.leftMotor.setPower(power);
+        robot.rightMotor.setPower(power);
+        robot.backleftMotor.setPower(power);
+        robot.backrightMotor.setPower(power);
+
+        // wait for rotation to stop.
+        sleep(50);
+
+        // reset angle tracking on new heading.
+        resetAngle();
+        RobotLog.ii("CAL", "Exit - rotate");
+    }
+
+    public void rotateUsingOneSide(int degrees, double speed) {
+        //logs that get added to a file to see what was wrong with the robot and the sequences of it
+        RobotLog.ii("CAL", "Enter - rotate - degrees=%d, power=%f",
+                degrees, speed);
+
+        // restart imu movement tracking.
+        resetAngle();
+
+        if (degrees < 0)
+        {   // turn right.
+            robot.leftMotor.setPower(0);
+            robot.rightMotor.setPower(-1 * speed);
+            robot.backleftMotor.setPower(0);
+            robot.backrightMotor.setPower(-1 * speed);
+        }
+        else if (degrees > 0)
+        {   // turn left.
+            robot.leftMotor.setPower(-1 * speed);
+            robot.rightMotor.setPower(0);
+            robot.backleftMotor.setPower(-1 * speed);
+            robot.backrightMotor.setPower(0);
+        }
+        else return;
+
+
+
+        // rotate until turn is completed.
+        if (degrees < 0) {
+            // On right turn we have to get off zero first.
+            while (opModeIsActive() && !isStopRequested() && getAngle() == 0) {
+            }
+
+            while (opModeIsActive() && !isStopRequested() && getAngle() > degrees) {
+            }
+        } else    // left turn.
+            while (opModeIsActive() && !isStopRequested() && getAngle() < degrees) {
+            }
+
+        // turn the motors off.
+        int power = 0;
         robot.leftMotor.setPower(power);
         robot.rightMotor.setPower(power);
         robot.backleftMotor.setPower(power);
@@ -622,7 +675,26 @@ public class JARVISAutonomousBase extends LinearOpMode {
         }
         return false;
     }
-
+    public void moveFoundationServoDown () {
+        // Checks if the servos are = null or not because that is what causes the
+        // "null pointer exception". Once it is checked, the servos will run.
+        if (robot.FLServo != null) {
+            robot.FLServo.setPosition(0.8);
+        }
+        if (robot.FRServo != null) {
+            robot.FRServo.setPosition(0.8);
+        }
+    }
+    public void moveFoundationServoUp() {
+        // Checks if the servos are = null or not because that is what causes the
+        // "null pointer exception". Once it is checked, the servos will run.
+        if (robot.FLServo != null) {
+            robot.FLServo.setPosition(0);
+        }
+        if (robot.FRServo != null) {
+            robot.FRServo.setPosition(0);
+        }
+    }
     public boolean myDetectSkystone(double timeoutS) {
         RobotLog.ii("CAL", "myDetectSkystone - Enter");
         float hsvValues[] = {0F, 0F, 0F};
