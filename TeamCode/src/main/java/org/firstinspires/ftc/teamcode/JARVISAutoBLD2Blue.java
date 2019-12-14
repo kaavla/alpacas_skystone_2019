@@ -33,7 +33,7 @@ public class JARVISAutoBLD2Blue extends JARVISAutonomousBase {
 
     public void autoBLDFoundation()
     {
-        RobotLog.ii("CAL", "Enter - JARVISAutoBLD1Blue");
+        RobotLog.ii("CAL", "Enter - JARVISAutoBLD2Blue");
 
         //initialized the motor encoders
         robot.initMotorEncoders();
@@ -70,10 +70,8 @@ public class JARVISAutoBLD2Blue extends JARVISAutonomousBase {
             //turn around to face the stones with the claw
             rotate(180, 0.1);
 
-
-
         }
-        RobotLog.ii("CAL", "Exit - JARVISAutoBLD1Blue");
+        RobotLog.ii("CAL", "Exit - JARVISAutoBLD2Blue");
     }
 
 }
