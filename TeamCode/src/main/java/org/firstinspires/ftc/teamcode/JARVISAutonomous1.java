@@ -3,7 +3,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
 
 import java.util.List;
-@Autonomous(name="Jarvis Auto Test 3", group="JARVIS")
+@Autonomous(name="Jarvis Auto Blue", group="JARVIS")
 
 public class JARVISAutonomous1 extends JARVISAutonomousBase {
 
@@ -46,7 +46,8 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
 
         // Ensure that the op mode is still active
         if (opModeIsActive() && !isStopRequested()) {
-//Move Slide Up and open Claw
+
+            //Move Slide Up and open Claw
             myEncoderSlide1(Direction.SLIDE_UP, DRIVE_SPEED, 6, 2, SensorsToUse.NONE);
             robot.rotateClawInline();
             robot.openClaw();
@@ -85,16 +86,16 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
 
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
             rotate(90, 0.2);
+            sleep(500);
+            myEncoderDrive(Direction.STRAFE_LEFT, 0.3, 10, 5.0, SensorsToUse.NONE);
             robot.openClaw();
-
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 4, 5, SensorsToUse.NONE);
+            robot.closeClaw();
             myEncoderInOutSlide(Direction.SLIDE_IN, DRIVE_SPEED, 8, 5, SensorsToUse.NONE);
             //Get the slide down to collect the skystone by closing the claw
-            robot.closeClaw();
             myEncoderSlide1(Direction.SLIDE_DOWN, DRIVE_SPEED, 2, 2.5, SensorsToUse.NONE);
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 36 + strafe_back, 15.0, SensorsToUse.NONE);
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 12, 5.0, SensorsToUse.NONE);
-            myEncoderDrive(Direction.STRAFE_LEFT, 2.0, 8, 5.0, SensorsToUse.NONE);
             //move back to same position
             /*
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
