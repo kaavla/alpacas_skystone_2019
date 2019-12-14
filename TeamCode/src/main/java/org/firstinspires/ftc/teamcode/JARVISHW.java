@@ -148,6 +148,10 @@ public class JARVISHW
         backrightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backleftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        slide_1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slide_1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slide_2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         RobotLog.ii("CAL", "Exit -  initMotorEncoders");
     }
 

@@ -48,11 +48,12 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
         if (opModeIsActive() && !isStopRequested()) {
 
             //Move Slide Up and open Claw
-            myEncoderSlide(Direction.SLIDE_UP, DRIVE_SPEED, 8, 7, SensorsToUse.NONE);
+            myEncoderSlide1(Direction.SLIDE_UP, DRIVE_SPEED, 6, 7, SensorsToUse.NONE);
+            robot.rotateClawInline();
             robot.openClaw();
 
             //MOve towards the skystones
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 24, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 25, 5.0, SensorsToUse.NONE);
 
             if (myDetectSkystone(10) == false) {
                 //detected stone. Strafe left to test the next one.
@@ -62,18 +63,17 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
                     //detected stone. Strafe left to test the next one.
                     myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
                     strafe_back = strafe_back + 6;
-                }eiihcckgbrrrjkteghtilccgbcifubudbiihbtbrlvvj
-                        
+                }
             }
 
             //Strafe the opposite direction so claw is in middle
-            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,7, 5.0, SensorsToUse.NONE);
+            //myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,7, 5.0, SensorsToUse.NONE);
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 1, 5.0, SensorsToUse.NONE);
 
             //Get slide Out so claw is on top of skystone
             myEncoderInOutSlide(Direction.SLIDE_OUT, DRIVE_SPEED, 6, 5, SensorsToUse.NONE);
             //Get the slide down to collect the skystone by closing the claw
-            myEncoderSlide(Direction.SLIDE_DOWN, DRIVE_SPEED, 4, 5, SensorsToUse.NONE);
+            myEncoderSlide1(Direction.SLIDE_DOWN, DRIVE_SPEED, 4, 5, SensorsToUse.NONE);
             robot.closeClaw();
 
             //Move the slide up and linear slide in
