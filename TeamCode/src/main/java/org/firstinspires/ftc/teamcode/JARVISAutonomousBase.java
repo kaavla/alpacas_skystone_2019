@@ -436,15 +436,15 @@ public class JARVISAutonomousBase extends LinearOpMode {
         if (opModeIsActive() && !isStopRequested()) {
 
             // Determine new target position, and pass to motor controller
-            if (direction == Direction.SLIDE_DOWN) {
+            if (direction == Direction.SLIDE_UP) {
                 //Go forward
                 newLeftTarget = robot.slide_1.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
-                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (-1*Inches * PULLEY_COUNTS_PER_INCH);
+                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (1*Inches * PULLEY_COUNTS_PER_INCH);
 
-            } else if (direction == Direction.SLIDE_UP) {
+            } else if (direction == Direction.SLIDE_DOWN) {
                 //Go backward
                 newLeftTarget = robot.slide_1.getCurrentPosition() + (int) (-1 * Inches * PULLEY_COUNTS_PER_INCH);
-                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (1* Inches * PULLEY_COUNTS_PER_INCH);
+                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (-1* Inches * PULLEY_COUNTS_PER_INCH);
             } else {
                 Inches = 0;
                 newLeftTarget = robot.slide_1.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
@@ -679,20 +679,20 @@ public class JARVISAutonomousBase extends LinearOpMode {
         // Checks if the servos are = null or not because that is what causes the
         // "null pointer exception". Once it is checked, the servos will run.
         if (robot.FLServo != null) {
-            robot.FLServo.setPosition(0.8);
+            robot.FLServo.setPosition(0);
         }
         if (robot.FRServo != null) {
-            robot.FRServo.setPosition(0.8);
+            robot.FRServo.setPosition(0);
         }
     }
     public void moveFoundationServoUp() {
         // Checks if the servos are = null or not because that is what causes the
         // "null pointer exception". Once it is checked, the servos will run.
         if (robot.FLServo != null) {
-            robot.FLServo.setPosition(0);
+            robot.FLServo.setPosition(0.8);
         }
         if (robot.FRServo != null) {
-            robot.FRServo.setPosition(0);
+            robot.FRServo.setPosition(0.8);
         }
     }
     public boolean myDetectSkystone(double timeoutS) {

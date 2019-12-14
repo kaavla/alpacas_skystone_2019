@@ -240,15 +240,13 @@ public class JARVISHW
     }
 
     public void moveFoundationServoDown () {
-        FLServo.setPosition(0.8);
-        FRServo.setPosition(0.8);
-    }
-
-    public void moveFoundationServoUp() {
         FLServo.setPosition(0);
         FRServo.setPosition(0);
     }
 
-
+    public void moveFoundationServoUp() {
+        FLServo.setPosition(0.8);
+        FRServo.setPosition(0.8);
+    }
 
 }
