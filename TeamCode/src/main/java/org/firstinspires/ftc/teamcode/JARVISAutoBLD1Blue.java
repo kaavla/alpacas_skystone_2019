@@ -38,7 +38,8 @@ public class JARVISAutoBLD1Blue extends JARVISAutonomousBase {
         //move the foundation attachment up to the start position
         robotJARVIS.moveFoundationServoUp();
 
-        // Ensure that the op mode is still active
+        // Eneiihcckgbrrrrutfrhviebkbejlghfujllehkkndurfk
+        // sure that the op mode is still active
         if (opModeIsActive() && !isStopRequested() )
         {
             //move to the foundation

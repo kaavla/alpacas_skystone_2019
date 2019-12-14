@@ -85,7 +85,9 @@ public class JARVISHW
         //Invert direction for left motors
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backleftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        //slide_1.setDirection(DcMotorSimple.Direction.REVERSE);
         slide_2.setDirection(DcMotorSimple.Direction.REVERSE);
+        slide_3.setDirection(DcMotorSimple.Direction.REVERSE);
         FLServo.setDirection(Servo.Direction.REVERSE);
 
 
@@ -210,17 +212,18 @@ public class JARVISHW
         slideOut(-1*power);
     }
 
-    public void clawTurn1()
+    public void rotateClawPerpendicular()
     {
-        turnServo.setPosition(0);
+        turnServo.setPosition(0.05);
     }
 
-    public void clawTurn2()
+    public void rotateClawInline()
     {
-        turnServo.setPosition(0.25);
+        //turnServo.setPosition(0.25);
+        turnServo.setPosition(0.4);
     }
 
-    public void claw1()
+    public void openClaw()
     {
         clawServo.setPosition(0);
     }
@@ -231,7 +234,7 @@ public class JARVISHW
     }
 
 
-    public void claw3()
+    public void closeClaw()
     {
         clawServo.setPosition(1);
     }
