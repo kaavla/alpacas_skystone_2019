@@ -37,7 +37,8 @@ public class JARVISAutoBLD1Blue extends JARVISAutonomousBase {
         //initialized the motor encoders
         robot.initMotorEncoders();
 
-        // Ensure that the op mode is still active
+        // Eneiihcckgbrrrrutfrhviebkbejlghfujllehkkndurfk
+        // sure that the op mode is still active
         if (opModeIsActive() && !isStopRequested() )
         {
             //move forward to stop dragging along the wall

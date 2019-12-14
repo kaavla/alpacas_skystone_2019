@@ -436,15 +436,15 @@ public class JARVISAutonomousBase extends LinearOpMode {
         if (opModeIsActive() && !isStopRequested()) {
 
             // Determine new target position, and pass to motor controller
-            if (direction == Direction.SLIDE_DOWN) {
+            if (direction == Direction.SLIDE_UP) {
                 //Go forward
                 newLeftTarget = robot.slide_1.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
-                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (-1*Inches * PULLEY_COUNTS_PER_INCH);
+                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (1*Inches * PULLEY_COUNTS_PER_INCH);
 
-            } else if (direction == Direction.SLIDE_UP) {
+            } else if (direction == Direction.SLIDE_DOWN) {
                 //Go backward
                 newLeftTarget = robot.slide_1.getCurrentPosition() + (int) (-1 * Inches * PULLEY_COUNTS_PER_INCH);
-                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (1* Inches * PULLEY_COUNTS_PER_INCH);
+                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (-1* Inches * PULLEY_COUNTS_PER_INCH);
             } else {
                 Inches = 0;
                 newLeftTarget = robot.slide_1.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);

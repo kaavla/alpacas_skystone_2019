@@ -10,11 +10,12 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
 
     @Override
     public void runOpMode() {
-        //int positionGold = 2;
+        RobotLog.ii("CAL", "Enter  - runOpMode - JARVIS Autonomous 1");
+
         initHW();
 
         ref_angle = getAngle();
-        //telemetry.addData("status", "ref_angle = %f", ref_angle);
+        telemetry.addData("status", "ref_angle = %f", ref_angle);
         telemetry.update();
 
         // Send telemetry message to signifyrobot waiting;
@@ -22,13 +23,7 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             telemetry.addData("status", "waiting for start command...");
             telemetry.update();
         }
-        //myDetectionRun (positionGold, 0.3, 40.0);
-        //sleep(50);     // pause for servos to move
-
-        //telemetry.addData("Path", "Run Complete");
-        //telemetry.update();
         myDetectionRun(40.0);
-        RobotLog.ii("CAL", "Enter - runOpMode - JARVIS Autonomous 1");
         /*
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
@@ -41,6 +36,7 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
     {
 
         RobotLog.ii("CAL", "Enter - myDetectionRun");
+        double strafe_back = 0;
 
         robot.initMotorNoEncoders();
         //myTFOD(30.0);
@@ -48,29 +44,44 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
         //initialized the motor encoders
         robot.initMotorEncoders();
 
-        RobotLog.ii("CAL", "initMotorEncoders-Done");
-
-
-        RobotLog.ii("CAL", "myTFOD Done");
-
         // Ensure that the op mode is still active
         if (opModeIsActive() && !isStopRequested()) {
 
+            //Move Slide Up and open Claw
+            myEncoderSlide(Direction.SLIDE_UP, DRIVE_SPEED, 8, 7, SensorsToUse.NONE);
+            robot.openClaw();
+
+            //MOve towards the skystones
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 24, 5.0, SensorsToUse.NONE);
-            //MOve forward
 
             if (myDetectSkystone(10) == false) {
-                //strafe right some distance
+                //detected stone. Strafe left to test the next one.
                 myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+                strafe_back = strafe_back + 6;
                 if (myDetectSkystone(10) == false) {
+                    //detected stone. Strafe left to test the next one.
                     myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
-                    //strafe right
-                }
+                    strafe_back = strafe_back + 6;
+                }eiihcckgbrrrjkteghtilccgbcifubudbiihbtbrlvvj
+                        
             }
+
+            //Strafe the opposite direction so claw is in middle
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,7, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 1, 5.0, SensorsToUse.NONE);
+
+            //Get slide Out so claw is on top of skystone
+            myEncoderInOutSlide(Direction.SLIDE_OUT, DRIVE_SPEED, 6, 5, SensorsToUse.NONE);
+            //Get the slide down to collect the skystone by closing the claw
+            myEncoderSlide(Direction.SLIDE_DOWN, DRIVE_SPEED, 4, 5, SensorsToUse.NONE);
+            robot.closeClaw();
+
+            //Move the slide up and linear slide in
+            myEncoderSlide(Direction.SLIDE_UP, DRIVE_SPEED, 2, 5, SensorsToUse.NONE);
+            myEncoderInOutSlide(Direction.SLIDE_IN, DRIVE_SPEED, 4, 5, SensorsToUse.NONE);
 
 
             //after these too we assume that the skystone is the third and it will play out the code below
-            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,7, 5.0, SensorsToUse.NONE);
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 2, 5.0, SensorsToUse.NONE);
             //myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 72, 15.0, SensorsToUse.NONE);
 
@@ -102,11 +113,11 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 5, 5.0, SensorsToUse.NONE);
             mySlidesAuto(-0.3, 5.0);
             sleep(1000);
-            robot.claw3();
+            robot.closeClaw();
             sleep(1000);
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
             myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 72, 10.0, SensorsToUse.NONE);
-            robot.claw1();
+            robot.openClaw();
             sleep(1000);
             myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 19, 10.0, SensorsToUse.NONE);
 
