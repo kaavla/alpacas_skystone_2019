@@ -63,13 +63,11 @@ public class JARVISAutoBLD1Blue extends JARVISAutonomousBase {
             moveFoundationServoUp();
             //stop for 10 seconds so the robot is out of the way of the other robots while the
             //autonomous mode is still going on
-            sleep(10000);
+            sleep(12000);
             //move to the blue tape under the bridge
             myEncoderDrive(Direction.STRAFE_RIGHT, 0.3, 53, 5, SensorsToUse.NONE);
-            //Turn the robot so it is parallel to the wall
-            rotate(90, 0.1);
-            //move the robot into the wall to stay out of the way of the other robot.
-            myEncoderDrive(Direction.STRAFE_LEFT, 0.1, 3, 5, SensorsToUse.NONE);
+            //back up into the wall
+            myEncoderDrive(Direction.BACKWARD, 0.1, 2, 5, SensorsToUse.NONE);
         }
         RobotLog.ii("CAL", "Exit - JARVISAutoBLD1Blue");
     }
