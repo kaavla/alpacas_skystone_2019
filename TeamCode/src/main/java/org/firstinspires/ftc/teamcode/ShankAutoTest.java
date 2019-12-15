@@ -3,9 +3,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
 
 import java.util.List;
-@Autonomous(name="Jarvis Auto Blue", group="JARVIS")
+@Autonomous(name="Shank Auto Test", group="JARVIS")
 
-public class JARVISAutonomous1 extends JARVISAutonomousBase {
+public class ShankAutoTest extends JARVISAutonomousBase {
 
 
     @Override
@@ -31,6 +31,8 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
         RobotLog.ii("CAL", "Exit - runOpMode - JARVIS Autonomous 1");
 
     }
+
+
 
     public void myDetectionRun(double timeoutS)
     {
@@ -92,29 +94,60 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 4, 5, SensorsToUse.NONE);
             robot.closeClaw();
             myEncoderInOutSlide(Direction.SLIDE_IN, DRIVE_SPEED, 8, 5, SensorsToUse.NONE);
-            //Get the slide down to collect the skystone by closing the claw
+           //Get the slide down to collect the skystone by closing the claw
             myEncoderSlide1(Direction.SLIDE_DOWN, DRIVE_SPEED, 2, 2.5, SensorsToUse.NONE);
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 36 + strafe_back, 15.0, SensorsToUse.NONE);
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 12, 5.0, SensorsToUse.NONE);
+            //myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
             //move back to same position
             /*
-            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
-            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 52, 15.0, SensorsToUse.NONE);
-            //robot.claw1();
-            //sleep(1000);
-            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 75, 15.0, SensorsToUse.NONE);
-            //mySlidesAuto(0.3, 5.0);
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 5, 5.0, SensorsToUse.NONE);
-            //mySlidesAuto(-0.3, 5.0);
-            sleep(1000);
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 36 + strafe_back + 16, 15.0, SensorsToUse.NONE);
+
+            rotate(-90, 0.2);
+
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 1, 5.0, SensorsToUse.NONE);
+
+            //Get slide Out so claw is on top of skystone
+            myEncoderInOutSlide(Direction.SLIDE_OUT, DRIVE_SPEED, 9, 5, SensorsToUse.NONE);
+            //Get the slide down to collect the skystone by closing the claw
+            myEncoderSlide1(Direction.SLIDE_DOWN, DRIVE_SPEED, 2, 1.5, SensorsToUse.NONE);
             robot.closeClaw();
-            sleep(1000);
+
+            //Move the slide up and linear slide in
+            myEncoderSlide(Direction.SLIDE_UP, DRIVE_SPEED, 8, 3, SensorsToUse.NONE);
+            //myEncoderInOutSlide(Direction.SLIDE_IN, DRIVE_SPEED, 4, 5, SensorsToUse.NONE);
+
+
+            //after these too we assume that the skystone is the third and it will play out the code below
+
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
-            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 72, 10.0, SensorsToUse.NONE);
+            rotate(90, 0.2);
             robot.openClaw();
-            sleep(1000);
-            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 19, 10.0, SensorsToUse.NONE);
-*/
+
+             */
+
+
+
+            /*
+            // Slides need to go down in oder to pass under the bridge
+            myEncoderSlide1(Direction.SLIDE_DOWN, DRIVE_SPEED, 2, 1, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 72, 15.0, SensorsToUse.NONE);
+            robot.openClaw();
+            */
+
+            /*
+            //Move Slide Up and open Claw
+            myEncoderSlide1(Direction.SLIDE_UP, DRIVE_SPEED, 6, 2, SensorsToUse.NONE);
+            robot.rotateClawInline();
+            robot.openClaw();
+
+            //Get slide Out so claw is on top of skystone
+            myEncoderInOutSlide(Direction.SLIDE_OUT, DRIVE_SPEED, 8, 5, SensorsToUse.NONE);
+            //Get the slide down to collect the skystone by closing the claw
+            myEncoderSlide1(Direction.SLIDE_DOWN, DRIVE_SPEED, 2, 1.5, SensorsToUse.NONE);
+            //robot.closeClaw();
+
+             */
         }
         RobotLog.ii("CAL", "Exit - myDetectionRun");
     }
