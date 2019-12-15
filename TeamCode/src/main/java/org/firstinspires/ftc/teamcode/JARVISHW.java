@@ -256,7 +256,7 @@ public class JARVISHW
     }
 
     public void moveMarkerServoDown() {
-        markerServo.setPosition(0.6 );
+        markerServo.setPosition(0.9 );
     }
 
     public void moveMarkerServoUp() {
