@@ -737,4 +737,22 @@ public class JARVISAutonomousBase extends LinearOpMode {
             robot.slide_3.setPower(1*speed);
         }
     }
+    public void rotateClawPerpendicular()
+    {
+        robot.turnServo.setPosition(0.05);
+    }
+
+    public void rotateClawInline()
+    {
+        //turnServo.setPosition(0.25);
+        robot.turnServo.setPosition(0.4);
+    }
+    public void openClaw()
+    {
+        robot.clawServo.setPosition(0);
+    }
+    public void closeClaw()
+    {
+        robot.clawServo.setPosition(1);
+    }
 }

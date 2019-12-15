@@ -69,6 +69,35 @@ public class JARVISAutoBLD2Blue extends JARVISAutonomousBase {
             myEncoderDrive(Direction.FORWARD, 0.1, 5, 5, SensorsToUse.NONE);
             //turn around to face the stones with the claw
             rotate(180, 0.1);
+            //move the linear slides up
+            myEncoderSlide(Direction.SLIDE_UP, 0.7, 5, 5, SensorsToUse.NONE);
+            //open the claw
+            openClaw();
+            //rotate the claw
+            rotateClawPerpendicular();
+            //move forward to go to the stone
+            myEncoderDrive(Direction.BACKWARD, 0.25, 15, 5, SensorsToUse.NONE);
+            //move the slides out
+            myEncoderInOutSlide(Direction.SLIDE_OUT, 5, 4, 5, SensorsToUse.NONE);
+            //lower the claw
+            myEncoderSlide(Direction.SLIDE_DOWN, 0.7, 5, 5, SensorsToUse.NONE);
+            //close the claw
+            closeClaw();
+            //back up away from the stone
+            myEncoderDrive(Direction.FORWARD, 0.5, 10, 5, SensorsToUse.NONE);
+            //turn left
+            rotate(90, 0.1);
+            //move forward to the other side
+            myEncoderDrive(Direction.BACKWARD, 0.3, 45, 5, SensorsToUse.NONE);
+            //lift the slide up to make sure we don't keep the stone after we drop it
+            myEncoderSlide(Direction.SLIDE_UP, 0.7, 6, 5, SensorsToUse.NONE);
+            //drop the stone
+            openClaw();
+            //back up a few inches
+            myEncoderDrive(Direction.FORWARD, 0.3, 4, 5, SensorsToUse.NONE);
+            //lower the claw
+            myEncoderSlide(Direction.SLIDE_DOWN, 1, 6, 5, SensorsToUse.NONE);
+            //back up onto the line
 
         }
         RobotLog.ii("CAL", "Exit - JARVISAutoBLD2Blue");
