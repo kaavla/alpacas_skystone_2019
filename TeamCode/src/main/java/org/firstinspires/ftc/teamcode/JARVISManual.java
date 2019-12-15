@@ -72,6 +72,14 @@ public class JARVISManual extends LinearOpMode {
                 //rotate clockwise
                 telemetry.addData("Status - dpad_right pressed - clockwise", "Run Time: " + runtime.toString());
                 robotJARVIS.moveHolonomic(0, 0, motor_power * -1);
+            } else if (gamepad1.right_trigger > 0.5) {
+                //Move Marker Servo Down
+                telemetry.addData("Status - Right Trigger pressed ", "Run Time: " + runtime.toString());
+                robotJARVIS.moveMarkerServoDown();
+            } else if (gamepad1.left_trigger > 0.5) {
+                //Move Marker Servo Up
+                telemetry.addData("Status - Left Trigger pressed ", "Run Time: " + runtime.toString());
+                robotJARVIS.moveMarkerServoUp();
             } else if (gamepad2.dpad_up) {
                 robotJARVIS.slidesUp(0.3);
             } else if (gamepad2.dpad_down) {

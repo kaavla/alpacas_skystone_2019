@@ -33,6 +33,7 @@ public class JARVISHW
 
     public Servo FLServo = null;
     public Servo FRServo = null;
+    public Servo markerServo = null;
 
     // public DistanceSensor sensorDistance = null;
     // public ColorSensor sensorColor = null;
@@ -67,6 +68,7 @@ public class JARVISHW
 
         sensorColor = ahwMap.get(ColorSensor.class, "sensor_color_distance");
         //sensorDistance = ahwMap.get(DistanceSensor.class, "sensorDistance");
+        markerServo = ahwMap.get(Servo.class, "MServo");
 
         imu = ahwMap.get(BNO055IMU.class, "imu 1");
 
@@ -251,6 +253,14 @@ public class JARVISHW
     public void moveFoundationServoUp() {
         FLServo.setPosition(0.8);
         FRServo.setPosition(0.8);
+    }
+
+    public void moveMarkerServoDown() {
+        markerServo.setPosition(0.6 );
+    }
+
+    public void moveMarkerServoUp() {
+        markerServo.setPosition(0.3);
     }
 
 }
