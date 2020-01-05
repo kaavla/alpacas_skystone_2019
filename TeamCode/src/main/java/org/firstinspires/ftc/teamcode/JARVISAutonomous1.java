@@ -46,7 +46,8 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
 
         // Ensure that the op mode is still active
         if (opModeIsActive() && !isStopRequested()) {
-
+            myEncoderSlide1(Direction.SLIDE_UP, DRIVE_SPEED, 2, 5.0, SensorsToUse.NONE);
+            /*
             //Move Slide Up and open Claw
             myEncoderSlide1(Direction.SLIDE_UP, DRIVE_SPEED, 6, 2, SensorsToUse.NONE);
             robot.rotateClawInline();
