@@ -13,14 +13,14 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
 @TeleOp(name = "SHANK: TensorFlow Object Detection Webcam", group = "Concept")
-@Disabled
+//@Disabled
 public class ShankTFODWebCam extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Stone";
     private static final String LABEL_SECOND_ELEMENT = "Skystone";
 
-    private static final String VUFORIA_KEY = "AXSRCQP/////AAABmZeKs8E+bExYlViUoU4W3x9D+ZqA3HLfy3PxlWiz0h5wh/awa/Oe9lra0C0CqlyRducvIyV5egl7zTYvGsbA34h3hCAV1eQtpnzQtYulVYRxD6W2Lnl47omLOHjXv3fTXLPnPDBugwDQUCqw4tN58FFEN5xoKEIPWwaQuOg43WHpfa6wenMv+bxuiwxM0Ciy+2gad/kkc+MTWzsFAL/yjTQhq718BNLr1FYZveMEwFHS43kILSKaL/+3/YGqd677av/z5tVDLkSRPUDuEYKIB1P0uCJd5AhIPnVvNigICEUxETMZiEt0RmKoQ3x9S6Y8AelTJgpHeuVgDHy5BmNP877er8Bsqr+WfHGho64CNbUx";
-
+    private static final String VUFORIA_KEY =
+            "AayroUj/////AAABmfpRYoWhHkZqoV7Jf2BZullbPn/Te6d5zvdNIDRFnYq3g3W4gRdJte7qbaQh0VemLGw+6m4O1mTXDy3mPD39gxYdHNTbIbki7H0ZlZ8RUfq8nH1v7G4Ag1bhJqG4oxCc+WUXyZU6mJ0FiBYqNsArMNE90o6YEAS1GLNqgVs14xCvVEi/CLCzFwjg0idcheUvwL8ZMTWNdYR0i9DBxjLOpfye3nCLEpaFA4RDm3nv8lT2B8nwUI7wFrgXnwYq0fgvHW+DrPrYTslvhYbarGvLmAUhJLTMeRSJYDiAYX/7eLZF87AzSqiuJzWzzaJabnFI6NUmmt+P/XG5cwptvpdgFSGoRXi5QOSf+xjwUjka6jwP";
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
      * localization engine.
@@ -97,6 +97,8 @@ public class ShankTFODWebCam extends LinearOpMode {
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
         //parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);

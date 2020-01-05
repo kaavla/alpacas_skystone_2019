@@ -100,7 +100,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
     public void initHW() {
         RobotLog.ii("CAL", "Enter -  initHW");
         robot.init(hardwareMap);
-        robot.initMotorEncoders();
+        //robot.initMotorEncoders();
         /*
         initVuforia();
 
@@ -280,6 +280,11 @@ public class JARVISAutonomousBase extends LinearOpMode {
         RobotLog.ii("CAL", "Enter - myEncoderDrive -  speed=%f, Inches=%f, timeout=%f",
                 speed, Inches, timeoutS);
 
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backleftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backrightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         //Reset the encoder
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -414,23 +419,27 @@ public class JARVISAutonomousBase extends LinearOpMode {
         robot.backrightMotor.setPower(0);
 
         // Turn off RUN_TO_POSITION
-        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backleftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backrightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backleftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.backrightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         sleep(50);   // optional pause after each move
     }
 
+    /*
     public void myEncoderSlide(Direction direction, double speed, double Inches, double timeoutS, SensorsToUse sensors_2_use) {
         int newLeftTarget = 0;
         int newRightTarget = 0;
         RobotLog.ii("CAL", "Enter - myEncoderSlide -  speed=%f, Inches=%f, timeout=%f",
                 speed, Inches, timeoutS);
 
-        //Reset the encoder
+        robot.slide_1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.slide_1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.slide_2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //robot.slide_2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //robot.slide_2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //Reset the encoder
 
         // Ensure that the op mode is still active
         if (opModeIsActive() && !isStopRequested()) {
@@ -484,10 +493,10 @@ public class JARVISAutonomousBase extends LinearOpMode {
         robot.slide_2.setPower(0);
 
         // Turn off RUN_TO_POSITION
-        robot.slide_1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.slide_2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.slide_1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.slide_2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
-
+*/
     public void myEncoderSlide1(Direction direction, double speed, double Inches, double timeoutS, SensorsToUse sensors_2_use) {
         int newLeftTarget = 0;
         int newRightTarget = 0;
@@ -495,6 +504,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
                 speed, Inches, timeoutS);
 
         //Reset the encoder
+        robot.slide_1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.slide_1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //robot.slide_2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -530,9 +540,9 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
             robot.slide_1.setPower(Math.abs(speed));
             if (direction == Direction.SLIDE_DOWN){
-                robot.slide_2.setPower((-1*speed));
+                //robot.slide_2.setPower((-1*speed));
             }else {
-                robot.slide_2.setPower((1*speed));
+                //robot.slide_2.setPower((1*speed));
 
             }
 
@@ -545,26 +555,93 @@ public class JARVISAutonomousBase extends LinearOpMode {
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
                 telemetry.addData("Path2", "Running at %7d :%7d",
                         robot.slide_1.getCurrentPosition(),
-                        robot.slide_2.getCurrentPosition());
+                        robot.slide_1.getCurrentPosition());
                 telemetry.update();
             }
         }
 
         // Stop all motion;
         robot.slide_1.setPower(0);
+        //robot.slide_2.setPower(0);
+
+        // Turn off RUN_TO_POSITION
+        robot.slide_1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //robot.slide_2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+/*
+    public void myEncoderSlide2(Direction direction, double speed, double Inches, double timeoutS, SensorsToUse sensors_2_use) {
+        int newLeftTarget = 0;
+        int newRightTarget = 0;
+        RobotLog.ii("CAL", "Enter - myEncoderSlide -  speed=%f, Inches=%f, timeout=%f",
+                speed, Inches, timeoutS);
+
+        //Reset the encoder
+        robot.slide_2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //robot.slide_1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.slide_2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // Ensure that the op mode is still active
+        if (opModeIsActive() && !isStopRequested()) {
+
+            // Determine new target position, and pass to motor controller
+            if (direction == Direction.SLIDE_UP) {
+                //Go forward
+                //newLeftTarget = robot.slide_1.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
+                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (1*Inches * PULLEY_COUNTS_PER_INCH);
+
+            } else if (direction == Direction.SLIDE_DOWN) {
+                //Go backward
+                //newLeftTarget = robot.slide_1.getCurrentPosition() + (int) (-1 * Inches * PULLEY_COUNTS_PER_INCH);
+                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (-1* Inches * PULLEY_COUNTS_PER_INCH);
+            } else {
+                Inches = 0;
+                //newLeftTarget = robot.slide_1.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
+                newRightTarget = robot.slide_2.getCurrentPosition() + (int) (Inches * PULLEY_COUNTS_PER_INCH);
+            }
+
+
+            //robot.slide_1.setTargetPosition(newLeftTarget);
+            robot.slide_2.setTargetPosition(newRightTarget);
+
+            // Turn On RUN_TO_POSITION
+            //robot.slide_1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.slide_2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+
+            robot.slide_2.setPower(Math.abs(speed));
+
+            while (opModeIsActive() && !isStopRequested() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.slide_2.isBusy())) {
+
+
+                // Display it for the driver.
+                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d",
+                        robot.slide_1.getCurrentPosition(),
+                        robot.slide_2.getCurrentPosition());
+                telemetry.update();
+            }
+        }
+
+        // Stop all motion;
+        //robot.slide_1.setPower(0);
         robot.slide_2.setPower(0);
 
         // Turn off RUN_TO_POSITION
-        robot.slide_1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //robot.slide_2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //robot.slide_1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.slide_2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
-
+*/
     public void myEncoderInOutSlide(Direction direction, double speed, double Inches, double timeoutS, SensorsToUse sensors_2_use) {
         int newLeftTarget = 0;
         RobotLog.ii("CAL", "Enter - myEncoderInOutSlide -  speed=%f, Inches=%f, timeout=%f",
                 speed, Inches, timeoutS);
 
-        //Reset the encoder
+        robot.slide_3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.slide_3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // Ensure that the op mode is still active
@@ -612,7 +689,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
         robot.slide_3.setPower(0);
 
         // Turn off RUN_TO_POSITION
-        robot.slide_3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.slide_3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void myTFOD(double timeoutS) {
@@ -750,20 +827,20 @@ public class JARVISAutonomousBase extends LinearOpMode {
         // Checks if the servos are = null or not because that is what causes the
         // "null pointer exception". Once it is checked, the servos will run.
         if (robot.FLServo != null) {
-            robot.FLServo.setPosition(0);
+            robot.FLServo.setPosition(0.8);
         }
         if (robot.FRServo != null) {
-            robot.FRServo.setPosition(0);
+            robot.FRServo.setPosition(0.8);
         }
     }
     public void moveFoundationServoUp() {
         // Checks if the servos are = null or not because that is what causes the
         // "null pointer exception". Once it is checked, the servos will run.
         if (robot.FLServo != null) {
-            robot.FLServo.setPosition(0.8);
+            robot.FLServo.setPosition(0);
         }
         if (robot.FRServo != null) {
-            robot.FRServo.setPosition(0.8);
+            robot.FRServo.setPosition(0);
         }
     }
     public boolean myDetectSkystone(double timeoutS) {
@@ -798,7 +875,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
                 (runtime.seconds() < timeoutS))
         {
             robot.slide_1.setPower(1*speed);
-            robot.slide_2.setPower(1*speed);
+            //robot.slide_2.setPower(1*speed);
         }
     }
     public void mySlideAuto (double speed, double timeoutS) {

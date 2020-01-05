@@ -26,7 +26,7 @@ public class JARVISHW
     public DcMotor backleftMotor = null;
 
     public DcMotor slide_1 = null;
-    public DcMotor slide_2 = null;
+    //public DcMotor slide_2 = null;
     public DcMotor slide_3 = null;
     public Servo turnServo = null;
     public Servo clawServo = null;
@@ -34,6 +34,15 @@ public class JARVISHW
     public Servo FLServo = null;
     public Servo FRServo = null;
     public Servo markerServo = null;
+
+
+    public Servo CollectLeftServo = null;
+    public Servo CollectRightServo = null;
+    public DcMotor CollectLeftMotor = null;
+    public DcMotor CollectRightMotor = null;
+
+
+    public CRServo VexServo = null;
 
     // public DistanceSensor sensorDistance = null;
     // public ColorSensor sensorColor = null;
@@ -56,7 +65,7 @@ public class JARVISHW
         backrightMotor = ahwMap.get(DcMotor.class, "M4");
 
         slide_1  = ahwMap.get(DcMotor.class, "slide_1");
-        slide_2  = ahwMap.get(DcMotor.class, "slide_2");
+        //slide_2  = ahwMap.get(DcMotor.class, "slide_2");
         slide_3 = ahwMap.get(DcMotor.class, "slide_3");
 
         turnServo = ahwMap.get(Servo.class, "tServo");
@@ -65,6 +74,13 @@ public class JARVISHW
 
         FLServo = ahwMap.get(Servo.class, "FLServo");
         FRServo = ahwMap.get(Servo.class, "FRServo");
+
+        CollectLeftServo = ahwMap.get(Servo.class, "CollectLeftServo");
+        CollectRightServo = ahwMap.get(Servo.class, "CollectRightServo");
+        VexServo = ahwMap.get(CRServo.class, "vex");
+
+        CollectLeftMotor = ahwMap.get(DcMotor.class, "CollectLeftMotor");
+        CollectRightMotor = ahwMap.get(DcMotor.class, "CollectRightMotor");
 
         sensorColor = ahwMap.get(ColorSensor.class, "sensor_color_distance");
         //sensorDistance = ahwMap.get(DistanceSensor.class, "sensorDistance");
@@ -85,10 +101,10 @@ public class JARVISHW
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backleftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         //slide_1.setDirection(DcMotorSimple.Direction.REVERSE);
-        slide_2.setDirection(DcMotorSimple.Direction.REVERSE);
+        //slide_2.setDirection(DcMotorSimple.Direction.REVERSE);
         slide_3.setDirection(DcMotorSimple.Direction.REVERSE);
         FLServo.setDirection(Servo.Direction.REVERSE);
-
+        CollectLeftServo.setDirection(Servo.Direction.REVERSE);
 
 
         // Set all motors to zero power
@@ -101,7 +117,7 @@ public class JARVISHW
         backleftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         slide_1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        slide_2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //slide_2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide_3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
@@ -118,7 +134,7 @@ public class JARVISHW
         backleftMotor.setPower(0);
         backrightMotor.setPower(0);
         slide_1.setPower(0);
-        slide_2.setPower(0);
+        //slide_2.setPower(0);
         slide_3.setPower(0);
 
     }
@@ -131,6 +147,10 @@ public class JARVISHW
         rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backleftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backrightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        slide_1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //slide_2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        slide_3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         RobotLog.ii("CAL", "Exit -  initMotorNoEncoders");
     }
@@ -152,7 +172,11 @@ public class JARVISHW
 
         slide_1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide_1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slide_2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //slide_2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //slide_2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slide_3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slide_3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
         RobotLog.ii("CAL", "Exit -  initMotorEncoders");
     }
@@ -200,7 +224,7 @@ public class JARVISHW
     public void slidesUp(double power)
     {
         slide_1.setPower(power);
-        slide_2.setPower(power);
+        //slide_2.setPower(power);
     }
 
     public void slidesDown(double power)
@@ -246,21 +270,41 @@ public class JARVISHW
     }
 
     public void moveFoundationServoDown () {
-        FLServo.setPosition(0);
-        FRServo.setPosition(0);
-    }
-
-    public void moveFoundationServoUp() {
         FLServo.setPosition(0.8);
         FRServo.setPosition(0.8);
     }
 
+    public void moveFoundationServoUp() {
+        FLServo.setPosition(0);
+        FRServo.setPosition(0);
+    }
+
     public void moveMarkerServoDown() {
         markerServo.setPosition(0.9 );
+        VexServo.setPower(1);
     }
 
     public void moveMarkerServoUp() {
         markerServo.setPosition(0.3);
+        VexServo.setPower(0);
     }
+
+    public void resetCollectionServo () {
+        CollectLeftServo.setPosition(0);
+        CollectRightServo.setPosition(0);
+        CollectLeftMotor.setPower(0);
+        CollectRightMotor.setPower(0);
+
+    }
+
+    public void setCollectionServo() {
+        //CollectLeftServo.setPosition(0.77);
+        //CollectRightServo.setPosition(0.77);
+        CollectLeftServo.setPosition(1);
+        CollectRightServo.setPosition(1);
+        CollectLeftMotor.setPower(1);
+        CollectRightMotor.setPower(1);
+    }
+
 
 }

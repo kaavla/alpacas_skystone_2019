@@ -17,10 +17,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 @TeleOp(name = "JARVIS Manual", group = "Linear Opmode")
 //@Disabled
 
-public class JARVISManual extends LinearOpMode {
-    JARVISHW robotJARVIS = new JARVISHW();
-    private ElapsedTime runtime = new ElapsedTime();
-
+public class JARVISManual extends JARVISAutonomousBase {
     @Override
     public void runOpMode() {
         //This is where we set our motor powers
@@ -30,7 +27,7 @@ public class JARVISManual extends LinearOpMode {
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        robotJARVIS.init(hardwareMap);
+        initHW();
 
         while (!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("status", "waiting for start command...");
@@ -50,60 +47,69 @@ public class JARVISManual extends LinearOpMode {
                 leftY = gamepad1.left_stick_y;
                 leftX = gamepad1.left_stick_x * -1;
                 rightZ = gamepad1.right_stick_x * -1;
-                robotJARVIS.moveHolonomic(leftX, leftY, rightZ);
+                robot.moveHolonomic(leftX, leftY, rightZ);
             } else if (gamepad1.dpad_down) {
                 //forward
-                robotJARVIS.moveHolonomic(0, motor_power * 1, 0);
+                robot.moveHolonomic(0, motor_power * 1, 0);
             } else if (gamepad1.dpad_up) {
                 //backwards
-                robotJARVIS.moveHolonomic(0, motor_power * -1, 0);
+                robot.moveHolonomic(0, motor_power * -1, 0);
             } else if (gamepad1.x) {
                 //strafe left
-                robotJARVIS.moveHolonomic(-0.4, 0, 0);
+                robot.moveHolonomic(-0.4, 0, 0);
             } else if (gamepad1.b) {
                 //strafe right
-                robotJARVIS.moveHolonomic(0.4, 0, 0);
+                robot.moveHolonomic(0.4, 0, 0);
             } else if (gamepad1.dpad_left) {
                 //rotate counter-clockwise
                 telemetry.addData("Status - dpad_left pressed - counter clockwise", "Run Time: " + runtime.toString());
 
-                robotJARVIS.moveHolonomic(0, 0, motor_power * 1);
+                robot.moveHolonomic(0, 0, motor_power * 1);
             } else if (gamepad1.dpad_right) {
                 //rotate clockwise
                 telemetry.addData("Status - dpad_right pressed - clockwise", "Run Time: " + runtime.toString());
-                robotJARVIS.moveHolonomic(0, 0, motor_power * -1);
+                robot.moveHolonomic(0, 0, motor_power * -1);
             } else if (gamepad1.right_trigger > 0.5) {
                 //Move Marker Servo Down
                 telemetry.addData("Status - Right Trigger pressed ", "Run Time: " + runtime.toString());
-                robotJARVIS.moveMarkerServoDown();
+                robot.moveMarkerServoDown();
             } else if (gamepad1.left_trigger > 0.5) {
                 //Move Marker Servo Up
                 telemetry.addData("Status - Left Trigger pressed ", "Run Time: " + runtime.toString());
-                robotJARVIS.moveMarkerServoUp();
+                robot.moveMarkerServoUp();
             } else if (gamepad2.dpad_up) {
-                robotJARVIS.slidesUp(0.3);
+                robot.slidesUp(0.9);
+                //myEncoderSlide2(Direction.SLIDE_UP, 0.9, 6, 4, SensorsToUse.NONE);
+
             } else if (gamepad2.dpad_down) {
-                //Slide Down
-                robotJARVIS.slidesDown(0.3);
+                robot.slidesDown(0.9);
+
+                // myEncoderSlide2(Direction.SLIDE_DOWN, 0.9, 6, 4, SensorsToUse.NONE);
+
+                //robot.slidesDown(0.9);
             } else if (gamepad2.dpad_left) {
-                robotJARVIS.slideIn(0.3);
+                robot.slideIn(0.7);
             } else if (gamepad2.dpad_right) {
-                robotJARVIS.slideOut(0.3);
+                robot.slideOut(0.7);
             } else if (gamepad2.x) {
-                robotJARVIS.openClaw();  //opens the claw
+                robot.openClaw();  //opens the claw
             } else if (gamepad2.b) {
-                robotJARVIS.closeClaw(); //closes the claw
+                robot.closeClaw(); //closes the claw
             } else if (gamepad2.y) {
-                robotJARVIS.rotateClawPerpendicular();  //claw perpendicular
+                robot.rotateClawPerpendicular();  //claw perpendicular
             } else if (gamepad2.a) {
-                robotJARVIS.rotateClawInline(); //claw inline
+                robot.rotateClawInline(); //claw inline
             } else if (gamepad1.left_bumper){
-                robotJARVIS.moveFoundationServoUp();
+                robot.moveFoundationServoUp();
             } else if (gamepad1.right_bumper) {
-                robotJARVIS.moveFoundationServoDown();
+                robot.moveFoundationServoDown();
+            }else if (gamepad2.left_trigger > 0.5){
+                robot.resetCollectionServo();
+            } else if (gamepad2.right_trigger > 0.5) {
+                robot.setCollectionServo();
             }
             else {
-                robotJARVIS.stopAllMotors();
+                robot.stopAllMotors();
             }
         }
         telemetry.addData("Status", "Run Time: " + runtime.toString());
