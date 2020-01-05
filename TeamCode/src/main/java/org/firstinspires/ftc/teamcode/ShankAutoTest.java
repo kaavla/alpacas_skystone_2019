@@ -80,7 +80,7 @@ public class ShankAutoTest extends JARVISAutonomousBase {
             robot.closeClaw();
 
             //Move the slide up and linear slide in
-            myEncoderSlide(Direction.SLIDE_UP, DRIVE_SPEED, 8, 2.5, SensorsToUse.NONE);
+            //myEncoderSlide(Direction.SLIDE_UP, DRIVE_SPEED, 8, 2.5, SensorsToUse.NONE);
             //myEncoderInOutSlide(Direction.SLIDE_IN, DRIVE_SPEED, 4, 5, SensorsToUse.NONE);
 
 
