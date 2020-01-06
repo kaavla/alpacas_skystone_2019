@@ -322,11 +322,11 @@ public class JARVISHW
     public void setGrabberDown(int side) {
         if (side == 0) {
             //Left
-            GrabberLeftTurnServo.setPosition(0.8);
+            GrabberLeftTurnServo.setPosition(0.4);
         } else
         {
             //Right
-            GrabberRightTurnServo.setPosition(0.8);
+            GrabberRightTurnServo.setPosition(0.4);
        }
     }
 
@@ -344,22 +344,22 @@ public class JARVISHW
     public void closeGrabberClaw(int side) {
         if (side == 0) {
             //Left
-            GrabberLeftClawServo.setPosition(0.8);
+            GrabberLeftClawServo.setPosition(0);
         } else
         {
             //Right
-            GrabberRightClawServo.setPosition(0.8);
+            GrabberRightClawServo.setPosition(0);
         }
     }
 
     public void openGrabberClaw(int side) {
         if (side == 0) {
             //Left
-            GrabberLeftClawServo.setPosition(0);
+            GrabberLeftClawServo.setPosition(0.5);
         } else
         {
             //Right
-            GrabberRightClawServo.setPosition(0);
+            GrabberRightClawServo.setPosition(0.5);
         }
     }
 
