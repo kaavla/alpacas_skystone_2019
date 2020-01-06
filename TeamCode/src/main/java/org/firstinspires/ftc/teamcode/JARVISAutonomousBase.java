@@ -854,9 +854,9 @@ public class JARVISAutonomousBase extends LinearOpMode {
         // to amplify/attentuate the measured values.
         final double SCALE_FACTOR = 255;
 
-        Color.RGBToHSV((int) (robot.sensorColor.red() * SCALE_FACTOR),
-                (int) (robot.sensorColor.green() * SCALE_FACTOR),
-                (int) (robot.sensorColor.blue() * SCALE_FACTOR),
+        Color.RGBToHSV((int) (robot.sensorColorLeft.red() * SCALE_FACTOR),
+                (int) (robot.sensorColorLeft.green() * SCALE_FACTOR),
+                (int) (robot.sensorColorLeft.blue() * SCALE_FACTOR),
                 hsvValues);
 
         // send the info back to driver station using telemetry function.

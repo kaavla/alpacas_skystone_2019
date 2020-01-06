@@ -54,21 +54,27 @@ public class JARVISManual extends JARVISAutonomousBase {
             } else if (gamepad1.dpad_up) {
                 //backwards
                 robot.moveHolonomic(0, motor_power * -1, 0);
-            } else if (gamepad1.x) {
-                //strafe left
-                robot.moveHolonomic(-0.4, 0, 0);
-            } else if (gamepad1.b) {
-                //strafe right
-                robot.moveHolonomic(0.4, 0, 0);
             } else if (gamepad1.dpad_left) {
                 //rotate counter-clockwise
-                telemetry.addData("Status - dpad_left pressed - counter clockwise", "Run Time: " + runtime.toString());
-
                 robot.moveHolonomic(0, 0, motor_power * 1);
             } else if (gamepad1.dpad_right) {
                 //rotate clockwise
-                telemetry.addData("Status - dpad_right pressed - clockwise", "Run Time: " + runtime.toString());
                 robot.moveHolonomic(0, 0, motor_power * -1);
+            } else if (gamepad1.x) {
+                //strafe left
+                //robot.moveHolonomic(-0.4, 0, 0);
+                robot.openGrabberClaw(0);
+            } else if (gamepad1.b) {
+                //strafe right
+                //robot.moveHolonomic(0.4, 0, 0);
+            } else if (gamepad1.y) {
+                //Nothing
+                robot.setGrabberDown(0);
+                robot.closeGrabberClaw(0);
+            } else if (gamepad1.a) {
+                //Nothing
+                robot.setGrabberUp(0);
+
             } else if (gamepad1.right_trigger > 0.5) {
                 //Move Marker Servo Down
                 telemetry.addData("Status - Right Trigger pressed ", "Run Time: " + runtime.toString());
@@ -77,7 +83,11 @@ public class JARVISManual extends JARVISAutonomousBase {
                 //Move Marker Servo Up
                 telemetry.addData("Status - Left Trigger pressed ", "Run Time: " + runtime.toString());
                 robot.moveMarkerServoUp();
-            } else if (gamepad2.dpad_up) {
+            } else if (gamepad1.left_bumper){
+                robot.moveFoundationServoUp();
+            } else if (gamepad1.right_bumper) {
+                robot.moveFoundationServoDown();
+            }else if (gamepad2.dpad_up) {
                 robot.slidesUp(0.9);
                 //myEncoderSlide2(Direction.SLIDE_UP, 0.9, 6, 4, SensorsToUse.NONE);
 
@@ -99,11 +109,7 @@ public class JARVISManual extends JARVISAutonomousBase {
                 robot.rotateClawPerpendicular();  //claw perpendicular
             } else if (gamepad2.a) {
                 robot.rotateClawInline(); //claw inline
-            } else if (gamepad1.left_bumper){
-                robot.moveFoundationServoUp();
-            } else if (gamepad1.right_bumper) {
-                robot.moveFoundationServoDown();
-            }else if (gamepad2.left_trigger > 0.5){
+            } else if (gamepad2.left_trigger > 0.5){
                 robot.resetCollectionServo();
             } else if (gamepad2.right_trigger > 0.5) {
                 robot.setCollectionServo();
