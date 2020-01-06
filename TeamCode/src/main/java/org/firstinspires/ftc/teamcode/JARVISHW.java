@@ -320,45 +320,62 @@ public class JARVISHW
     }
 
     public void setGrabberDown(int side) {
+        RobotLog.ii("SHANK", "Enter -  setGrabberDown");
         if (side == 0) {
             //Left
+            RobotLog.ii("SHANK", "setGrabberDown - Left ");
             GrabberLeftTurnServo.setPosition(0.4);
         } else
         {
             //Right
+            RobotLog.ii("SHANK", "setGrabberDown - Right ");
             GrabberRightTurnServo.setPosition(0.4);
        }
     }
 
     public void setGrabberUp(int side) {
+        RobotLog.ii("SHANK", "setGrabberUp - Enter ");
         if (side == 0) {
             //Left
+            RobotLog.ii("SHANK", "setGrabberUp - Left ");
             GrabberLeftTurnServo.setPosition(0);
         } else
         {
             //Right
+            RobotLog.ii("SHANK", "setGrabberUp - Right ");
             GrabberRightTurnServo.setPosition(0);
         }
     }
 
     public void closeGrabberClaw(int side) {
+        RobotLog.ii("SHANK", "closeGrabberClaw - Enter ");
+
         if (side == 0) {
             //Left
+            RobotLog.ii("SHANK", "closeGrabberClaw - Left");
             GrabberLeftClawServo.setPosition(0);
+
         } else
         {
             //Right
+            RobotLog.ii("SHANK", "closeGrabberClaw - Right");
+
             GrabberRightClawServo.setPosition(0);
         }
     }
 
     public void openGrabberClaw(int side) {
+        RobotLog.ii("SHANK", "openGrabberClaw - Enter ");
+
         if (side == 0) {
             //Left
+            RobotLog.ii("SHANK", "openGrabberClaw - Left ");
             GrabberLeftClawServo.setPosition(0.5);
         } else
         {
             //Right
+            RobotLog.ii("SHANK", "openGrabberClaw - Right");
+
             GrabberRightClawServo.setPosition(0.5);
         }
     }

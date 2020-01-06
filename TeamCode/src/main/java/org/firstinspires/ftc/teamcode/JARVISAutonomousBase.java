@@ -885,4 +885,48 @@ public class JARVISAutonomousBase extends LinearOpMode {
             robot.slide_3.setPower(1*speed);
         }
     }
+
+    public void setGrabberDownAuto(int side) {
+        if (side == 0) {
+            //Left
+            robot.GrabberLeftTurnServo.setPosition(0.4);
+        } else
+        {
+            //Right
+            robot.GrabberRightTurnServo.setPosition(0.4);
+        }
+    }
+
+    public void setGrabberUpAuto(int side) {
+        if (side == 0) {
+            //Left
+            robot.GrabberLeftTurnServo.setPosition(0);
+        } else
+        {
+            //Right
+            robot.GrabberRightTurnServo.setPosition(0);
+        }
+    }
+
+    public void closeGrabberClawAuto(int side) {
+        if (side == 0) {
+            //Left
+            robot.GrabberLeftClawServo.setPosition(0);
+        } else
+        {
+            //Right
+            robot.GrabberRightClawServo.setPosition(0);
+        }
+    }
+
+    public void openGrabberClawAuto(int side) {
+        if (side == 0) {
+            //Left
+            robot.GrabberLeftClawServo.setPosition(0.5);
+        } else
+        {
+            //Right
+            robot.GrabberRightClawServo.setPosition(0.5);
+        }
+    }
 }

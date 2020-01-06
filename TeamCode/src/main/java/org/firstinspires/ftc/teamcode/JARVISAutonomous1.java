@@ -46,6 +46,8 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
 
         // Ensure that the op mode is still active
         if (opModeIsActive() && !isStopRequested()) {
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+
 
             //Move Slide Up and open Claw
             //myEncoderSlide1(Direction.SLIDE_UP, DRIVE_SPEED, 6, 2, SensorsToUse.NONE);
@@ -53,6 +55,7 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             //robot.openClaw();
 
             //MOve towards the skystones
+            /*
             myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 30, 5.0, SensorsToUse.NONE);
 
             if (myDetectSkystone(10) == false) {
@@ -67,13 +70,31 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
                 }
             }
 
-            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 1, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 2, 5.0, SensorsToUse.NONE);
+
+
+            robot.openGrabberClaw(0);
             robot.setGrabberDown(0);
             robot.closeGrabberClaw(0);
             robot.setGrabberUp(0);
-            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 2, 5.0, SensorsToUse.NONE);
+
+             */
+
+            robot.GrabberLeftClawServo.setPosition(0.5);
+            robot.GrabberLeftTurnServo.setPosition(0.4);
+            robot.GrabberLeftClawServo.setPosition(0);
+            robot.GrabberLeftTurnServo.setPosition(0);
+
+            robot.GrabberRightClawServo.setPosition(0.5);
+            robot.GrabberRightTurnServo.setPosition(0.4);
+            robot.GrabberRightClawServo.setPosition(0);
+            robot.GrabberRightTurnServo.setPosition(0);
+
+            /*myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 2, 5.0, SensorsToUse.NONE);
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 40 + strafe_back, 10.0, SensorsToUse.NONE);
-            robot.openGrabberClaw(0);
+            openGrabberClawAuto(0);
+
+             */
 
             //Strafe the opposite direction so claw is in middle
             //myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
