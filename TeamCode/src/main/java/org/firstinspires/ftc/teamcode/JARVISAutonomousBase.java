@@ -218,6 +218,59 @@ public class JARVISAutonomousBase extends LinearOpMode {
         RobotLog.ii("CAL", "Exit - rotate");
     }
 
+    public void rotateFrontUsingOneSide(int degrees, double speed) {
+        //logs that get added to a file to see what was wrong with the robot and the sequences of it
+        RobotLog.ii("CAL", "Enter - rotate - degrees=%d, power=%f",
+                degrees, speed);
+
+        // restart imu movement tracking.
+        resetAngle();
+
+        if (degrees < 0)
+        {   // turn right.
+            robot.leftMotor.setPower(0);
+            robot.rightMotor.setPower(1 * speed);
+            robot.backleftMotor.setPower(0);
+            robot.backrightMotor.setPower(1 * speed);
+        }
+        else if (degrees > 0)
+        {   // turn left.
+            robot.leftMotor.setPower(1 * speed);
+            robot.rightMotor.setPower(0);
+            robot.backleftMotor.setPower(1 * speed);
+            robot.backrightMotor.setPower(0);
+        }
+        else return;
+
+
+
+        // rotate until turn is completed.
+        if (degrees < 0) {
+            // On right turn we have to get off zero first.
+            while (opModeIsActive() && !isStopRequested() && getAngle() == 0) {
+            }
+
+            while (opModeIsActive() && !isStopRequested() && getAngle() > degrees) {
+            }
+        } else    // left turn.
+            while (opModeIsActive() && !isStopRequested() && getAngle() < degrees) {
+            }
+
+        // turn the motors off.
+        int power = 0;
+        robot.leftMotor.setPower(power);
+        robot.rightMotor.setPower(power);
+        robot.backleftMotor.setPower(power);
+        robot.backrightMotor.setPower(power);
+
+        // wait for rotation to stop.
+        sleep(50);
+
+        // reset angle tracking on new heading.
+        resetAngle();
+        RobotLog.ii("CAL", "Exit - rotate");
+    }
+
     public void rotateUsingOneSide(int degrees, double speed) {
         //logs that get added to a file to see what was wrong with the robot and the sequences of it
         RobotLog.ii("CAL", "Enter - rotate - degrees=%d, power=%f",
