@@ -46,7 +46,7 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
 
         // Ensure that the op mode is still active
         if (opModeIsActive() && !isStopRequested()) {
-            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 6, 5.0, SensorsToUse.NONE);
+            //myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 36, 5.0, SensorsToUse.NONE);
 
 
             //Move Slide Up and open Claw
@@ -55,31 +55,78 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             //robot.openClaw();
 
             //MOve towards the skystones
-            /*
-            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 30, 5.0, SensorsToUse.NONE);
 
+            myEncoderDrive(Direction.STRAFE_LEFT, 0.4, 26, 5.0, SensorsToUse.NONE);
+            sleep(500);
             if (myDetectSkystone(10) == false) {
                 //detected stone. Strafe left to test the next one.
-                myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 8, 5.0, SensorsToUse.NONE);
+                myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 7, 5.0, SensorsToUse.NONE);
 
-                strafe_back = strafe_back + 8;
+                strafe_back = strafe_back + 7;
                 if (myDetectSkystone(10) == false) {
                     //detected stone. Strafe left to test the next one.
-                    myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 8, 5.0, SensorsToUse.NONE);
-                    strafe_back = strafe_back + 8;
+                    myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 7, 5.0, SensorsToUse.NONE);
+                    strafe_back = strafe_back + 7;
                 }
             }
 
-            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 2, 5.0, SensorsToUse.NONE);
+            //myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 2, 5.0, SensorsToUse.NONE);
+            //myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 2, 5.0, SensorsToUse.NONE);
 
-
+            sleep(500);
             robot.openGrabberClaw(0);
+            sleep(500);
             robot.setGrabberDown(0);
+            sleep(500);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,2, 5.0, SensorsToUse.NONE);
+            sleep(500);
             robot.closeGrabberClaw(0);
+            sleep(500);
             robot.setGrabberUp(0);
+            sleep(500);
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
+            sleep(250);
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 35 + strafe_back, 10.0, SensorsToUse.NONE);
+            sleep(250);
+            robot.setGrabberDown(0);
+            sleep(250);
+            robot.openGrabberClaw(0);
+            sleep(250);
+            robot.setGrabberUp(0);
+            sleep(250);
+            robot.closeGrabberClaw(0);
+            sleep(250);
 
-             */
-
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 65 + strafe_back, 10.0, SensorsToUse.NONE);
+            sleep(250);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,3, 5.0, SensorsToUse.NONE);
+            sleep(500);
+            robot.openGrabberClaw(0);
+            sleep(500);
+            robot.setGrabberDown(0);
+            sleep(500);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,2, 5.0, SensorsToUse.NONE);
+            sleep(500);
+            robot.closeGrabberClaw(0);
+            sleep(500);
+            robot.setGrabberUp(0);
+            sleep(500);
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
+            sleep(250);
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 65 + strafe_back, 10.0, SensorsToUse.NONE);
+            sleep(250);
+            robot.setGrabberDown(0);
+            sleep(250);
+            robot.openGrabberClaw(0);
+            sleep(250);
+            robot.setGrabberUp(0);
+            sleep(250);
+            robot.closeGrabberClaw(0);
+            sleep(250);
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 20, 10.0, SensorsToUse.NONE);
+            sleep(250);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,3, 5.0, SensorsToUse.NONE);
+            /*
             robot.GrabberLeftClawServo.setPosition(0.5);
             robot.GrabberLeftTurnServo.setPosition(0.4);
             robot.GrabberLeftClawServo.setPosition(0);
@@ -90,11 +137,9 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             robot.GrabberRightClawServo.setPosition(0);
             robot.GrabberRightTurnServo.setPosition(0);
 
-            /*myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 2, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED, 2, 5.0, SensorsToUse.NONE);
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 40 + strafe_back, 10.0, SensorsToUse.NONE);
             openGrabberClawAuto(0);
-
-             */
 
             //Strafe the opposite direction so claw is in middle
             //myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
