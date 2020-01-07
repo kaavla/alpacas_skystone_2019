@@ -29,7 +29,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     enum Direction
     {
-        FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, SLIDE_UP, SLIDE_DOWN, SLIDE_IN, SLIDE_OUT;
+        FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, SLIDE_UP, SLIDE_DOWN, SLIDE_IN, SLIDE_OUT, DIAGONAL_LEFT, DIAGONAL_RIGHT;
     }
 
     enum SensorsToUse
@@ -218,6 +218,59 @@ public class JARVISAutonomousBase extends LinearOpMode {
         RobotLog.ii("CAL", "Exit - rotate");
     }
 
+    public void rotateFrontUsingOneSide(int degrees, double speed) {
+        //logs that get added to a file to see what was wrong with the robot and the sequences of it
+        RobotLog.ii("CAL", "Enter - rotate - degrees=%d, power=%f",
+                degrees, speed);
+
+        // restart imu movement tracking.
+        resetAngle();
+
+        if (degrees < 0)
+        {   // turn right.
+            robot.leftMotor.setPower(0);
+            robot.rightMotor.setPower(1 * speed);
+            robot.backleftMotor.setPower(0);
+            robot.backrightMotor.setPower(1 * speed);
+        }
+        else if (degrees > 0)
+        {   // turn left.
+            robot.leftMotor.setPower(1 * speed);
+            robot.rightMotor.setPower(0);
+            robot.backleftMotor.setPower(1 * speed);
+            robot.backrightMotor.setPower(0);
+        }
+        else return;
+
+
+
+        // rotate until turn is completed.
+        if (degrees < 0) {
+            // On right turn we have to get off zero first.
+            while (opModeIsActive() && !isStopRequested() && getAngle() == 0) {
+            }
+
+            while (opModeIsActive() && !isStopRequested() && getAngle() > degrees) {
+            }
+        } else    // left turn.
+            while (opModeIsActive() && !isStopRequested() && getAngle() < degrees) {
+            }
+
+        // turn the motors off.
+        int power = 0;
+        robot.leftMotor.setPower(power);
+        robot.rightMotor.setPower(power);
+        robot.backleftMotor.setPower(power);
+        robot.backrightMotor.setPower(power);
+
+        // wait for rotation to stop.
+        sleep(50);
+
+        // reset angle tracking on new heading.
+        resetAngle();
+        RobotLog.ii("CAL", "Exit - rotate");
+    }
+
     public void rotateUsingOneSide(int degrees, double speed) {
         //logs that get added to a file to see what was wrong with the robot and the sequences of it
         RobotLog.ii("CAL", "Enter - rotate - degrees=%d, power=%f",
@@ -320,6 +373,16 @@ public class JARVISAutonomousBase extends LinearOpMode {
                 newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
                 newLeftBackTarget = robot.backrightMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
                 newRightBackTarget = robot.backleftMotor.getCurrentPosition() + (int) (-1 * Inches * COUNTS_PER_INCH);
+
+            } else if (direction == Direction.DIAGONAL_LEFT) {
+                //Left Diagonal
+                newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
+                newLeftBackTarget = robot.backrightMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
+
+            } else if (direction == Direction.DIAGONAL_RIGHT) {
+                //Right Diagonal
+                newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
+                newRightBackTarget = robot.backleftMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
 
             } else {
                 Inches = 0;
@@ -827,10 +890,10 @@ public class JARVISAutonomousBase extends LinearOpMode {
         // Checks if the servos are = null or not because that is what causes the
         // "null pointer exception". Once it is checked, the servos will run.
         if (robot.FLServo != null) {
-            robot.FLServo.setPosition(0.8);
+            robot.FLServo.setPosition(0.21);
         }
         if (robot.FRServo != null) {
-            robot.FRServo.setPosition(0.8);
+            robot.FRServo.setPosition(0.21);
         }
     }
     public void moveFoundationServoUp() {
@@ -885,7 +948,24 @@ public class JARVISAutonomousBase extends LinearOpMode {
             robot.slide_3.setPower(1*speed);
         }
     }
+    public void rotateClawPerpendicular()
+    {
+        robot.turnServo.setPosition(0.05);
+    }
 
+    public void rotateClawInline()
+    {
+        //turnServo.setPosition(0.25);
+        robot.turnServo.setPosition(0.4);
+    }
+    public void openClaw()
+    {
+        robot.clawServo.setPosition(0);
+    }
+    public void closeClaw() {
+        robot.clawServo.setPosition(1);
+    }
+    
     public void setGrabberDownAuto(int side) {
         if (side == 0) {
             //Left
