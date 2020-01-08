@@ -118,7 +118,8 @@ public class JARVISHW
         slide_3.setDirection(DcMotorSimple.Direction.REVERSE);
         FLServo.setDirection(Servo.Direction.REVERSE);
         CollectLeftServo.setDirection(Servo.Direction.REVERSE);
-
+        GrabberRightTurnServo.setDirection(Servo.Direction.REVERSE);
+        GrabberRightClawServo.setDirection(Servo.Direction.REVERSE);
 
         // Set all motors to zero power
         stopAllMotors();
