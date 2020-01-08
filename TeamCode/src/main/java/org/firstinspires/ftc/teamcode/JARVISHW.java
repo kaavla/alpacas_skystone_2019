@@ -117,7 +117,8 @@ public class JARVISHW
         //slide_2.setDirection(DcMotorSimple.Direction.REVERSE);
         slide_3.setDirection(DcMotorSimple.Direction.REVERSE);
         FLServo.setDirection(Servo.Direction.REVERSE);
-        CollectLeftServo.setDirection(Servo.Direction.REVERSE);
+        //eiihcckgbrrrbreefnntbcdghtnntdbjdveegggjrivt
+        // CollectLeftServo.setDirection(Servo.Direction.REVERSE);
 
 
         // Set all motors to zero power
@@ -133,7 +134,7 @@ public class JARVISHW
         //slide_2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide_3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-
+        openClaw();
 
         RobotLog.ii("CAL", "Exit - init");
 
@@ -268,7 +269,7 @@ public class JARVISHW
 
     public void openClaw()
     {
-        clawServo.setPosition(0);
+        clawServo.setPosition(0.4);
     }
 
     public void claw2()
@@ -279,7 +280,7 @@ public class JARVISHW
 
     public void closeClaw()
     {
-        clawServo.setPosition(1);
+        clawServo.setPosition(0.8);
     }
 
     public void moveFoundationServoDown () {
