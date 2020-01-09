@@ -120,6 +120,7 @@ public class JARVISHW
         // CollectLeftServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightTurnServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightClawServo.setDirection(Servo.Direction.REVERSE);
+        CollectRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Set all motors to zero power
         stopAllMotors();
@@ -269,7 +270,7 @@ public class JARVISHW
 
     public void openClaw()
     {
-        clawServo.setPosition(0.4);
+        clawServo.setPosition(0.5);
     }
 
     public void claw2()
@@ -312,8 +313,8 @@ public class JARVISHW
     }
 
     public void setCollectionServo() {
-        CollectLeftServo.setPosition(0.72);
-        CollectRightServo.setPosition(0.72);
+        CollectLeftServo.setPosition(0.8);
+        CollectRightServo.setPosition(0.75);
         //CollectLeftServo.setPosition(1.5);
         //CollectRightServo.setPosition(1.5);
         CollectLeftMotor.setPower(1);
@@ -321,18 +322,28 @@ public class JARVISHW
     }
 
     public void setGrabberDown(int side) {
-        RobotLog.ii("SHANK", "Enter -  setGrabberDown");
         if (side == 0) {
             //Left
-            RobotLog.ii("SHANK", "setGrabberDown - Left ");
             GrabberLeftTurnServo.setPosition(0.4);
         } else
         {
             //Right
-            RobotLog.ii("SHANK", "setGrabberDown - Right ");
             GrabberRightTurnServo.setPosition(0.4);
        }
+
     }
+
+    public void setGrabberHalfDown(int side) {
+        if (side == 0) {
+            //Left
+            GrabberLeftTurnServo.setPosition(0.35);
+        } else
+        {
+            //Right
+            GrabberRightTurnServo.setPosition(0.35);
+        }
+    }
+
 
     public void setGrabberUp(int side) {
         RobotLog.ii("SHANK", "setGrabberUp - Enter ");
