@@ -58,9 +58,9 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             //MOve towards the skystones
 
             myEncoderDrive(Direction.STRAFE_LEFT, 0.4, 26, 5.0, SensorsToUse.NONE);
-            currentAngle = getAngle();
-            rotate((int)((-1)*(currentAngle - ref_angle)), 0.2);
-            sleep(300);
+            //currentAngle = getAngle();
+            //rotate((int)((-1)*(currentAngle - ref_angle)), 0.2);
+            //sleep(300);
 
 
 
@@ -92,11 +92,11 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
             sleep(250);
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 35 + strafe_back, 10.0, SensorsToUse.NONE);
-            currentAngle = getAngle();
-            rotate((int)((-1)*(currentAngle - ref_angle)), 0.2);
+            //currentAngle = getAngle();
+            //rotate((int)((-1)*(currentAngle - ref_angle)), 0.2);
 
-            telemetry.addData("status", "1....ref_angle = %f, curr = %f", ref_angle, currentAngle);
-            telemetry.update();
+            //telemetry.addData("status", "1....ref_angle = %f, curr = %f", ref_angle, currentAngle);
+            //telemetry.update();
 
             sleep(250);
 
@@ -110,16 +110,17 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             sleep(250);
 
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 61 + strafe_back, 10.0, SensorsToUse.NONE);
-            currentAngle = getAngle();
-            rotate((int)((-1)*(currentAngle - ref_angle)), 0.2);
+            //getAngle();
+            //currentAngle = getAngle();
+            //rotate((int)((-1)*(currentAngle - ref_angle)), 0.2);
             sleep(250);
-            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,3, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,2, 5.0, SensorsToUse.NONE);
             sleep(500);
             robot.openGrabberClaw(0);
             sleep(500);
             robot.setGrabberHalfDown(0);
             sleep(300);
-            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,4, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
             sleep(500);
             robot.setGrabberDown(0);
             sleep(300);
@@ -130,9 +131,9 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
             sleep(250);
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 65 + strafe_back, 10.0, SensorsToUse.NONE);
-
-            currentAngle = getAngle();
-            rotate((int)((-1)*(currentAngle - ref_angle)), 0.2);
+            //getAngle();
+            //currentAngle = getAngle();
+            //rotate((int)((-1)*(currentAngle - ref_angle)), 0.2);
             sleep(250);
             robot.setGrabberDown(0);
             sleep(250);
@@ -143,9 +144,9 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             robot.closeGrabberClaw(0);
             sleep(250);
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 20, 10.0, SensorsToUse.NONE);
-            getAngle();
-            currentAngle = getAngle();
-            rotate((int)((-1)*(currentAngle - ref_angle)), 0.2);
+            //getAngle();
+            //currentAngle = getAngle();
+            //rotate((int)((-1)*(currentAngle - ref_angle)), 0.2);
             sleep(250);
             myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,3, 5.0, SensorsToUse.NONE);
             /*
