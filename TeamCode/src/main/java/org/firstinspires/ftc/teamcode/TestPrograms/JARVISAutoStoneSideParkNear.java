@@ -1,11 +1,14 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TestPrograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
 
-@Autonomous(name="Jarvis Auto Build Site Blue Park Middle", group="JARVIS")
+import org.firstinspires.ftc.teamcode.JARVISAutonomousBase;
+import org.firstinspires.ftc.teamcode.JARVISHW;
 
-public class JARVISAutoStoneSideParkMiddle extends JARVISAutonomousBase {
+@Autonomous(name="ZZZZZ4", group="JARVIS")
+
+public class JARVISAutoStoneSideParkNear extends JARVISAutonomousBase {
 
     JARVISHW robotJARVIS = new JARVISHW();
 
@@ -41,12 +44,10 @@ public class JARVISAutoStoneSideParkMiddle extends JARVISAutonomousBase {
         // Ensure that the op mode is still active
         if (opModeIsActive() && !isStopRequested() )
         {
-            //move Sideways into the middle
-            myEncoderDrive(Direction.STRAFE_RIGHT, 0.5, 15, 5, SensorsToUse.NONE);
-            //move forward to the line
-            myEncoderDrive(Direction.FORWARD, 0.5, 25, 5, SensorsToUse.NONE);
-            //strafe further out of the way
-            myEncoderDrive(Direction.STRAFE_RIGHT, 0.5, 4, 5, SensorsToUse.NONE);
+            //wait 25 seconds to park
+            sleep(25000);
+            //move forward onto the line
+            myEncoderDrive(Direction.FORWARD, 0.2, 31, 5, SensorsToUse.NONE);
         }
         RobotLog.ii("CAL", "Exit - JARVISAutoBLD2Blue");
     }

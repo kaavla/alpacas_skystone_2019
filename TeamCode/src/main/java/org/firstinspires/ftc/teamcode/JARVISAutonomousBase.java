@@ -27,12 +27,12 @@ import java.util.Locale;
 //@Disabled
 public class JARVISAutonomousBase extends LinearOpMode {
 
-    enum Direction
+    public enum Direction
     {
         FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, SLIDE_UP, SLIDE_DOWN, SLIDE_IN, SLIDE_OUT, DIAGONAL_LEFT, DIAGONAL_RIGHT;
     }
 
-    enum SensorsToUse
+    public enum SensorsToUse
     {
         NONE, USE_COLOR, USE_DISTANCE, USE_TOUCH;
     }
@@ -42,7 +42,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
     private Orientation lastAngles = new Orientation();
     private double globalAngle = 0;
     // public direction;
-    double ref_angle = 0;
+    public double ref_angle = 0;
 
     public Direction direction;
 
@@ -965,7 +965,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
     public void closeClaw() {
         robot.clawServo.setPosition(1);
     }
-    
+
     public void setGrabberDownAuto(int side) {
         if (side == 0) {
             //Left

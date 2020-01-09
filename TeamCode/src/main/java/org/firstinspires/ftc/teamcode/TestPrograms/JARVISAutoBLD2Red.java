@@ -1,9 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TestPrograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
 
-@Autonomous(name="Jarvis Auto Build Site 2 Red", group="JARVIS")
+import org.firstinspires.ftc.teamcode.JARVISAutonomousBase;
+import org.firstinspires.ftc.teamcode.JARVISHW;
+
+@Autonomous(name="ZZZZZ1", group="JARVIS")
 
 public class JARVISAutoBLD2Red extends JARVISAutonomousBase {
 

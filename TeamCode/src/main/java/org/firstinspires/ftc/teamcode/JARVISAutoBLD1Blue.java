@@ -37,7 +37,6 @@ public class JARVISAutoBLD1Blue extends JARVISAutonomousBase {
         //initialized the motor encoders
         robot.initMotorEncoders();
 
-        // Eneiihcckgbrrrrutfrhviebkbejlghfujllehkkndurfk
         // sure that the op mode is still active
         if (opModeIsActive() && !isStopRequested() )
         {
@@ -58,16 +57,16 @@ public class JARVISAutoBLD1Blue extends JARVISAutonomousBase {
 
 
             //move backwards with the foundation and bring it close to the wall
-            myEncoderDrive(Direction.FORWARD, 0.2, 32, 5, SensorsToUse.NONE);
+            myEncoderDrive(Direction.FORWARD, 0.2, 31, 5, SensorsToUse.NONE);
             //leave time for the robot to finish turning
             sleep(500);
             //move the foundation attachment up to release the foundation
             moveFoundationServoUp();
             //stop for 10 seconds so the robot is out of the way of the other robots while the
             //autonomous mode is still going on
-            sleep(6000);
+            sleep(8000);
             //move left to be right next to the foundation
-            myEncoderDrive(Direction.STRAFE_LEFT, 0.1, 67, 5, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_LEFT, 0.3, 50, 5, SensorsToUse.NONE);
         }
         RobotLog.ii("CAL", "Exit - JARVISAutoBLD1Blue");
     }
