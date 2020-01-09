@@ -37,6 +37,10 @@ public class JARVISAutonomousBase extends LinearOpMode {
         NONE, USE_COLOR, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_TOUCH;
     }
 
+    public enum SideToUse
+    {
+        USE_LEFT, USE_RIGHT;
+    }
     public JARVISHW robot = new JARVISHW();
     public ElapsedTime runtime = new ElapsedTime();
     private Orientation lastAngles = new Orientation();
