@@ -63,17 +63,17 @@ public class JARVISManual extends JARVISAutonomousBase {
             } else if (gamepad1.x) {
                 //strafe left
                 //robot.moveHolonomic(-0.4, 0, 0);
-                robot.openGrabberClaw(0);
+                robot.openGrabberClaw(1);
             } else if (gamepad1.b) {
                 //strafe right
                 //robot.moveHolonomic(0.4, 0, 0);
             } else if (gamepad1.y) {
                 //Nothing
-                robot.setGrabberDown(0);
-                robot.closeGrabberClaw(0);
+                robot.setGrabberDown(1);
+                robot.closeGrabberClaw(1);
             } else if (gamepad1.a) {
                 //Nothing
-                robot.setGrabberUp(0);
+                robot.setGrabberUp(1);
 
             } else if (gamepad1.right_trigger > 0.5) {
                 //Move Marker Servo Down
