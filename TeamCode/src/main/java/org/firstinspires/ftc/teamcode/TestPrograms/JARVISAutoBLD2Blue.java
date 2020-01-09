@@ -1,9 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TestPrograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
 
-@Autonomous(name="Jarvis Auto Build Site 2 Blue", group="JARVIS")
+import org.firstinspires.ftc.teamcode.JARVISAutonomousBase;
+import org.firstinspires.ftc.teamcode.JARVISHW;
+
+@Autonomous(name="ZZZZZ", group="JARVIS")
 
 public class JARVISAutoBLD2Blue extends JARVISAutonomousBase {
 
@@ -48,7 +51,7 @@ public class JARVISAutoBLD2Blue extends JARVISAutonomousBase {
             //move to the foundation
             myEncoderDrive(Direction.BACKWARD, 0.3, 18, 5, SensorsToUse.NONE);
             //go at a slower speed to make sure we hook on properly
-            myEncoderDrive(Direction.BACKWARD, 0.1, 7, 5, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, 0.07, 7, 5, SensorsToUse.NONE);
             //leave time for the foundation servos to move
             sleep(500);
             //move the foundation attachment down
@@ -56,8 +59,8 @@ public class JARVISAutoBLD2Blue extends JARVISAutonomousBase {
             //leave time for the foundation servos to move
             sleep(500);
 
-            //move diagonally to bring the foundation away from the wall
-            myEncoderDrive(Direction.DIAGONAL_LEFT, 0.2, 10, 5, SensorsToUse.NONE);
+            //back up to be close to the wall
+            myEncoderDrive(Direction.FORWARD, 0.2, 22, 5, SensorsToUse.NONE);
             //turn the foundation so it is parallel to the front wall
             rotate(90, 0.4);
             //move backwards with the foundation and bring it close to the wall
@@ -66,15 +69,15 @@ public class JARVISAutoBLD2Blue extends JARVISAutonomousBase {
             sleep(500);
             //move the foundation attachment up to release the foundation
             moveFoundationServoUp();
-            //strafe to the side to get out of the way of the other robot while waiting
-            myEncoderDrive(Direction.DIAGONAL_RIGHT, 0.3, 4, 5, SensorsToUse.NONE);
+            //leave time for the robot to finish moving the foundation
+            sleep(500);
             //stop for 10 seconds so the robot is out of the way of the other robots while the
             //autonomous mode is still going on
             sleep(10000);
             //move to the blue tape under the bridge
-            myEncoderDrive(Direction.FORWARD, 0.3, 35, 5, SensorsToUse.NONE);
+            myEncoderDrive(Direction.FORWARD, 0.3, 55, 5, SensorsToUse.NONE);
             //strafe into the wall
-            myEncoderDrive(Direction.STRAFE_RIGHT, 0.1, 5, 5, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_RIGHT, 0.1, 6, 5, SensorsToUse.NONE);
         }
         RobotLog.ii("CAL", "Exit - JARVISAutoBLD2Blue");
     }
