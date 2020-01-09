@@ -49,7 +49,8 @@ public class JARVISHW
 
     //public CRServo VexServo = null;
 
-    // public DistanceSensor sensorDistance = null;
+    public DistanceSensor sensorDistanceRight = null;
+    public DistanceSensor sensorDistanceLeft = null;
     // public ColorSensor sensorColor = null;
     public ColorSensor sensorColorLeft = null;
     public ColorSensor sensorColorRight = null;
@@ -96,7 +97,9 @@ public class JARVISHW
 
         sensorColorLeft = ahwMap.get(ColorSensor.class, "sensor_color_left");
         sensorColorRight = ahwMap.get(ColorSensor.class, "sensor_color_right");
-        //sensorDistance = ahwMap.get(DistanceSensor.class, "sensorDistance");
+
+        sensorDistanceLeft = ahwMap.get(DistanceSensor.class, "sensorDistanceLeft");
+        sensorDistanceRight = ahwMap.get(DistanceSensor.class, "sensorDistanceRight");
         markerServo = ahwMap.get(Servo.class, "MServo");
 
         imu = ahwMap.get(BNO055IMU.class, "imu 1");

@@ -57,11 +57,11 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
 
             //MOve towards the skystones
 
-            myEncoderDrive(Direction.STRAFE_LEFT, 0.4, 26, 5.0, SensorsToUse.NONE);
+            //myEncoderDrive(Direction.STRAFE_LEFT, 0.4, 26, 5.0, SensorsToUse.USE_DISTANCE);
+            myEncoderDrive(Direction.STRAFE_LEFT, 0.2, 50, 5.0, SensorsToUse.USE_DISTANCE_LEFT);
             //currentAngle = getAngle();
             //rotate((int)((-1)*(currentAngle - ref_angle)), 0.2);
             //sleep(300);
-
 
 
             if (myDetectSkystone(10) == false) {
@@ -177,6 +177,7 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             //Move the slide up and linear slide in
             //myEncoderSlide(Direction.SLIDE_UP, DRIVE_SPEED, 8, 2.5, SensorsToUse.NONE);
             //myEncoderInOutSlide(Direction.SLIDE_IN, DRIVE_SPEED, 4, 5, SensorsToUse.NONE);
+
 
 
             //after these too we assume that the skystone is the third and it will play out the code below

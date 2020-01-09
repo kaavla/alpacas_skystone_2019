@@ -34,7 +34,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     public enum SensorsToUse
     {
-        NONE, USE_COLOR, USE_DISTANCE, USE_TOUCH;
+        NONE, USE_COLOR, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_TOUCH;
     }
 
     public JARVISHW robot = new JARVISHW();
@@ -416,19 +416,32 @@ public class JARVISAutonomousBase extends LinearOpMode {
                     (runtime.seconds() < timeoutS) &&
                     (robot.leftMotor.isBusy())) {
 
-               /* if (sensors_2_use == SensorsToUse.USE_DISTANCE) {
-
-                    DistanceSensor sensorDistance = null;
-
-                    if(sensorDistance.getDistance(DistanceUnit.INCH) <= 4) {
+               if (sensors_2_use == SensorsToUse.USE_DISTANCE_LEFT) {
+                    if(robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH) <= 6) {
                         robot.stopAllMotors();
 
-                        telemetry.addData("DistSensor", "The robot is %7d inches from crashing.",
-                                sensorDistance.getDistance(DistanceUnit.INCH));
+                        telemetry.addData("LeftDistSensor", "The robot is %7f inches from crashing.",
+                                robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH));
+                        telemetry.update();
+                        break;
+
                     }
                 }
 
-                if (sensors_2_use == SensorsToUse.USE_COLOR) {
+                if (sensors_2_use == SensorsToUse.USE_DISTANCE_RIGHT) {
+                    if(robot.sensorDistanceRight.getDistance(DistanceUnit.INCH) <= 6) {
+                        robot.stopAllMotors();
+
+                        telemetry.addData("RightDistSensor", "The robot is %7f inches from crashing.",
+                                robot.sensorDistanceRight.getDistance(DistanceUnit.INCH));
+                        telemetry.update();
+                        break;
+
+                    }
+                }
+
+
+               /* if (sensors_2_use == SensorsToUse.USE_COLOR) {
 
                     ColorSensor sensorColor = null;
 
@@ -467,11 +480,14 @@ public class JARVISAutonomousBase extends LinearOpMode {
                 */
 
                 // Display it for the driver.
+                /*
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
                 telemetry.addData("Path2", "Running at %7d :%7d",
                         robot.leftMotor.getCurrentPosition(),
                         robot.rightMotor.getCurrentPosition());
+
                 telemetry.update();
+                 */
             }
         }
 
