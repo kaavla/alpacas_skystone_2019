@@ -1,3 +1,4 @@
+
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
@@ -5,7 +6,7 @@ import com.qualcomm.robotcore.util.RobotLog;
 import java.util.List;
 @Autonomous(name="Jarvis Auto Blue", group="JARVIS")
 
-public class JARVISAutonomous1 extends JARVISAutonomousBase {
+public class JARVISAutoBlue extends JARVISAutonomousBase {
     static final int SIDE = 0; //LEFT Side Blue Corner
 
     @Override
@@ -136,3 +137,4 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
         RobotLog.ii("CAL", "Exit - myDetectionRun");
     }
 }
+

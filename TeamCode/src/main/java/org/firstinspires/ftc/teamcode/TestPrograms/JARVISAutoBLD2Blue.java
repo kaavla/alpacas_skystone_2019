@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.TestPrograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.teamcode.JARVISAutonomousBase;
 import org.firstinspires.ftc.teamcode.JARVISHW;
 
 @Autonomous(name="ZZZZZ", group="JARVIS")
-
+@Disabled
 public class JARVISAutoBLD2Blue extends JARVISAutonomousBase {
 
     JARVISHW robotJARVIS = new JARVISHW();
