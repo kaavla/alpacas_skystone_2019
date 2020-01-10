@@ -138,6 +138,7 @@ public class JARVISHW
         //slide_2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide_3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        rotateClawInline();
         openClaw();
 
         RobotLog.ii("CAL", "Exit - init");
@@ -349,47 +350,38 @@ public class JARVISHW
 
 
     public void setGrabberUp(int side) {
-        RobotLog.ii("SHANK", "setGrabberUp - Enter ");
         if (side == 0) {
             //Left
-            RobotLog.ii("SHANK", "setGrabberUp - Left ");
-            GrabberLeftTurnServo.setPosition(0);
+            GrabberLeftTurnServo.setPosition(0.05);
         } else
         {
             //Right
-            RobotLog.ii("SHANK", "setGrabberUp - Right ");
-            GrabberRightTurnServo.setPosition(0);
+            GrabberRightTurnServo.setPosition(0.05);
         }
     }
 
     public void closeGrabberClaw(int side) {
-        RobotLog.ii("SHANK", "closeGrabberClaw - Enter ");
 
         if (side == 0) {
             //Left
-            RobotLog.ii("SHANK", "closeGrabberClaw - Left");
             GrabberLeftClawServo.setPosition(0);
 
         } else
         {
             //Right
-            RobotLog.ii("SHANK", "closeGrabberClaw - Right");
 
             GrabberRightClawServo.setPosition(0);
         }
     }
 
     public void openGrabberClaw(int side) {
-        RobotLog.ii("SHANK", "openGrabberClaw - Enter ");
 
         if (side == 0) {
             //Left
-            RobotLog.ii("SHANK", "openGrabberClaw - Left ");
             GrabberLeftClawServo.setPosition(0.5);
         } else
         {
             //Right
-            RobotLog.ii("SHANK", "openGrabberClaw - Right");
 
             GrabberRightClawServo.setPosition(0.5);
         }
