@@ -55,9 +55,7 @@ public class ShankAutoTest extends JARVISAutonomousBase {
             robot.openClaw();
 
             //MOve towards the skystones
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 24, 5.0, SensorsToUse.NONE);
-
-            if (myDetectSkystone(10) == false) {
+/*            if (myDetectSkystone(10) == false) {
                 //detected stone. Strafe left to test the next one.
                 myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED, 8, 5.0, SensorsToUse.NONE);
 
@@ -68,7 +66,7 @@ public class ShankAutoTest extends JARVISAutonomousBase {
                     strafe_back = strafe_back + 8;
                 }
             }
-
+*/
             //Strafe the opposite direction so claw is in middle
             myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 1, 5.0, SensorsToUse.NONE);

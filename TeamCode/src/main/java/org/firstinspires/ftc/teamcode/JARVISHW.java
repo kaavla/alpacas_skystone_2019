@@ -120,9 +120,9 @@ public class JARVISHW
         //slide_2.setDirection(DcMotorSimple.Direction.REVERSE);
         slide_3.setDirection(DcMotorSimple.Direction.REVERSE);
         FLServo.setDirection(Servo.Direction.REVERSE);
-        // CollectLeftServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightTurnServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightClawServo.setDirection(Servo.Direction.REVERSE);
+        CollectRightServo.setDirection(Servo.Direction.REVERSE);
         CollectRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Set all motors to zero power
@@ -262,7 +262,7 @@ public class JARVISHW
 
     public void rotateClawPerpendicular()
     {
-        turnServo.setPosition(0.05);
+        //turnServo.setPosition(0.05);
     }
 
     public void rotateClawInline()
@@ -273,7 +273,7 @@ public class JARVISHW
 
     public void openClaw()
     {
-        clawServo.setPosition(0.5);
+        clawServo.setPosition(0.55);
     }
 
     public void claw2()
@@ -317,7 +317,7 @@ public class JARVISHW
 
     public void setCollectionServo() {
         CollectLeftServo.setPosition(0.8);
-        CollectRightServo.setPosition(0.75);
+        CollectRightServo.setPosition(0.8);
         //CollectLeftServo.setPosition(1.5);
         //CollectRightServo.setPosition(1.5);
         CollectLeftMotor.setPower(1);

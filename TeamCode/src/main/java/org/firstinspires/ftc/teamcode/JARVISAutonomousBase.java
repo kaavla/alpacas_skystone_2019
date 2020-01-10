@@ -926,7 +926,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
             robot.FRServo.setPosition(0);
         }
     }
-    public boolean myDetectSkystone(double timeoutS) {
+    public boolean myDetectSkystone(SideToUse side, double timeoutS) {
         RobotLog.ii("CAL", "myDetectSkystone - Enter");
         float hsvValues[] = {0F, 0F, 0F};
 
@@ -937,10 +937,22 @@ public class JARVISAutonomousBase extends LinearOpMode {
         // to amplify/attentuate the measured values.
         final double SCALE_FACTOR = 255;
 
-        Color.RGBToHSV((int) (robot.sensorColorLeft.red() * SCALE_FACTOR),
-                (int) (robot.sensorColorLeft.green() * SCALE_FACTOR),
-                (int) (robot.sensorColorLeft.blue() * SCALE_FACTOR),
-                hsvValues);
+
+        if (side == SideToUse.USE_LEFT)
+        {
+            Color.RGBToHSV((int) (robot.sensorColorLeft.red() * SCALE_FACTOR),
+                    (int) (robot.sensorColorLeft.green() * SCALE_FACTOR),
+                    (int) (robot.sensorColorLeft.blue() * SCALE_FACTOR),
+                    hsvValues);
+
+        } else {
+            Color.RGBToHSV((int) (robot.sensorColorRight.red() * SCALE_FACTOR),
+                    (int) (robot.sensorColorRight.green() * SCALE_FACTOR),
+                    (int) (robot.sensorColorRight.blue() * SCALE_FACTOR),
+                    hsvValues);
+
+        }
+
 
         // send the info back to driver station using telemetry function.
         telemetry.addData("Hue", hsvValues[0]);

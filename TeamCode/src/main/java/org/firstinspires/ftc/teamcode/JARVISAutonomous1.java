@@ -39,19 +39,19 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
 
     public void getStone()
     {
-        myEncoderDrive(Direction.STRAFE_RIGHT, 0.2, 2, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_RIGHT, 0.2, 4, 5.0, SensorsToUse.NONE);
 
         robot.openGrabberClaw(SIDE);
-        sleep(500);
+        sleep(400);
 
         robot.setGrabberHalfDown(SIDE);
-        sleep(300);
+        sleep(400);
 
-        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,2, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,4, 5.0, SensorsToUse.NONE);
         sleep(300);
 
         robot.setGrabberDown(SIDE);
-        sleep(300);
+        sleep(500);
 
         robot.closeGrabberClaw(SIDE);
         sleep(500);
@@ -67,13 +67,13 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
     public void releaseStone()
     {
         robot.setGrabberDown(SIDE);
-        sleep(250);
+        sleep(200);
         robot.openGrabberClaw(SIDE);
-        sleep(250);
+        sleep(200);
         robot.setGrabberUp(SIDE);
-        sleep(250);
+        sleep(200);
         robot.closeGrabberClaw(SIDE);
-        sleep(250);
+        sleep(200);
 
     }
 
@@ -92,12 +92,12 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             myEncoderDrive(Direction.STRAFE_LEFT, 0.2, 50, 5.0, SensorsToUse.USE_DISTANCE_LEFT);
             correctAngle();
 
-            if (myDetectSkystone(10) == false) {
+            if (myDetectSkystone(SideToUse.USE_LEFT, 10) == false) {
                 //detected stone. Strafe left to test the next one.
                 myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 7, 5.0, SensorsToUse.NONE);
 
                 strafe_back = strafe_back + 7;
-                if (myDetectSkystone(10) == false) {
+                if (myDetectSkystone(SideToUse.USE_LEFT, 10) == false) {
                     //detected stone. Strafe left to test the next one.
                     myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 7, 5.0, SensorsToUse.NONE);
                     strafe_back = strafe_back + 7;
@@ -114,24 +114,24 @@ public class JARVISAutonomous1 extends JARVISAutonomousBase {
             releaseStone();
 
             //Drive back to collect the second stone
-            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 64 + strafe_back, 10.0, SensorsToUse.NONE);
-            correctAngle();
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 62 + strafe_back, 10.0, SensorsToUse.NONE);
+            //correctAngle();
 
             //Drive till we are close to the stone again
-            myEncoderDrive(Direction.STRAFE_LEFT, 0.2,10, 5.0, SensorsToUse.USE_DISTANCE_LEFT);
+            myEncoderDrive(Direction.STRAFE_LEFT, 0.2,50, 5.0, SensorsToUse.USE_DISTANCE_LEFT);
 
             //Grab the skystone
             getStone();
 
             //drive to other side
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 65 + strafe_back, 10.0, SensorsToUse.NONE);
-            correctAngle();
+            //correctAngle();
 
             releaseStone();
 
-            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 20, 10.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 16, 10.0, SensorsToUse.NONE);
             correctAngle();
-            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,3, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
         }
         RobotLog.ii("CAL", "Exit - myDetectionRun");
     }

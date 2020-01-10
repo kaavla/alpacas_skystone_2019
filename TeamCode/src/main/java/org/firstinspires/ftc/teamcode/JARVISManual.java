@@ -61,46 +61,35 @@ public class JARVISManual extends JARVISAutonomousBase {
                 //rotate clockwise
                 robot.moveHolonomic(0, 0, motor_power * -1);
             } else if (gamepad1.x) {
-                //strafe left
-                //robot.moveHolonomic(-0.4, 0, 0);
+                robot.openGrabberClaw(0);
                 robot.openGrabberClaw(1);
             } else if (gamepad1.b) {
-                //strafe right
-                //robot.moveHolonomic(0.4, 0, 0);
-            } else if (gamepad1.y) {
-                //Nothing
-                robot.setGrabberDown(1);
+                robot.closeGrabberClaw(0);
                 robot.closeGrabberClaw(1);
+            } else if (gamepad1.y) {
+                robot.setGrabberDown(0);
+                robot.setGrabberDown(1);
             } else if (gamepad1.a) {
-                //Nothing
+                robot.setGrabberUp(0);
                 robot.setGrabberUp(1);
-
-            } else if (gamepad1.right_trigger > 0.5) {
-                //Move Marker Servo Down
-                telemetry.addData("Status - Right Trigger pressed ", "Run Time: " + runtime.toString());
-                robot.moveMarkerServoDown();
+           } else if (gamepad1.right_trigger > 0.5) {
+                //Empty
             } else if (gamepad1.left_trigger > 0.5) {
-                //Move Marker Servo Up
-                telemetry.addData("Status - Left Trigger pressed ", "Run Time: " + runtime.toString());
-                robot.moveMarkerServoUp();
+                //Empty
             } else if (gamepad1.left_bumper){
                 robot.moveFoundationServoUp();
             } else if (gamepad1.right_bumper) {
                 robot.moveFoundationServoDown();
             }else if (gamepad2.dpad_up) {
-                robot.slidesUp(0.9);
-                //myEncoderSlide2(Direction.SLIDE_UP, 0.9, 6, 4, SensorsToUse.NONE);
-
+                //robot.slidesUp(0.9);
+                myEncoderSlide1(Direction.SLIDE_UP, 0.9, 6, 4, SensorsToUse.NONE);
             } else if (gamepad2.dpad_down) {
-                robot.slidesDown(0.9);
-
-                // myEncoderSlide2(Direction.SLIDE_DOWN, 0.9, 6, 4, SensorsToUse.NONE);
-
                 //robot.slidesDown(0.9);
-            } else if (gamepad2.dpad_left) {
-                robot.slideIn(0.7);
+                myEncoderSlide1(Direction.SLIDE_DOWN, 0.9, 6, 4, SensorsToUse.NONE);
+           } else if (gamepad2.dpad_left) {
+                robot.slideIn(0.5);
             } else if (gamepad2.dpad_right) {
-                robot.slideOut(0.7);
+                robot.slideOut(0.5);
             } else if (gamepad2.x) {
                 robot.openClaw();  //opens the claw
             } else if (gamepad2.b) {
