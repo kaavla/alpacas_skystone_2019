@@ -47,7 +47,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
         robot.setGrabberHalfDown(SIDE);
         sleep(400);
 
-        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,6, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,4, 5.0, SensorsToUse.NONE);
         sleep(300);
 
         robot.setGrabberDown(SIDE);
@@ -103,41 +103,42 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
                     strafe_back = strafe_back + 7;
                 }
             }*/
-            myEncoderDrive(Direction.FORWARD, 0.2, 24, 10.0, SensorsToUse.USE_COLOR_LEFT);
-            myEncoderDrive(Direction.FORWARD, 0.2, 2, 10.0, SensorsToUse.USE_COLOR_LEFT);
+            myEncoderDrive(Direction.FORWARD, 0.1, 24, 10.0, SensorsToUse.USE_COLOR_LEFT);
+            myEncoderDrive(Direction.BACKWARD, 0.1, 1, 5.0, SensorsToUse.NONE);
+            //myEncoderDrive(Direction.BACKWARD, 0.2, 4, 10.0, SensorsToUse.USE_COLOR_LEFT);
 
 
             //Grab the skystone
             getStone();
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 54, 10.0, SensorsToUse.NONE);
 
-            /*
+
             //Drive to the other side
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 35 + strafe_back, 10.0, SensorsToUse.NONE);
             correctAngle();
 
             releaseStone();
 
             //Drive back to collect the second stone
-            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 62 + strafe_back, 10.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 70, 10.0, SensorsToUse.NONE);
             //correctAngle();
 
             //Drive till we are close to the stone again
             myEncoderDrive(Direction.STRAFE_LEFT, 0.2,50, 5.0, SensorsToUse.USE_DISTANCE_LEFT);
-
+            myEncoderDrive(Direction.FORWARD, 0.1, 20, 5.0, SensorsToUse.USE_COLOR_LEFT);
             //Grab the skystone
             getStone();
 
             //drive to other side
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 65 + strafe_back, 10.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 70, 10.0, SensorsToUse.NONE);
             //correctAngle();
 
             releaseStone();
 
-            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 16, 10.0, SensorsToUse.NONE);
-            correctAngle();
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 20, 10.0, SensorsToUse.NONE);
+            //correctAngle();
             myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
 
-             */
+
         }
         RobotLog.ii("CAL", "Exit - myDetectionRun");
     }

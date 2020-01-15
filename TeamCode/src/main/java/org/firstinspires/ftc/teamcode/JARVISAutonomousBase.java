@@ -443,7 +443,6 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
                     }
                 }
-/*
                 if (sensors_2_use == SensorsToUse.USE_COLOR_LEFT) {
 
                     if (myDetectSkystone(SideToUse.USE_LEFT, 2) == true)
@@ -455,7 +454,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
                     }
                 }
 
- */
+
 
             }
         }
