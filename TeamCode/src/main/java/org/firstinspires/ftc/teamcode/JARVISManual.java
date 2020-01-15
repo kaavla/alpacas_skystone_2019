@@ -73,14 +73,23 @@ public class JARVISManual extends JARVISAutonomousBase {
                 robot.setGrabberUp(0);
                 robot.setGrabberUp(1);
            } else if (gamepad1.right_trigger > 0.5) {
-                //Empty
+                //StrafeRight slow
+                robot.moveHolonomic(-0.4, 0, 0);
+
             } else if (gamepad1.left_trigger > 0.5) {
-                //Empty
+                //StrafeLeft slow
+                robot.moveHolonomic(0.4, 0, 0);
             } else if (gamepad1.left_bumper){
                 robot.moveFoundationServoUp();
             } else if (gamepad1.right_bumper) {
                 robot.moveFoundationServoDown();
+            } else if (gamepad2.right_bumper){
+                robot.openClaw();  //Automatically opens the claw
+                robot.setCollectionServo1();
+            } else if (gamepad2.left_bumper) {
+                robot.resetCollectionServo();
             }else if (gamepad2.dpad_up) {
+
                 robot.slidesUp(0.4);
                 //myEncoderSlide1(Direction.SLIDE_UP, 0.9, 6, 4, SensorsToUse.NONE);
             } else if (gamepad2.dpad_down) {
@@ -101,6 +110,7 @@ public class JARVISManual extends JARVISAutonomousBase {
             } else if (gamepad2.left_trigger > 0.5){
                 robot.resetCollectionServo();
             } else if (gamepad2.right_trigger > 0.5) {
+                robot.openClaw();  //Automatically opens the claw
                 robot.setCollectionServo();
             }
             else {

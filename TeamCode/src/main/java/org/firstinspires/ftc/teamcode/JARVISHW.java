@@ -122,7 +122,7 @@ public class JARVISHW
         FLServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightTurnServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightClawServo.setDirection(Servo.Direction.REVERSE);
-        CollectRightServo.setDirection(Servo.Direction.REVERSE);
+        CollectLeftServo.setDirection(Servo.Direction.REVERSE);
         CollectRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Set all motors to zero power
@@ -140,6 +140,12 @@ public class JARVISHW
 
         rotateClawInline();
         openClaw();
+
+        setGrabberUp(0);
+        setGrabberUp(1);
+
+        closeGrabberClaw(0);
+        closeGrabberClaw(1);
 
         RobotLog.ii("CAL", "Exit - init");
 
@@ -317,12 +323,18 @@ public class JARVISHW
     }
 
     public void setCollectionServo() {
-        CollectLeftServo.setPosition(0.8);
-        CollectRightServo.setPosition(0.8);
+        CollectLeftServo.setPosition(0.75);
+        CollectRightServo.setPosition(0.72);
         //CollectLeftServo.setPosition(1.5);
         //CollectRightServo.setPosition(1.5);
         CollectLeftMotor.setPower(1);
         CollectRightMotor.setPower(1);
+    }
+
+    public void setCollectionServo1() {
+        CollectLeftServo.setPosition(0.82);
+        CollectRightServo.setPosition(0.72);
+
     }
 
     public void setGrabberDown(int side) {
@@ -331,8 +343,8 @@ public class JARVISHW
             GrabberLeftTurnServo.setPosition(0.4);
         } else
         {
-            //Right
-            GrabberRightTurnServo.setPosition(0.4);
+           //Right
+           GrabberRightTurnServo.setPosition(0.4);
        }
 
     }
@@ -352,11 +364,11 @@ public class JARVISHW
     public void setGrabberUp(int side) {
         if (side == 0) {
             //Left
-            GrabberLeftTurnServo.setPosition(0.05);
+            GrabberLeftTurnServo.setPosition(0.1);
         } else
         {
             //Right
-            GrabberRightTurnServo.setPosition(0.05);
+            GrabberRightTurnServo.setPosition(0.1);
         }
     }
 

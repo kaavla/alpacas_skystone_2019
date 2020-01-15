@@ -1,4 +1,3 @@
-
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
@@ -48,7 +47,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
         robot.setGrabberHalfDown(SIDE);
         sleep(400);
 
-        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,4, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,6, 5.0, SensorsToUse.NONE);
         sleep(300);
 
         robot.setGrabberDown(SIDE);
@@ -60,7 +59,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
         robot.setGrabberUp(SIDE);
         sleep(500);
 
-        myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,7, 5.0, SensorsToUse.NONE);
         sleep(250);
 
     }
@@ -81,7 +80,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
     public void myDetectionRun(double timeoutS)
     {
 
-        RobotLog.ii("CAL", "Enter - myDetectionRun");
+        RobotLog.ii("CAL", "Enter i- myDetectionRun");
         double strafe_back = 0;
 
         //initialized the motor encoders
@@ -92,7 +91,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
             //MOve towards the skystones
             myEncoderDrive(Direction.STRAFE_LEFT, 0.2, 50, 5.0, SensorsToUse.USE_DISTANCE_LEFT);
             correctAngle();
-
+            /*
             if (myDetectSkystone(SideToUse.USE_LEFT, 10) == false) {
                 //detected stone. Strafe left to test the next one.
                 myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 7, 5.0, SensorsToUse.NONE);
@@ -103,11 +102,15 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
                     myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 7, 5.0, SensorsToUse.NONE);
                     strafe_back = strafe_back + 7;
                 }
-            }
+            }*/
+            myEncoderDrive(Direction.FORWARD, 0.2, 24, 10.0, SensorsToUse.USE_COLOR_LEFT);
+            myEncoderDrive(Direction.FORWARD, 0.2, 2, 10.0, SensorsToUse.USE_COLOR_LEFT);
+
 
             //Grab the skystone
             getStone();
 
+            /*
             //Drive to the other side
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 35 + strafe_back, 10.0, SensorsToUse.NONE);
             correctAngle();
@@ -133,6 +136,8 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 16, 10.0, SensorsToUse.NONE);
             correctAngle();
             myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
+
+             */
         }
         RobotLog.ii("CAL", "Exit - myDetectionRun");
     }
