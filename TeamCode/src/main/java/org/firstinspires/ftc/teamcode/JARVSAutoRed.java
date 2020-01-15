@@ -47,7 +47,7 @@ public class JARVSAutoRed extends JARVISAutonomousBase {
         robot.setGrabberHalfDown(SIDE);
         sleep(400);
 
-        myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,4, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,6, 5.0, SensorsToUse.NONE);
         sleep(300);
 
         robot.setGrabberDown(SIDE);
@@ -59,7 +59,7 @@ public class JARVSAutoRed extends JARVISAutonomousBase {
         robot.setGrabberUp(SIDE);
         sleep(500);
 
-        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,7, 5.0, SensorsToUse.NONE);
         sleep(250);
 
     }
