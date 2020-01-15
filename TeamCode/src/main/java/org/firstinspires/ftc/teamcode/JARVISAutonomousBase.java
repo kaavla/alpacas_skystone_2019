@@ -34,7 +34,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     public enum SensorsToUse
     {
-        NONE, USE_COLOR, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_TOUCH;
+        NONE, USE_COLOR_LEFT, USE_COLOR_RIGHT, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_TOUCH;
     }
 
     public enum SideToUse
@@ -443,55 +443,20 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
                     }
                 }
+/*
+                if (sensors_2_use == SensorsToUse.USE_COLOR_LEFT) {
 
-
-               /* if (sensors_2_use == SensorsToUse.USE_COLOR) {
-
-                    ColorSensor sensorColor = null;
-
-                    // hsvValues is an array that will hold the hue, saturation, and value information.
-                    float hsvValues[] = {0F, 0F, 0F};
-
-                    // values is a reference to the hsvValues array.
-                    final float values[] = hsvValues;
-
-                    // sometimes it helps to multiply the raw RGB values with a scale factor
-                    // to amplify/attentuate the measured values.
-                    final double SCALE_FACTOR = 255;
-
-                    // convert the RGB values to HSV values.
-                    // multiply by the SCALE_FACTOR.
-                    // then cast it back to int (SCALE_FACTOR is a double)
-                    Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
-                            (int) (sensorColor.green() * SCALE_FACTOR),
-                            (int) (sensorColor.blue() * SCALE_FACTOR),
-                            hsvValues);
-
-                    // get a reference to the RelativeLayout so we can change the background
-                    // color of the Robot Controller app to match the hue detected by the RGB sensor.
-                    int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier
-                            ("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
-                    final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
-
-                    if (hsvValues[0] <= 270 && hsvValues[0] >= 210) {
-                        //This will stop the robot if the color sensor detects the color blue.
+                    if (myDetectSkystone(SideToUse.USE_LEFT, 2) == true)
+                    {
                         robot.stopAllMotors();
-
-                        telemetry.addData("Blue", sensorColor.blue() + " Detected");
+                        //telemetry.addData("LeftColorSensor", "The robot detected Skystone");
+                        //telemetry.update();
+                        break;
                     }
                 }
 
-                */
+ */
 
-                // Display it for the driver.
-                /*
-                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
-                telemetry.addData("Path2", "Running at %7d :%7d",
-                        robot.leftMotor.getCurrentPosition(),
-                        robot.rightMotor.getCurrentPosition());
-
-                telemetry.update();
-                 */
             }
         }
 
@@ -778,7 +743,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
     public void myTFOD(double timeoutS) {
         {
             // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
-            // first.eiihcckgbrrrclggufrhectgugjvlcvndchkjhjilldl
+            // first.
 
             boolean strafeDone = false;
             RobotLog.ii("CAL", "myTFOD - Enter");
@@ -958,6 +923,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
         telemetry.addData("Hue", hsvValues[0]);
         telemetry.update();
 
+        //BLACK and WHITE
         if (hsvValues[0] > 100 && hsvValues[0] < 150) {
             return true;
         }
