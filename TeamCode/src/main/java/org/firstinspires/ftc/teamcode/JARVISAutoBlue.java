@@ -103,8 +103,10 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
                     strafe_back = strafe_back + 7;
                 }
             }*/
-            myEncoderDrive(Direction.FORWARD, 0.1, 24, 10.0, SensorsToUse.USE_COLOR_LEFT);
-            myEncoderDrive(Direction.BACKWARD, 0.1, 1, 5.0, SensorsToUse.NONE);
+            if (myDetectSkystone(SideToUse.USE_LEFT, 10) == false) {
+                myEncoderDrive(Direction.FORWARD, 0.1, 24, 10.0, SensorsToUse.USE_COLOR_LEFT);
+                myEncoderDrive(Direction.BACKWARD, 0.1, 1, 5.0, SensorsToUse.NONE);
+            }
             //myEncoderDrive(Direction.BACKWARD, 0.2, 4, 10.0, SensorsToUse.USE_COLOR_LEFT);
 
 
