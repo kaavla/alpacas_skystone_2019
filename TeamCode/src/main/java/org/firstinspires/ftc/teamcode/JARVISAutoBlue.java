@@ -82,6 +82,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
 
         RobotLog.ii("CAL", "Enter i- myDetectionRun");
         double strafe_back = 0;
+        double strafe_back_previous = 0;
 
         //initialized the motor encoders
         robot.initMotorEncoders();
@@ -105,6 +106,9 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
             }*/
             if (myDetectSkystone(SideToUse.USE_LEFT, 10) == false) {
                 myEncoderDrive(Direction.FORWARD, 0.1, 24, 10.0, SensorsToUse.USE_COLOR_LEFT);
+                strafe_back_previous = distance_traveled;
+                telemetry.addData("strafe back = ", strafe_back_previous);
+                telemetry.update();
                 myEncoderDrive(Direction.BACKWARD, 0.1, 1, 5.0, SensorsToUse.NONE);
             }
             //myEncoderDrive(Direction.BACKWARD, 0.2, 4, 10.0, SensorsToUse.USE_COLOR_LEFT);
@@ -112,7 +116,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
 
             //Grab the skystone
             getStone();
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 54, 10.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 35 + strafe_back_previous, 10.0, SensorsToUse.NONE);
 
 
             //Drive to the other side
@@ -121,17 +125,21 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
             releaseStone();
 
             //Drive back to collect the second stone
-            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 70, 10.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 52 + strafe_back_previous, 10.0, SensorsToUse.NONE);
             //correctAngle();
 
             //Drive till we are close to the stone again
             myEncoderDrive(Direction.STRAFE_LEFT, 0.2,50, 5.0, SensorsToUse.USE_DISTANCE_LEFT);
             myEncoderDrive(Direction.FORWARD, 0.1, 20, 5.0, SensorsToUse.USE_COLOR_LEFT);
+            strafe_back = distance_traveled;
+            telemetry.addData("strafe back = ", strafe_back);
+            telemetry.update();
+
             //Grab the skystone
             getStone();
 
             //drive to other side
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 70, 10.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 52 + strafe_back_previous + strafe_back, 10.0, SensorsToUse.NONE);
             //correctAngle();
 
             releaseStone();
