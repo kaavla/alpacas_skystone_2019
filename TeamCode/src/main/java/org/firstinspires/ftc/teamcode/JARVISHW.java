@@ -340,11 +340,11 @@ public class JARVISHW
     public void setGrabberDown(int side) {
         if (side == 0) {
             //Left
-            GrabberLeftTurnServo.setPosition(0.4);
+            GrabberLeftTurnServo.setPosition(0.45);
         } else
         {
            //Right
-           GrabberRightTurnServo.setPosition(0.4);
+           GrabberRightTurnServo.setPosition(0.45);
        }
 
     }

@@ -50,6 +50,8 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     public Direction direction;
 
+    public double distance_traveled = 0;
+
     static final double COUNTS_PER_MOTOR_REV  = 145.6;    // eg: goBilda 5202 Motor Encoder 5.2*28
     static final double DRIVE_GEAR_REDUCTION  = 2.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
@@ -464,6 +466,8 @@ public class JARVISAutonomousBase extends LinearOpMode {
         robot.rightMotor.setPower(0);
         robot.backleftMotor.setPower(0);
         robot.backrightMotor.setPower(0);
+
+        distance_traveled = robot.rightMotor.getCurrentPosition() / COUNTS_PER_INCH;
 
         // Turn off RUN_TO_POSITION
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
