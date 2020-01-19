@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.util.RobotLog;
 import org.firstinspires.ftc.teamcode.JARVISAutonomousBase;
 import org.firstinspires.ftc.teamcode.JARVISHW;
 
-@Autonomous(name="JARVIS Auto Park Green Wheel", group="JARVIS")
+@Autonomous(name="JARVIS Auto Park Orange Wheel", group="JARVIS")
 //@Disabled
-public class JARVISAutoParkGrnWheel extends JARVISAutonomousBase {
+public class JARVISAutoParkOrangeWheel extends JARVISAutonomousBase {
 
     JARVISHW robotJARVIS = new JARVISHW();
 
@@ -37,7 +37,7 @@ public class JARVISAutoParkGrnWheel extends JARVISAutonomousBase {
 
     public void autoBLDFoundation()
     {
-        RobotLog.ii("CAL", "Enter - JARVISAutoParkGrnWheel");
+        RobotLog.ii("CAL", "Enter - JARVISAutoParkOrangeWheel");
 
         //initialized the motor encoders
         robot.initMotorEncoders();
@@ -45,11 +45,11 @@ public class JARVISAutoParkGrnWheel extends JARVISAutonomousBase {
         // Ensure that the op mode is still active
         if (opModeIsActive() && !isStopRequested() )
         {
-            robot.setGrabberDown(0);
-            robot.openGrabberClaw(0);
+            robot.setGrabberDown(1);
+            robot.openGrabberClaw(1);
             sleep(1000);
         }
-        RobotLog.ii("CAL", "Exit - JARVISAutoParkGrnWheel");
+        RobotLog.ii("CAL", "Exit - JARVISAutoParkOrangeWheel");
     }
 
 }

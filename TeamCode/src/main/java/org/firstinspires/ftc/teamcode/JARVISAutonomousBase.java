@@ -29,12 +29,14 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     public enum Direction
     {
-        FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, SLIDE_UP, SLIDE_DOWN, SLIDE_IN, SLIDE_OUT, DIAGONAL_LEFT, DIAGONAL_RIGHT;
+        FORWARD, BACKWARD, STRAFE_RIGHT, STRAFE_LEFT, SLIDE_UP, SLIDE_DOWN, SLIDE_IN, SLIDE_OUT,
+        DIAGONAL_LEFT, DIAGONAL_RIGHT;
     }
 
     public enum SensorsToUse
     {
-        NONE, USE_COLOR, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_DISTANCE_LEFT_BLD, USE_DISTANCE_RIGHT_BLD, USE_TOUCH;
+        NONE, USE_COLOR, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_DISTANCE_LEFT_BLD, USE_DISTANCE_RIGHT_BLD,
+        USE_TOUCH, USE_COLOR_LEFT, USE_COLOR_RIGHT;
     }
 
     public enum SideToUse
@@ -49,6 +51,8 @@ public class JARVISAutonomousBase extends LinearOpMode {
     public double ref_angle = 0;
 
     public Direction direction;
+
+    public double distance_traveled = 0;
 
     static final double COUNTS_PER_MOTOR_REV  = 145.6;    // eg: goBilda 5202 Motor Encoder 5.2*28
     static final double DRIVE_GEAR_REDUCTION  = 2.0;     // This is < 1.0 if geared UP
