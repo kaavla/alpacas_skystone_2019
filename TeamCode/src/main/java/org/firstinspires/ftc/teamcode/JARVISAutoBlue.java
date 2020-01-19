@@ -56,7 +56,6 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
         //strafe towards the wall a little bit so we don't collide with the bridge
         myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,4, 5.0, SensorsToUse.NONE);
         sleep(100);
-        correctAngle();
     }
 
     public void releaseStone()
@@ -128,6 +127,9 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
 
             //Grab the skystone
             getStone();
+            //second time, we need to strafe an extra inch to avoid the bridge
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,1, 5.0, SensorsToUse.NONE);
+
 
             //drive to other side and drop the stone
             myEncoderDrive(Direction.BACKWARD, 0.4, 52 + strafe_back_previous + strafe_back, 10.0, SensorsToUse.NONE);
