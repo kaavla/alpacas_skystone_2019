@@ -83,11 +83,17 @@ public class JARVISManual extends JARVISAutonomousBase {
                 robot.moveFoundationServoUp();
             } else if (gamepad1.right_bumper) {
                 robot.moveFoundationServoDown();
+            } else if (gamepad2.right_bumper){
+                robot.openClaw();  //Automatically opens the claw
+                robot.setCollectionServo1();
+            } else if (gamepad2.left_bumper) {
+                robot.resetCollectionServo();
             }else if (gamepad2.dpad_up) {
-                robot.slidesUp(0.6);
+
+                robot.slidesUp(0.4);
                 //myEncoderSlide1(Direction.SLIDE_UP, 0.9, 6, 4, SensorsToUse.NONE);
             } else if (gamepad2.dpad_down) {
-                robot.slidesDown(0.1);
+                robot.slidesDown(0.4);
                 //myEncoderSlide1(Direction.SLIDE_DOWN, 0.9, 6, 4, SensorsToUse.NONE);
            } else if (gamepad2.dpad_left) {
                 robot.slideIn(0.5);
