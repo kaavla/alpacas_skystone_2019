@@ -455,6 +455,16 @@ public class JARVISAutonomousBase extends LinearOpMode {
                         break;
                     }
                 }
+                if (sensors_2_use == SensorsToUse.USE_COLOR_RIGHT) {
+
+                    if (myDetectSkystone(SideToUse.USE_RIGHT, 2) == true)
+                    {
+                        robot.stopAllMotors();
+                        //telemetry.addData("LeftColorSensor", "The robot detected Skystone");
+                        //telemetry.update();
+                        break;
+                    }
+                }
 
 
 

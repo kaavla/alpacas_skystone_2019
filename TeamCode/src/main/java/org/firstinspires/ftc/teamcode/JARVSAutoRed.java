@@ -6,7 +6,7 @@ import java.util.List;
 @Autonomous(name="Jarvis Auto Red", group="JARVIS")
 
 public class JARVSAutoRed extends JARVISAutonomousBase {
-    static final int SIDE = 1; //Right side
+    static final int SIDE = 1; //Right side claw
 
     @Override
     public void runOpMode() {
@@ -39,15 +39,15 @@ public class JARVSAutoRed extends JARVISAutonomousBase {
 
     public void getStone()
     {
-        myEncoderDrive(Direction.STRAFE_LEFT, 0.2, 4, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_LEFT, 0.2, 2, 5.0, SensorsToUse.NONE);
 
         robot.openGrabberClaw(SIDE);
-        sleep(400);
+        sleep(200);
 
         robot.setGrabberHalfDown(SIDE);
-        sleep(400);
+        sleep(200);
 
-        myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,6, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,2, 5.0, SensorsToUse.NONE);
         sleep(300);
 
         robot.setGrabberDown(SIDE);
@@ -59,7 +59,7 @@ public class JARVSAutoRed extends JARVISAutonomousBase {
         robot.setGrabberUp(SIDE);
         sleep(500);
 
-        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,7, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,3, 5.0, SensorsToUse.NONE);
         sleep(250);
 
     }
@@ -67,11 +67,11 @@ public class JARVSAutoRed extends JARVISAutonomousBase {
     public void releaseStone()
     {
         robot.setGrabberDown(SIDE);
-        sleep(200);
+        sleep(150);
         robot.openGrabberClaw(SIDE);
         sleep(200);
         robot.setGrabberUp(SIDE);
-        sleep(200);
+        sleep(100);
         robot.closeGrabberClaw(SIDE);
         sleep(200);
 
@@ -80,8 +80,9 @@ public class JARVSAutoRed extends JARVISAutonomousBase {
     public void myDetectionRun(double timeoutS)
     {
 
-        RobotLog.ii("CAL", "Enter - myDetectionRun");
+        RobotLog.ii("CAL", "Enter i- myDetectionRun");
         double strafe_back = 0;
+        double strafe_back_previous = 0;
 
         //initialized the motor encoders
         robot.initMotorEncoders();
@@ -91,47 +92,63 @@ public class JARVSAutoRed extends JARVISAutonomousBase {
             //MOve towards the skystones
             myEncoderDrive(Direction.STRAFE_RIGHT, 0.2, 50, 5.0, SensorsToUse.USE_DISTANCE_RIGHT);
             correctAngle();
-
-            if (myDetectSkystone(SideToUse.USE_RIGHT, 10) == false) {
+            /*
+            if (myDetectSkystone(SideToUse.USE_LEFT, 10) == false) {
                 //detected stone. Strafe left to test the next one.
                 myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 7, 5.0, SensorsToUse.NONE);
 
                 strafe_back = strafe_back + 7;
-                if (myDetectSkystone(SideToUse.USE_RIGHT, 10) == false) {
+                if (myDetectSkystone(SideToUse.USE_LEFT, 10) == false) {
                     //detected stone. Strafe left to test the next one.
                     myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 7, 5.0, SensorsToUse.NONE);
                     strafe_back = strafe_back + 7;
                 }
+            }*/
+            if (myDetectSkystone(SideToUse.USE_RIGHT, 10) == false) {
+                myEncoderDrive(Direction.FORWARD, 0.1, 24, 10.0, SensorsToUse.USE_COLOR_RIGHT);
+                strafe_back_previous = distance_traveled;
+                telemetry.addData("strafe back = ", strafe_back_previous);
+                telemetry.update();
+                myEncoderDrive(Direction.BACKWARD, 0.1, 1, 5.0, SensorsToUse.NONE);
             }
+            //myEncoderDrive(Direction.BACKWARD, 0.2, 4, 10.0, SensorsToUse.USE_COLOR_LEFT);
+
 
             //Grab the skystone
             getStone();
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 35 + strafe_back_previous, 10.0, SensorsToUse.NONE);
+
 
             //Drive to the other side
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 35 + strafe_back, 10.0, SensorsToUse.NONE);
             correctAngle();
 
             releaseStone();
 
             //Drive back to collect the second stone
-            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 62 + strafe_back, 10.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 52 + strafe_back_previous, 10.0, SensorsToUse.NONE);
             //correctAngle();
 
             //Drive till we are close to the stone again
-            myEncoderDrive(Direction.STRAFE_RIGHT, 0.2,20, 5.0, SensorsToUse.USE_DISTANCE_RIGHT);
+            myEncoderDrive(Direction.STRAFE_RIGHT, 0.2,24, 5.0, SensorsToUse.USE_DISTANCE_RIGHT);
+            myEncoderDrive(Direction.FORWARD, 0.1, 20, 5.0, SensorsToUse.USE_COLOR_RIGHT);
+            strafe_back = distance_traveled;
+            telemetry.addData("strafe back = ", strafe_back);
+            telemetry.update();
 
             //Grab the skystone
             getStone();
 
             //drive to other side
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 65 + strafe_back, 10.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, 0.4, 52 + strafe_back_previous + strafe_back, 10.0, SensorsToUse.NONE);
             //correctAngle();
 
             releaseStone();
 
-            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 16, 10.0, SensorsToUse.NONE);
-            correctAngle();
+            myEncoderDrive(Direction.FORWARD, 0.4, 15, 10.0, SensorsToUse.NONE);
+            //correctAngle();
             myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
+
+
         }
         RobotLog.ii("CAL", "Exit - myDetectionRun");
     }

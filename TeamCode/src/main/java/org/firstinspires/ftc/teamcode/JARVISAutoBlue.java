@@ -6,7 +6,7 @@ import java.util.List;
 @Autonomous(name="Jarvis Auto Blue", group="JARVIS")
 
 public class JARVISAutoBlue extends JARVISAutonomousBase {
-    static final int SIDE = 0; //LEFT Side Blue Corner
+    static final int SIDE = 0; //Left side
 
     @Override
     public void runOpMode() {
@@ -39,15 +39,15 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
 
     public void getStone()
     {
-        myEncoderDrive(Direction.STRAFE_RIGHT, 0.2, 4, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_RIGHT, 0.2, 2, 5.0, SensorsToUse.NONE);
 
         robot.openGrabberClaw(SIDE);
-        sleep(400);
+        sleep(200);
 
         robot.setGrabberHalfDown(SIDE);
-        sleep(400);
+        sleep(200);
 
-        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,4, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,2, 5.0, SensorsToUse.NONE);
         sleep(300);
 
         robot.setGrabberDown(SIDE);
@@ -59,7 +59,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
         robot.setGrabberUp(SIDE);
         sleep(500);
 
-        myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,7, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,3, 5.0, SensorsToUse.NONE);
         sleep(250);
 
     }
@@ -67,11 +67,11 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
     public void releaseStone()
     {
         robot.setGrabberDown(SIDE);
-        sleep(200);
+        sleep(150);
         robot.openGrabberClaw(SIDE);
         sleep(200);
         robot.setGrabberUp(SIDE);
-        sleep(200);
+        sleep(100);
         robot.closeGrabberClaw(SIDE);
         sleep(200);
 
@@ -129,7 +129,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
             //correctAngle();
 
             //Drive till we are close to the stone again
-            myEncoderDrive(Direction.STRAFE_LEFT, 0.2,50, 5.0, SensorsToUse.USE_DISTANCE_LEFT);
+            myEncoderDrive(Direction.STRAFE_LEFT, 0.2,24, 5.0, SensorsToUse.USE_DISTANCE_LEFT);
             myEncoderDrive(Direction.FORWARD, 0.1, 20, 5.0, SensorsToUse.USE_COLOR_LEFT);
             strafe_back = distance_traveled;
             telemetry.addData("strafe back = ", strafe_back);
@@ -139,12 +139,12 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
             getStone();
 
             //drive to other side
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 52 + strafe_back_previous + strafe_back, 10.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, 0.4, 52 + strafe_back_previous + strafe_back, 10.0, SensorsToUse.NONE);
             //correctAngle();
 
             releaseStone();
 
-            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 20, 10.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.FORWARD, 0.4, 15, 10.0, SensorsToUse.NONE);
             //correctAngle();
             myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
 
