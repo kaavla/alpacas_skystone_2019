@@ -56,6 +56,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
         //strafe towards the wall a little bit so we don't collide with the bridge
         myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,4, 5.0, SensorsToUse.NONE);
         sleep(100);
+        correctAngle();
     }
 
     public void releaseStone()
