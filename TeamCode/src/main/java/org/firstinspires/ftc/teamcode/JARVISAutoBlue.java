@@ -39,7 +39,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
 
     public void getStone()
     {
-        myEncoderDrive(Direction.STRAFE_RIGHT, 0.2, 2, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_RIGHT, 0.2, 3, 5.0, SensorsToUse.NONE);
 
         robot.openGrabberClaw(SIDE);
         sleep(200);
@@ -47,7 +47,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
         robot.setGrabberHalfDown(SIDE);
         sleep(200);
 
-        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,2, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,3, 5.0, SensorsToUse.NONE);
         sleep(300);
 
         robot.setGrabberDown(SIDE);
