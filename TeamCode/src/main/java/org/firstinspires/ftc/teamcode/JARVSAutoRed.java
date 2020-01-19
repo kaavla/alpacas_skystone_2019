@@ -106,13 +106,11 @@ public class JARVSAutoRed extends JARVISAutonomousBase {
             getStone();
             myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 35 + strafe_back_previous, 10.0, SensorsToUse.NONE);
 
-            //correct angle so we are parallel to the starting position then drop the skystone
-            correctAngle();
+            //drop the skystone
             releaseStone();
 
             //Drive back to collect the second stone
             myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 52 + strafe_back_previous, 10.0, SensorsToUse.NONE);
-            correctAngle();
 
             //Drive till we are close to the stone again
             myEncoderDrive(Direction.STRAFE_RIGHT, 0.2,24, 5.0, SensorsToUse.USE_DISTANCE_RIGHT);
@@ -129,6 +127,7 @@ public class JARVSAutoRed extends JARVISAutonomousBase {
             getStone();
             //second time, we need to strafe an extra inch to avoid the bridge
             myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,1, 5.0, SensorsToUse.NONE);
+            correctAngle(); //correct angle to match the reference angle
 
             //drive to other side and drop the stone
             myEncoderDrive(Direction.BACKWARD, 0.4, 52 + strafe_back_previous + strafe_back, 10.0, SensorsToUse.NONE);
