@@ -119,11 +119,11 @@ public class JARVISHW
         //slide_1.setDirection(DcMotorSimple.Direction.REVERSE);
         //slide_2.setDirection(DcMotorSimple.Direction.REVERSE);
         slide_3.setDirection(DcMotorSimple.Direction.REVERSE);
-        FLServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightTurnServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightClawServo.setDirection(Servo.Direction.REVERSE);
         //CollectRightServo.setDirection(Servo.Direction.REVERSE);
         CollectRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        FRServo.setDirection(Servo.Direction.REVERSE);
 
         // Set all motors to zero power
         stopAllMotors();
@@ -140,7 +140,7 @@ public class JARVISHW
 
         rotateClawInline();
         openClaw();
-
+        moveFoundationServoUp();
         setGrabberUp(0);
         setGrabberUp(1);
 
@@ -294,12 +294,12 @@ public class JARVISHW
         clawServo.setPosition(0.8);
     }
 
-    public void moveFoundationServoDown () {
-        FLServo.setPosition(0.21);
-        FRServo.setPosition(0.21);
+    public void moveFoundationServoUp() {
+        FLServo.setPosition(0.5);
+        FRServo.setPosition(0.5);
     }
 
-    public void moveFoundationServoUp() {
+    public void moveFoundationServoDown() {
         FLServo.setPosition(0);
         FRServo.setPosition(0);
     }
@@ -334,11 +334,11 @@ public class JARVISHW
     public void setGrabberDown(int side) {
         if (side == 0) {
             //Left
-            GrabberLeftTurnServo.setPosition(0.4);
+            GrabberLeftTurnServo.setPosition(0.35);
         } else
         {
            //Right
-           GrabberRightTurnServo.setPosition(0.4);
+           GrabberRightTurnServo.setPosition(0.35);
        }
 
     }

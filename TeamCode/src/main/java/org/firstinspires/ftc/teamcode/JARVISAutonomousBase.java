@@ -34,7 +34,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     public enum SensorsToUse
     {
-        NONE, USE_COLOR, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_TOUCH;
+        NONE, USE_COLOR, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_DISTANCE_LEFT_BLD, USE_DISTANCE_RIGHT_BLD, USE_TOUCH;
     }
 
     public enum SideToUse
@@ -275,6 +275,14 @@ public class JARVISAutonomousBase extends LinearOpMode {
         RobotLog.ii("CAL", "Exit - rotate");
     }
 
+    public void correctAngle()
+    {
+        double currentAngle = 0;
+        currentAngle = getAngle();
+        rotate((int)((-1)*(currentAngle - ref_angle)), 0.2);
+        sleep(300);
+    }
+
     public void rotateUsingOneSide(int degrees, double speed) {
         //logs that get added to a file to see what was wrong with the robot and the sequences of it
         RobotLog.ii("CAL", "Enter - rotate - degrees=%d, power=%f",
@@ -432,8 +440,32 @@ public class JARVISAutonomousBase extends LinearOpMode {
                     }
                 }
 
+                if (sensors_2_use == SensorsToUse.USE_DISTANCE_LEFT_BLD) {
+                    if(robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH) <= 2) {
+                        robot.stopAllMotors();
+
+                        telemetry.addData("LeftDistSensor", "The robot is %7f inches from crashing.",
+                                robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH));
+                        telemetry.update();
+                        break;
+
+                    }
+                }
+
                 if (sensors_2_use == SensorsToUse.USE_DISTANCE_RIGHT) {
                     if(robot.sensorDistanceRight.getDistance(DistanceUnit.INCH) <= 6) {
+                        robot.stopAllMotors();
+
+                        telemetry.addData("RightDistSensor", "The robot is %7f inches from crashing.",
+                                robot.sensorDistanceRight.getDistance(DistanceUnit.INCH));
+                        telemetry.update();
+                        break;
+
+                    }
+                }
+
+                if (sensors_2_use == SensorsToUse.USE_DISTANCE_RIGHT_BLD) {
+                    if(robot.sensorDistanceRight.getDistance(DistanceUnit.INCH) <= 2) {
                         robot.stopAllMotors();
 
                         telemetry.addData("RightDistSensor", "The robot is %7f inches from crashing.",
@@ -910,20 +942,20 @@ public class JARVISAutonomousBase extends LinearOpMode {
         // Checks if the servos are = null or not because that is what causes the
         // "null pointer exception". Once it is checked, the servos will run.
         if (robot.FLServo != null) {
-            robot.FLServo.setPosition(0.21);
+            robot.FLServo.setPosition(0);
         }
         if (robot.FRServo != null) {
-            robot.FRServo.setPosition(0.21);
+            robot.FRServo.setPosition(0);
         }
     }
     public void moveFoundationServoUp() {
         // Checks if the servos are = null or not because that is what causes the
         // "null pointer exception". Once it is checked, the servos will run.
         if (robot.FLServo != null) {
-            robot.FLServo.setPosition(0);
+            robot.FLServo.setPosition(0.5);
         }
         if (robot.FRServo != null) {
-            robot.FRServo.setPosition(0);
+            robot.FRServo.setPosition(0.5);
         }
     }
     public boolean myDetectSkystone(SideToUse side, double timeoutS) {
