@@ -43,7 +43,6 @@ public class JARVISManual extends JARVISAutonomousBase {
             //all of the code bellow is setting a power to each button on the gamepad
 
             if ((gamepad1.left_stick_y != 0) || (gamepad1.left_stick_x != 0) || (gamepad1.right_stick_x != 0)) {
-                //if (gamepad1.dpad_up) {
                 leftY = gamepad1.left_stick_y;
                 leftX = gamepad1.left_stick_x * -1;
                 rightZ = gamepad1.right_stick_x * -1;
@@ -75,7 +74,6 @@ public class JARVISManual extends JARVISAutonomousBase {
            } else if (gamepad1.right_trigger > 0.5) {
                 //StrafeRight slow
                 robot.moveHolonomic(-0.4, 0, 0);
-
             } else if (gamepad1.left_trigger > 0.5) {
                 //StrafeLeft slow
                 robot.moveHolonomic(0.4, 0, 0);
@@ -83,17 +81,11 @@ public class JARVISManual extends JARVISAutonomousBase {
                 robot.moveFoundationServoUp();
             } else if (gamepad1.right_bumper) {
                 robot.moveFoundationServoDown();
-            } else if (gamepad2.right_bumper){
-                robot.openClaw();  //Automatically opens the claw
-                robot.setCollectionServo1();
-            } else if (gamepad2.left_bumper) {
-                robot.resetCollectionServo();
-            }else if (gamepad2.dpad_up) {
-
-                robot.slidesUp(0.4);
+            } else if (gamepad2.dpad_up) {
+                robot.slidesUp(0.8);
                 //myEncoderSlide1(Direction.SLIDE_UP, 0.9, 6, 4, SensorsToUse.NONE);
             } else if (gamepad2.dpad_down) {
-                robot.slidesDown(0.4);
+                robot.slidesDown(0.2);
                 //myEncoderSlide1(Direction.SLIDE_DOWN, 0.9, 6, 4, SensorsToUse.NONE);
            } else if (gamepad2.dpad_left) {
                 robot.slideIn(0.5);
@@ -112,8 +104,7 @@ public class JARVISManual extends JARVISAutonomousBase {
             } else if (gamepad2.right_trigger > 0.5) {
                 robot.openClaw();  //Automatically opens the claw
                 robot.setCollectionServo();
-            }
-            else {
+            } else {
                 robot.stopAllMotors();
             }
         }
