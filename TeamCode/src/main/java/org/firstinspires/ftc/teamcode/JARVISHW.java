@@ -295,13 +295,13 @@ public class JARVISHW
     }
 
     public void moveFoundationServoUp() {
-        FLServo.setPosition(0.5);
-        FRServo.setPosition(0.5);
+        FLServo.setPosition(0);
+        FRServo.setPosition(0);
     }
 
     public void moveFoundationServoDown() {
-        FLServo.setPosition(0);
-        FRServo.setPosition(0);
+        FLServo.setPosition(0.5);
+        FRServo.setPosition(0.5);
     }
 
     public void moveMarkerServoDown() {

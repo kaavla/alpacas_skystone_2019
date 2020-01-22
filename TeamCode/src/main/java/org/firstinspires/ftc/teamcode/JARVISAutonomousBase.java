@@ -946,20 +946,20 @@ public class JARVISAutonomousBase extends LinearOpMode {
         // Checks if the servos are = null or not because that is what causes the
         // "null pointer exception". Once it is checked, the servos will run.
         if (robot.FLServo != null) {
-            robot.FLServo.setPosition(0);
+            robot.FLServo.setPosition(0.5);
         }
         if (robot.FRServo != null) {
-            robot.FRServo.setPosition(0);
+            robot.FRServo.setPosition(0.5);
         }
     }
     public void moveFoundationServoUp() {
         // Checks if the servos are = null or not because that is what causes the
         // "null pointer exception". Once it is checked, the servos will run.
         if (robot.FLServo != null) {
-            robot.FLServo.setPosition(0.5);
+            robot.FLServo.setPosition(0);
         }
         if (robot.FRServo != null) {
-            robot.FRServo.setPosition(0.5);
+            robot.FRServo.setPosition(0);
         }
     }
     public boolean myDetectSkystone(SideToUse side, double timeoutS) {
