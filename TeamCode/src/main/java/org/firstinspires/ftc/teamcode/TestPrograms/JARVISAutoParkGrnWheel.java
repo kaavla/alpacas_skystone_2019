@@ -1,11 +1,15 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TestPrograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.RobotLog;
 
-@Autonomous(name="JARVISAuto Park Near", group="JARVIS")
+import org.firstinspires.ftc.teamcode.JARVISAutonomousBase;
+import org.firstinspires.ftc.teamcode.JARVISHW;
 
-public class JARVISAutoBLDSiteParkNear extends JARVISAutonomousBase {
+@Autonomous(name="JARVIS Auto Park Green Wheel", group="JARVIS")
+@Disabled
+public class JARVISAutoParkGrnWheel extends JARVISAutonomousBase {
 
     JARVISHW robotJARVIS = new JARVISHW();
 
@@ -33,7 +37,7 @@ public class JARVISAutoBLDSiteParkNear extends JARVISAutonomousBase {
 
     public void autoBLDFoundation()
     {
-        RobotLog.ii("CAL", "Enter - JARVISAutoBLD2Blue");
+        RobotLog.ii("CAL", "Enter - JARVISAutoParkGrnWheel");
 
         //initialized the motor encoders
         robot.initMotorEncoders();
@@ -41,12 +45,11 @@ public class JARVISAutoBLDSiteParkNear extends JARVISAutonomousBase {
         // Ensure that the op mode is still active
         if (opModeIsActive() && !isStopRequested() )
         {
-            //Wait for 25 seconds until the end of the autonomous period
-            sleep(25000);
-            //move forward onto the line
-            myEncoderDrive(Direction.BACKWARD, 0.2, 31, 5, SensorsToUse.NONE);
+            robot.setGrabberDown(0);
+            robot.openGrabberClaw(0);
+            sleep(1000);
         }
-        RobotLog.ii("CAL", "Exit - JARVISAutoBLD2Blue");
+        RobotLog.ii("CAL", "Exit - JARVISAutoParkGrnWheel");
     }
 
 }
