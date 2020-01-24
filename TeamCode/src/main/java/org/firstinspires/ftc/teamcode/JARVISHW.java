@@ -293,15 +293,14 @@ public class JARVISHW
     {
         clawServo.setPosition(0.8);
     }
-
-    public void moveFoundationServoDown () {
-        FLServo.setPosition(0.21);
-        FRServo.setPosition(0.21);
-    }
-
     public void moveFoundationServoUp() {
         FLServo.setPosition(0);
         FRServo.setPosition(0);
+    }
+
+    public void moveFoundationServoDown() {
+        FLServo.setPosition(0.5);
+        FRServo.setPosition(0.5);
     }
 
     public void moveMarkerServoDown() {
