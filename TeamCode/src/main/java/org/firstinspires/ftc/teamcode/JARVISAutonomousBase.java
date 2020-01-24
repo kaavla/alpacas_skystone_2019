@@ -480,6 +480,34 @@ public class JARVISAutonomousBase extends LinearOpMode {
                     }
                 }
 
+                if (sensors_2_use == SensorsToUse.USE_COLOR_RIGHT) {
+
+                    if (myDetectSkystone(SideToUse.USE_RIGHT, 2) == true)
+                    {
+                        robot.stopAllMotors();
+                        //telemetry.addData("LeftColorSensor", "The robot detected Skystone");
+                        //telemetry.update();
+                        break;
+                    }
+
+
+
+                }
+
+                if (sensors_2_use == SensorsToUse.USE_COLOR_LEFT) {
+
+                    if (myDetectSkystone(SideToUse.USE_LEFT, 2) == true)
+                    {
+                        robot.stopAllMotors();
+                        //telemetry.addData("LeftColorSensor", "The robot detected Skystone");
+                        //telemetry.update();
+                        break;
+                    }
+
+
+
+                }
+
 
                /* if (sensors_2_use == SensorsToUse.USE_COLOR) {
 
@@ -531,11 +559,13 @@ public class JARVISAutonomousBase extends LinearOpMode {
             }
         }
 
-        // Stop all motion;
+        // Stop all motion
         robot.leftMotor.setPower(0);
         robot.rightMotor.setPower(0);
         robot.backleftMotor.setPower(0);
         robot.backrightMotor.setPower(0);
+
+        distance_traveled = robot.rightMotor.getCurrentPosition() / COUNTS_PER_INCH;
 
         // Turn off RUN_TO_POSITION
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
