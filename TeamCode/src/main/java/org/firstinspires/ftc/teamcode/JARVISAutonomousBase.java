@@ -34,7 +34,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     public enum SensorsToUse
     {
-        NONE, USE_COLOR_LEFT, USE_COLOR_RIGHT, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_TOUCH;
+        NONE, USE_COLOR_LEFT, USE_COLOR_RIGHT, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_TOUCH, USE_DISTANCE_RIGHT_BLD, USE_DISTANCE_LEFT_BLD;
     }
 
     public enum SideToUse
@@ -465,7 +465,27 @@ public class JARVISAutonomousBase extends LinearOpMode {
                         break;
                     }
                 }
+                if (sensors_2_use == SensorsToUse.USE_DISTANCE_RIGHT_BLD) {
+                    if(robot.sensorDistanceRight.getDistance(DistanceUnit.INCH) <= 2) {
+                        robot.stopAllMotors();
 
+                        telemetry.addData("RightDistSensor", "The robot is %7f inches from crashing.",
+                                robot.sensorDistanceRight.getDistance(DistanceUnit.INCH));
+                        telemetry.update();
+                        break;
+                    }
+                }
+
+                if (sensors_2_use == SensorsToUse.USE_DISTANCE_LEFT_BLD) {
+                    if(robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH) <= 2) {
+                        robot.stopAllMotors();
+
+                        telemetry.addData("LeftDistSensor", "The robot is %7f inches from crashing.",
+                                robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH));
+                        telemetry.update();
+                        break;
+                    }
+                }
 
 
             }
