@@ -104,7 +104,15 @@ public class JARVISManual extends JARVISAutonomousBase {
             } else if (gamepad2.right_trigger > 0.5) {
                 robot.openClaw();  //Automatically opens the claw
                 robot.setCollectionServo();
-            } else {
+            } else if (gamepad2.left_bumper){
+                robot.closeCapStoneClaw();
+            } else if (gamepad2.right_bumper) {
+                robot.openCapStoneClaw();
+            } else if (gamepad2.left_stick_y > 0) {
+                robot.measureTapeOut();
+            } else if (gamepad2.left_stick_y < 0) {
+                robot.measureTapeIn();
+            }  else{
                 robot.stopAllMotors();
             }
         }

@@ -977,6 +977,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
         //turnServo.setPosition(0.25);
         robot.turnServo.setPosition(0.4);
     }
+
     public void openClaw()
     {
         robot.clawServo.setPosition(0);
