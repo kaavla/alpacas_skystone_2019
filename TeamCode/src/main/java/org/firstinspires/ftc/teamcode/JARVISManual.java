@@ -85,6 +85,7 @@ public class JARVISManual extends JARVISAutonomousBase {
                 robot.slidesUp(0.8);
                 //myEncoderSlide1(Direction.SLIDE_UP, 0.9, 6, 4, SensorsToUse.NONE);
             } else if (gamepad2.dpad_down) {
+                //robot.closeClaw(); //closes the claw
                 robot.slidesDown(0.2);
                 //myEncoderSlide1(Direction.SLIDE_DOWN, 0.9, 6, 4, SensorsToUse.NONE);
            } else if (gamepad2.dpad_left) {
