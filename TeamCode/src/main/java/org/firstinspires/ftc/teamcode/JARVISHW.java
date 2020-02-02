@@ -28,7 +28,7 @@ public class JARVISHW
     public DcMotor slide_1 = null;
     //public DcMotor slide_2 = null;
     public DcMotor slide_3 = null;
-    public Servo turnServo = null;
+    public Servo capServo = null;
     public Servo clawServo = null;
 
     public Servo FLServo = null;
@@ -36,7 +36,7 @@ public class JARVISHW
     public Servo markerServo = null;
 
 
-    public CRServo  CollectLeftServo = null;
+    public CRServo  tapeServo = null;
     public Servo CollectRightServo = null;
     public DcMotor CollectLeftMotor = null;
     public DcMotor CollectRightMotor = null;
@@ -75,14 +75,14 @@ public class JARVISHW
         //slide_2  = ahwMap.get(DcMotor.class, "slide_2");
         slide_3 = ahwMap.get(DcMotor.class, "slide_3");
 
-        turnServo = ahwMap.get(Servo.class, "tServo");
+        capServo = ahwMap.get(Servo.class, "tServo");
         clawServo = ahwMap.get(Servo.class, "cServo");
 
 
         FLServo = ahwMap.get(Servo.class, "FLServo");
         FRServo = ahwMap.get(Servo.class, "FRServo");
 
-        CollectLeftServo = ahwMap.get(CRServo.class, "CollectLeftServo");
+        tapeServo = ahwMap.get(CRServo.class, "tapeServo");
         CollectRightServo = ahwMap.get(Servo.class, "CollectRightServo");
         //VexServo = ahwMap.get(CRServo.class, "vex");
 
@@ -122,7 +122,7 @@ public class JARVISHW
         FLServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightTurnServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightClawServo.setDirection(Servo.Direction.REVERSE);
-        CollectLeftServo.setDirection(CRServo.Direction.REVERSE);
+        tapeServo.setDirection(CRServo.Direction.REVERSE);
         CollectRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Set all motors to zero power
@@ -269,13 +269,13 @@ public class JARVISHW
 
     public void rotateClawPerpendicular()
     {
-        //turnServo.setPosition(0.05);
+        //capServo.setPosition(0.05);
     }
 
     public void rotateClawInline()
     {
-        //turnServo.setPosition(0.25);
-        turnServo.setPosition(0.4);
+        //capServo.setPosition(0.25);
+        capServo.setPosition(0.4);
     }
 
     public void openClaw()
@@ -305,13 +305,13 @@ public class JARVISHW
 
     public void closeCapStoneClaw()
     {
-        turnServo.setPosition(0.0);
+        capServo.setPosition(0.0);
     }
 
     public void openCapStoneClaw()
     {
-        //turnServo.setPosition(0.25);
-        turnServo.setPosition(0.2);
+        //capServo.setPosition(0.25);
+        capServo.setPosition(0.2);
     }
 
 
@@ -326,23 +326,23 @@ public class JARVISHW
     }
 
     public void measureTapeOut() {
-        CollectLeftServo.setPower(1);
+        tapeServo.setPower(1);
         //VexServo.setPower(1);
     }
 
     public void measureTapeIn() {
-        CollectLeftServo.setPower(-1);
+        tapeServo.setPower(-1);
         //VexServo.setPower(1);
     }
 
     public void measureTapeStop() {
-        CollectLeftServo.setPower(0);
+        tapeServo.setPower(0);
         //VexServo.setPower(1);
     }
 
 
     public void resetCollectionServo () {
-        //CollectLeftServo.setPosition(0);
+        //tapeServo.setPosition(0);
         //CollectRightServo.setPosition(0);
         CollectLeftMotor.setPower(0);
         CollectRightMotor.setPower(0);
@@ -350,16 +350,16 @@ public class JARVISHW
     }
 
     public void setCollectionServo() {
-        //CollectLeftServo.setPosition(0.75);
+        //tapeServo.setPosition(0.75);
         //CollectRightServo.setPosition(0.72);
-        //CollectLeftServo.setPosition(1.5);
+        //tapeServo.setPosition(1.5);
         //CollectRightServo.setPosition(1.5);
         CollectLeftMotor.setPower(1);
         CollectRightMotor.setPower(1);
     }
 
     public void setCollectionServo1() {
-        //CollectLeftServo.setPosition(0.82);
+        //tapeServo.setPosition(0.82);
         //CollectRightServo.setPosition(0.72);
 
     }
