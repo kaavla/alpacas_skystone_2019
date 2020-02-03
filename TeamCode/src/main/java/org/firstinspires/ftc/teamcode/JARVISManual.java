@@ -83,11 +83,11 @@ public class JARVISManual extends JARVISAutonomousBase {
                 robot.moveFoundationServoDown();
             } else if (gamepad2.dpad_up) {
                 robot.slidesUp(0.8);
-                //myEncoderSlide1(Direction.SLIDE_UP, 0.9, 6, 4, SensorsToUse.NONE);
+                //myEncoderSlide1(Direction.SLIDE_UP, 0.9, 6, 4, SensorsToUse.NONE); //moves the slide up 6 inches every time
             } else if (gamepad2.dpad_down) {
                 //robot.closeClaw(); //closes the claw
                 robot.slidesDown(0.2);
-                //myEncoderSlide1(Direction.SLIDE_DOWN, 0.9, 6, 4, SensorsToUse.NONE);
+                //myEncoderSlide1(Direction.SLIDE_DOWN, 0.9, 6, 4, SensorsToUse.NONE); //moves the slide down 6 inches every time
            } else if (gamepad2.dpad_left) {
                 robot.slideIn(0.5);
             } else if (gamepad2.dpad_right) {
@@ -116,6 +116,13 @@ public class JARVISManual extends JARVISAutonomousBase {
             }  else{
                 robot.stopAllMotors();
             }
+            if (robot.touch_sensor.isPressed()) {
+                telemetry.addData("TOUCH SENSOR IS PRESSED", "THE BLOCK IS IN THE CLAW - YOU CAN NOW CLOSE THE CLAW");
+            } else {
+                telemetry.addData("not", "pressed");
+            }
+
+            telemetry.update();
         }
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();

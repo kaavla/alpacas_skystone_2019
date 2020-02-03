@@ -124,9 +124,10 @@ public class JARVSAutoRed extends JARVISAutonomousBase {
             telemetry.update();
 
             //Grab the skystone
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,2, 5.0, SensorsToUse.NONE);
             getStone();
             //second time, we need to strafe an extra inch to avoid the bridge
-            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,1, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,3, 5.0, SensorsToUse.NONE);
             correctAngle(); //correct angle to match the reference angle
 
             //drive to other side and drop the stone

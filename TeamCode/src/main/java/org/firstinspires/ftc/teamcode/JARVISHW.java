@@ -6,9 +6,11 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.util.RobotLog;
 
@@ -33,11 +35,10 @@ public class JARVISHW
 
     public Servo FLServo = null;
     public Servo FRServo = null;
-    public Servo markerServo = null;
 
 
     public CRServo  tapeServo = null;
-    public Servo CollectRightServo = null;
+    //public Servo CollectRightServo = null;
     public DcMotor CollectLeftMotor = null;
     public DcMotor CollectRightMotor = null;
 
@@ -54,6 +55,7 @@ public class JARVISHW
     // public ColorSensor sensorColor = null;
     public ColorSensor sensorColorLeft = null;
     public ColorSensor sensorColorRight = null;
+    public TouchSensor touch_sensor = null;
 
     public BNO055IMU imu = null;
 
@@ -75,15 +77,15 @@ public class JARVISHW
         //slide_2  = ahwMap.get(DcMotor.class, "slide_2");
         slide_3 = ahwMap.get(DcMotor.class, "slide_3");
 
-        capServo = ahwMap.get(Servo.class, "tServo");
-        clawServo = ahwMap.get(Servo.class, "cServo");
+        capServo = ahwMap.get(Servo.class, "capServo");
+        clawServo = ahwMap.get(Servo.class, "clawServo");
 
 
         FLServo = ahwMap.get(Servo.class, "FLServo");
         FRServo = ahwMap.get(Servo.class, "FRServo");
 
         tapeServo = ahwMap.get(CRServo.class, "tapeServo");
-        CollectRightServo = ahwMap.get(Servo.class, "CollectRightServo");
+        //CollectRightServo = ahwMap.get(Servo.class, "CollectRightServo");
         //VexServo = ahwMap.get(CRServo.class, "vex");
 
         CollectLeftMotor = ahwMap.get(DcMotor.class, "CollectLeftMotor");
@@ -100,7 +102,10 @@ public class JARVISHW
 
         sensorDistanceLeft = ahwMap.get(DistanceSensor.class, "sensorDistanceLeft");
         sensorDistanceRight = ahwMap.get(DistanceSensor.class, "sensorDistanceRight");
-        markerServo = ahwMap.get(Servo.class, "MServo");
+
+        touch_sensor = ahwMap.get(TouchSensor.class, "touch_sensor");
+
+        //markerServo = ahwMap.get(Servo.class, "MServo");
 
         imu = ahwMap.get(BNO055IMU.class, "imu 1");
 
@@ -269,7 +274,7 @@ public class JARVISHW
 
     public void rotateClawPerpendicular()
     {
-        //capServo.setPosition(0.05);
+        capServo.setPosition(0.05);
     }
 
     public void rotateClawInline()
@@ -282,13 +287,6 @@ public class JARVISHW
     {
         clawServo.setPosition(0.55);
     }
-
-    public void claw2()
-    {
-        clawServo.setPosition(0.5);
-    }
-
-
     public void closeClaw()
     {
         clawServo.setPosition(0.8);
@@ -311,18 +309,7 @@ public class JARVISHW
     public void openCapStoneClaw()
     {
         //capServo.setPosition(0.25);
-        capServo.setPosition(0.2);
-    }
-
-
-    public void moveMarkerServoDown() {
-        markerServo.setPosition(0.9 );
-        //VexServo.setPower(1);
-    }
-
-    public void moveMarkerServoUp() {
-        markerServo.setPosition(0.3);
-        //VexServo.setPower(0);
+        capServo.setPosition(0.7);
     }
 
     public void measureTapeOut() {
@@ -342,26 +329,14 @@ public class JARVISHW
 
 
     public void resetCollectionServo () {
-        //tapeServo.setPosition(0);
-        //CollectRightServo.setPosition(0);
         CollectLeftMotor.setPower(0);
         CollectRightMotor.setPower(0);
 
     }
 
     public void setCollectionServo() {
-        //tapeServo.setPosition(0.75);
-        //CollectRightServo.setPosition(0.72);
-        //tapeServo.setPosition(1.5);
-        //CollectRightServo.setPosition(1.5);
         CollectLeftMotor.setPower(1);
         CollectRightMotor.setPower(1);
-    }
-
-    public void setCollectionServo1() {
-        //tapeServo.setPosition(0.82);
-        //CollectRightServo.setPosition(0.72);
-
     }
 
     public void setGrabberDown(int side) {
