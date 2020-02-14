@@ -34,7 +34,9 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     public enum SensorsToUse
     {
-        NONE, USE_COLOR_LEFT, USE_COLOR_RIGHT, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_TOUCH, USE_DISTANCE_RIGHT_BLD, USE_DISTANCE_LEFT_BLD;
+        NONE, USE_COLOR_LEFT, USE_COLOR_RIGHT, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_TOUCH,
+        USE_DISTANCE_RIGHT_BLD, USE_DISTANCE_LEFT_BLD, USE_DISTANCE_LEFT_FDT, USE_DISTANCE_RIGHT_FDT,
+        USE_DISTANCE_FRONT;
     }
 
     public enum SideToUse
@@ -47,6 +49,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
     private double globalAngle = 0;
     // public direction;
     public double ref_angle = 0;
+    public double ref_angle_1 = 0;
 
     public Direction direction;
 
@@ -484,6 +487,24 @@ public class JARVISAutonomousBase extends LinearOpMode {
                                 robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH));
                         telemetry.update();
                         break;
+                    }
+                }
+
+                if (sensors_2_use == SensorsToUse.USE_DISTANCE_LEFT_FDT) {
+                    if(robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH) > 20) {
+                        robot.stopAllMotors();
+                    }
+                }
+
+                if (sensors_2_use == SensorsToUse.USE_DISTANCE_RIGHT_FDT) {
+                    if(robot.sensorDistanceRight.getDistance(DistanceUnit.INCH) > 20) {
+                        robot.stopAllMotors();
+                    }
+                }
+
+                if (sensors_2_use == SensorsToUse.USE_DISTANCE_FRONT) {
+                    if(robot.sensorDistanceFL.getDistance(DistanceUnit.INCH) <23) {
+                        robot.stopAllMotors();
                     }
                 }
 
@@ -934,6 +955,46 @@ public class JARVISAutonomousBase extends LinearOpMode {
     }
     public boolean myDetectSkystone(SideToUse side, double timeoutS) {
         RobotLog.ii("CAL", "myDetectSkystone - Enter");
+        float hsvValues[] = {0F, 0F, 0F};
+
+        // values is a reference to the hsvValues array.
+        final float values[] = hsvValues;
+
+        // sometimes it helps to multiply the raw RGB values with a scale factor
+        // to amplify/attentuate the measured values.
+        final double SCALE_FACTOR = 255;
+
+
+        if (side == SideToUse.USE_LEFT)
+        {
+            Color.RGBToHSV((int) (robot.sensorColorLeft.red() * SCALE_FACTOR),
+                    (int) (robot.sensorColorLeft.green() * SCALE_FACTOR),
+                    (int) (robot.sensorColorLeft.blue() * SCALE_FACTOR),
+                    hsvValues);
+
+        } else {
+            Color.RGBToHSV((int) (robot.sensorColorRight.red() * SCALE_FACTOR),
+                    (int) (robot.sensorColorRight.green() * SCALE_FACTOR),
+                    (int) (robot.sensorColorRight.blue() * SCALE_FACTOR),
+                    hsvValues);
+
+        }
+
+
+        // send the info back to driver station using telemetry function.
+        telemetry.addData("Hue", hsvValues[0]);
+        telemetry.update();
+
+        //BLACK and WHITE
+        if (hsvValues[0] > 100 && hsvValues[0] < 150) {
+            return true;
+        }
+        return false;
+
+    }
+
+    public boolean myDetectFoundation(SideToUse side, double timeoutS) {
+        RobotLog.ii("CAL", "myDetectFoundation - Enter");
         float hsvValues[] = {0F, 0F, 0F};
 
         // values is a reference to the hsvValues array.
