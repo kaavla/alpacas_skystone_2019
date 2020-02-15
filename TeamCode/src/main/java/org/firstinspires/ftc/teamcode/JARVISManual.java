@@ -28,6 +28,7 @@ public class JARVISManual extends JARVISAutonomousBase {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         initHW();
+        robot.openCapStoneClaw();
 
         while (!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("status", "waiting for start command...");
