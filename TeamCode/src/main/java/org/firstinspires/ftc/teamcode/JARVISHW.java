@@ -52,6 +52,7 @@ public class JARVISHW
 
     public DistanceSensor sensorDistanceRight = null;
     public DistanceSensor sensorDistanceLeft = null;
+    public DistanceSensor sensorDistanceFL = null;
     // public ColorSensor sensorColor = null;
     public ColorSensor sensorColorLeft = null;
     public ColorSensor sensorColorRight = null;
@@ -102,6 +103,7 @@ public class JARVISHW
 
         sensorDistanceLeft = ahwMap.get(DistanceSensor.class, "sensorDistanceLeft");
         sensorDistanceRight = ahwMap.get(DistanceSensor.class, "sensorDistanceRight");
+        sensorDistanceFL = ahwMap.get(DistanceSensor.class, "sensorDistanceFL");
 
         touch_sensor = ahwMap.get(TouchSensor.class, "touch_sensor");
 
