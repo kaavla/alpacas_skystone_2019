@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.util.RobotLog;
 import java.util.List;
 @Autonomous(name="Jarvis Auto Red", group="JARVIS")
 
-public class JARVSAutoRed extends JARVISAutonomousBase {
+public class JARVSAutoRedV2 extends JARVISAutonomousBase {
     static final int SIDE = 1; //Left side claw
 
     @Override
