@@ -28,6 +28,7 @@ public class JARVISManual extends JARVISAutonomousBase {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         initHW();
+        robot.openCapStoneClaw();
 
         while (!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("status", "waiting for start command...");
@@ -116,8 +117,9 @@ public class JARVISManual extends JARVISAutonomousBase {
             }  else{
                 robot.stopAllMotors();
             }
-            if (robot.touch_sensor.isPressed()) {
+            if (robot.touch_sensor.isPressed() ) {
                 telemetry.addData("TOUCH SENSOR IS PRESSED", "THE BLOCK IS IN THE CLAW - YOU CAN NOW CLOSE THE CLAW");
+                //robot.closeClawSensor(10); //closes the claw
             } else {
                 telemetry.addData("not", "pressed");
             }
