@@ -119,8 +119,7 @@ public class JARVISManual extends JARVISAutonomousBase {
             }
             if (robot.touch_sensor.isPressed() ) {
                 telemetry.addData("TOUCH SENSOR IS PRESSED", "THE BLOCK IS IN THE CLAW - YOU CAN NOW CLOSE THE CLAW");
-                //robot.closeClawSensor(10); //closes the claw
-            } else {
+           } else {
                 telemetry.addData("not", "pressed");
             }
 
