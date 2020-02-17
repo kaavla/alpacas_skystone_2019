@@ -136,6 +136,7 @@ public class JARVSAutoRedFS extends JARVISAutonomousBase {
             myEncoderDrive(Direction.STRAFE_RIGHT, 0.3, 3, 20, SensorsToUse.USE_DISTANCE_RIGHT_BLD);
 
             //correct the angle so we are parallel to the foundation.
+
             correctAngle();
             //drop the skystone
             releaseStone();

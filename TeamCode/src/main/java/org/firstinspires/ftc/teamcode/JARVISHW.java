@@ -293,6 +293,13 @@ public class JARVISHW
     {
         clawServo.setPosition(0.8);
     }
+
+    public void closeClawSensor(double timeoutS)
+    {
+        if (timeoutS < 10)
+        clawServo.setPosition(0.8);
+    }
+
     public void moveFoundationServoUp() {
         FLServo.setPosition(0);
         FRServo.setPosition(0);
@@ -360,7 +367,7 @@ public class JARVISHW
         } else
         {
             //Right
-            GrabberRightTurnServo.setPosition(0.4);
+            GrabberRightTurnServo.setPosition(0.37);
         }
     }
 
