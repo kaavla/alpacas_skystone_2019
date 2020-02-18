@@ -36,7 +36,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
     {
         NONE, USE_COLOR_LEFT, USE_COLOR_RIGHT, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_TOUCH,
         USE_DISTANCE_RIGHT_BLD, USE_DISTANCE_LEFT_BLD, USE_DISTANCE_LEFT_FDT, USE_DISTANCE_RIGHT_FDT,
-        USE_DISTANCE_FRONT;
+        USE_DISTANCE_FRONT, USE_ALL;
     }
 
     public enum SideToUse
@@ -363,6 +363,8 @@ public class JARVISAutonomousBase extends LinearOpMode {
                 newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
                 newLeftBackTarget = robot.backrightMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
                 newRightBackTarget = robot.backleftMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
+
+
             } else if (direction == Direction.BACKWARD) {
                 //Go backward
                 newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (-1 * Inches * COUNTS_PER_INCH);
@@ -471,22 +473,12 @@ public class JARVISAutonomousBase extends LinearOpMode {
                 if (sensors_2_use == SensorsToUse.USE_DISTANCE_RIGHT_BLD) {
                     if(robot.sensorDistanceRight.getDistance(DistanceUnit.INCH) <= 2) {
                         robot.stopAllMotors();
-
-                        telemetry.addData("RightDistSensor", "The robot is %7f inches from crashing.",
-                                robot.sensorDistanceRight.getDistance(DistanceUnit.INCH));
-                        telemetry.update();
-                        break;
                     }
                 }
 
                 if (sensors_2_use == SensorsToUse.USE_DISTANCE_LEFT_BLD) {
                     if(robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH) <= 2) {
                         robot.stopAllMotors();
-
-                        telemetry.addData("LeftDistSensor", "The robot is %7f inches from crashing.",
-                                robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH));
-                        telemetry.update();
-                        break;
                     }
                 }
 
@@ -508,6 +500,22 @@ public class JARVISAutonomousBase extends LinearOpMode {
                     }
                 }
 
+                if (sensors_2_use == SensorsToUse.USE_ALL) {
+                    if(robot.sensorDistanceFL.getDistance(DistanceUnit.INCH) <= 10) {
+                        robot.stopAllMotors();
+
+                        telemetry.addData("FrontDistSensor", "The robot is %7f inches from crashing.",
+                                robot.sensorDistanceRight.getDistance(DistanceUnit.INCH));
+                        telemetry.update();
+                    }
+
+                    else {
+                        double DT = 0;
+                        DT = distance_traveled;
+
+                        myEncoderDrive(Direction.BACKWARD, 0.3, 70 - DT, 30, SensorsToUse.USE_ALL);
+                    }
+                }
 
             }
         }

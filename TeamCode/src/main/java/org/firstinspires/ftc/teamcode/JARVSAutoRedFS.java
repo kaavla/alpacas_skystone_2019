@@ -37,17 +37,6 @@ public class JARVSAutoRedFS extends JARVISAutonomousBase {
         sleep(200);
     }
 
-    public void correctAngleX()
-    {
-        double currentAngle1 = 0;
-        currentAngle1 = getAngle(); //get the current angle
-
-        //subtract the reference angle from the current angle and rotate that many degrees
-        //so that the robot is aligned with the starting position
-        rotate((int)((-1)*(currentAngle1 - ref_angle_1)), 0.3);
-        sleep(200);
-    }
-
     public void getStone()
     {
         //strafe away from the skystone so we have space to pick it up
