@@ -109,6 +109,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
     public void initHW() {
         RobotLog.ii("CAL", "Enter -  initHW");
         robot.init(hardwareMap);
+        robot.openCapStoneClaw();
         //robot.initMotorEncoders();
         /*
         initVuforia();
@@ -428,7 +429,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
                     (robot.leftMotor.isBusy())) {
 
                if (sensors_2_use == SensorsToUse.USE_DISTANCE_LEFT) {
-                    if(robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH) <= 5) {
+                    if(robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH) <= 7) {
                         robot.stopAllMotors();
 
                         telemetry.addData("LeftDistSensor", "The robot is %7f inches from crashing.",
@@ -440,7 +441,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
                 }
 
                 if (sensors_2_use == SensorsToUse.USE_DISTANCE_RIGHT) {
-                    if(robot.sensorDistanceRight.getDistance(DistanceUnit.INCH) <= 5) {
+                    if(robot.sensorDistanceRight.getDistance(DistanceUnit.INCH) <= 7) {
                         robot.stopAllMotors();
 
                         telemetry.addData("RightDistSensor", "The robot is %7f inches from crashing.",

@@ -2,9 +2,10 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
 
-@Autonomous(name="Jarvis Auto Red FS", group="JARVIS")
+import java.util.List;
+@Autonomous(name="Jarvis Auto Red", group="JARVIS")
 
-public class JARVSAutoRedFS extends JARVISAutonomousBase {
+public class JARVSAutoRed extends JARVISAutonomousBase {
     static final int SIDE = 1; //Left side claw
 
     @Override
@@ -12,8 +13,6 @@ public class JARVSAutoRedFS extends JARVISAutonomousBase {
         RobotLog.ii("CAL", "Enter  - runOpMode - JARVIS Autonomous 1");
         initHW(); //initialize hardware
         ref_angle = getAngle(); //get the current angle and make it the reference angle for the rest of the program
-        ref_angle_1 = getAngle() - 90;
-        moveFoundationServoUp();
 
         // Send a telemetry message to signifyrobot waiting;
         while (!opModeIsActive() && !isStopRequested()) {
@@ -80,8 +79,6 @@ public class JARVSAutoRedFS extends JARVISAutonomousBase {
         double strafe_back_previous = 0;
         //same as above except for the second skystone
         double strafe_back = 0;
-        //same as above but for the foundation
-        double strafe_forward = 0;
 
         //initialize the motor encoders
         robot.initMotorEncoders();
@@ -97,75 +94,51 @@ public class JARVSAutoRedFS extends JARVISAutonomousBase {
             //stop whenever the color sensed is not yellow, but black (skystone)
             //add the extra distance traveled using the color sensor to strafe_back_previous
             if (myDetectSkystone(SideToUse.USE_RIGHT, 10) == false) {
-                myEncoderDrive(Direction.BACKWARD, 0.1, 24, 10.0, SensorsToUse.USE_COLOR_RIGHT);
+                myEncoderDrive(Direction.FORWARD, 0.1, 24, 10.0, SensorsToUse.USE_COLOR_RIGHT);
                 strafe_back_previous = distance_traveled;
                 telemetry.addData("strafe back = ", strafe_back_previous);
                 telemetry.update();
                 //go backward an inch to be sure that we're aligned with the middle of the skystone
-                myEncoderDrive(Direction.FORWARD, 0.1, 1, 5.0, SensorsToUse.NONE);
+                myEncoderDrive(Direction.BACKWARD, 0.1, 1, 5.0, SensorsToUse.NONE);
             }
 
             //Grab the skystone and go to the other side of the bridge
             getStone();
-            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 84 + strafe_back_previous,
-                    10.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, DRIVE_SPEED, 35 + strafe_back_previous, 10.0, SensorsToUse.NONE);
 
-            //move closer to the foundation
-            myEncoderDrive(Direction.STRAFE_RIGHT, 0.3, 5, 20, SensorsToUse.NONE);
-
-            /*if (myDetectFoundation(SideToUse.USE_RIGHT, 10) == false) {
-                myEncoderDrive(Direction.BACKWARD, 0.2, 10, 20, SensorsToUse.USE_COLOR_RIGHT);
-                strafe_forward = distance_traveled;
-                telemetry.addData("strafe forward = ", strafe_forward);
-                telemetry.update();
-                myEncoderDrive(Direction.BACKWARD, 0.2, 10, 20, SensorsToUse.NONE);
-            }*/
-
-            //Move close to the foundation so we can drop the skystone on well.
-            myEncoderDrive(Direction.STRAFE_RIGHT, 0.3, 3, 20, SensorsToUse.USE_DISTANCE_RIGHT_BLD);
-
-            //correct the angle so we are parallel to the foundation.
-
-            correctAngle();
             //drop the skystone
             releaseStone();
 
-            //move away from the foundation so we don't hit it
-            myEncoderDrive(Direction.STRAFE_LEFT, 0.3, 3, 20, SensorsToUse.NONE);
-            //turn so the servos are in line with the foundation
-            rotate(-90, 0.3);
-            //correct the angle
-            correctAngle();
-            //move towards it
-            myEncoderDrive(Direction.FORWARD, 0.2, 5, 20, SensorsToUse.NONE);
-            //go slowly toward the foundation so it can lock on well
-            myEncoderDrive(Direction.FORWARD, 0.1, 3, 20, SensorsToUse.NONE);
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-            sleep(100);
-            //move the foundation attachment down
-            moveFoundationServoDown();
-            //leave time for the foundation servos to move
-            sleep(350);
+            //Drive back to collect the second stone
+            myEncoderDrive(Direction.FORWARD, DRIVE_SPEED, 52 + strafe_back_previous, 10.0, SensorsToUse.NONE);
 
-            //back up to be close to the wall
-            myEncoderDrive(Direction.BACKWARD, 0.2, 20, 5, SensorsToUse.NONE);
-            //turn the foundation so it is parallel to the front wall
-            rotate(-90, 0.6);
-            //move forwards with the foundation and bring it close to the wall
-            myEncoderDrive(Direction.FORWARD, 0.2, 7, 5, SensorsToUse.NONE);
-            //leave time for the robot to finish turning
-            sleep(250);
-            //move the foundation attachment up to release the foundation
-            moveFoundationServoUp();
-            //leave time for the robot to finish moving the foundation
-            sleep(250);
+            //Drive till we are close to the stone again
+            myEncoderDrive(Direction.STRAFE_RIGHT, 0.2,24, 5.0, SensorsToUse.USE_DISTANCE_RIGHT);
 
-            //Strafe left toward the middle of the field
-            myEncoderDrive(Direction.STRAFE_LEFT, 0.3, 6, 3, SensorsToUse.NONE);
-            //move to the red tape under the bridge
-            myEncoderDrive(Direction.BACKWARD, 0.4, 37, 5, SensorsToUse.NONE);
-            //Strafe out of the way so we aren't in the middle of the bridge
-            myEncoderDrive(Direction.STRAFE_LEFT, 0.3, 3, 5, SensorsToUse.NONE);
+            //move forward while sensing using the color sensor
+            //stop whenever the color sensed is not yellow, but black (skystone)
+            //add the extra distance traveled using the color sensor to strafe_back
+            myEncoderDrive(Direction.FORWARD, 0.1, 20, 5.0, SensorsToUse.USE_COLOR_RIGHT);
+            strafe_back = distance_traveled;
+            telemetry.addData("strafe back = ", strafe_back);
+            telemetry.update();
+
+            //Grab the skystone
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,2, 5.0, SensorsToUse.NONE);
+            getStone();
+            //second time, we need to strafe an extra inch to avoid the bridge
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,3, 5.0, SensorsToUse.NONE);
+            correctAngle(); //correct angle to match the reference angle
+
+            //drive to other side and drop the stone
+            myEncoderDrive(Direction.BACKWARD, 0.4, 52 + strafe_back_previous + strafe_back, 10.0, SensorsToUse.NONE);
+            releaseStone();
+
+            //drive under the bridge then strafe towards the bridge so that our alliance also has space to park
+            myEncoderDrive(Direction.FORWARD, 0.4, 15, 10.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
+
+
         }
         RobotLog.ii("CAL", "Exit - myDetectionRun");
     }

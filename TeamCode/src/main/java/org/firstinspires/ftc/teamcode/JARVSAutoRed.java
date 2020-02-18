@@ -126,7 +126,7 @@ public class JARVSAutoRed extends JARVISAutonomousBase {
             //Grab the skystone
             myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,2, 5.0, SensorsToUse.NONE);
             getStone();
-            //second time, we need to strafe an extra inch to avoid the bridge
+            //sec0/ond time, we need to strafe an extra inch to avoid the bridge
             myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,3, 5.0, SensorsToUse.NONE);
             correctAngle(); //correct angle to match the reference angle
 
@@ -137,6 +137,7 @@ public class JARVSAutoRed extends JARVISAutonomousBase {
             //drive under the bridge then strafe towards the bridge so that our alliance also has space to park
             myEncoderDrive(Direction.FORWARD, 0.4, 15, 10.0, SensorsToUse.NONE);
             myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,5, 5.0, SensorsToUse.NONE);
+            robot.openCapStoneClaw();
 
 
         }
