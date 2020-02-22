@@ -3,9 +3,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.RobotLog;
 
 import java.util.List;
-@Autonomous(name="Jarvis Auto Red", group="JARVIS")
+@Autonomous(name="JarvisAutoRedV2", group="JARVIS")
 
-public class JARVSAutoRed extends JARVISAutonomousBase {
+public class JARVSAutoRedV2 extends JARVISAutonomousBase {
     static final int SIDE = 1; //Left side claw
 
     @Override

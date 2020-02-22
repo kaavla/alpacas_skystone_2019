@@ -39,6 +39,11 @@ public class JARVISAutonomousBase extends LinearOpMode {
         USE_DISTANCE_FRONT, USE_ALL;
     }
 
+    public enum TurnDirection
+    {
+        FORWARD, BACKWARD;
+    }
+
     public enum SideToUse
     {
         USE_LEFT, USE_RIGHT;
@@ -64,6 +69,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     static final double DRIVE_SPEED = 0.3;
     static final double TURN_SPEED  = 0.7;
+    public int FWD_BCW_Power = 0;
 
     private static final String TFOD_MODEL_ASSET     = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT  = "Stone";
@@ -228,7 +234,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
         RobotLog.ii("CAL", "Exit - rotate");
     }
 
-    public void rotateFrontUsingOneSide(int degrees, double speed) {
+    public void rotateAroundPoint(TurnDirection direction, int degrees, double speed) {
         //logs that get added to a file to see what was wrong with the robot and the sequences of it
         RobotLog.ii("CAL", "Enter - rotate - degrees=%d, power=%f",
                 degrees, speed);
@@ -236,76 +242,29 @@ public class JARVISAutonomousBase extends LinearOpMode {
         // restart imu movement tracking.
         resetAngle();
 
-        if (degrees < 0)
-        {   // turn right.
-            robot.leftMotor.setPower(0);
-            robot.rightMotor.setPower(1 * speed);
-            robot.backleftMotor.setPower(0);
-            robot.backrightMotor.setPower(1 * speed);
+        if (direction == TurnDirection.FORWARD) {
+            FWD_BCW_Power = 1;
         }
-        else if (degrees > 0)
-        {   // turn left.
-            robot.leftMotor.setPower(1 * speed);
-            robot.rightMotor.setPower(0);
-            robot.backleftMotor.setPower(1 * speed);
-            robot.backrightMotor.setPower(0);
+
+        else if (direction == TurnDirection.BACKWARD) {
+            FWD_BCW_Power = -1;
         }
-        else return;
-
-
-
-        // rotate until turn is completed.
-        if (degrees < 0) {
-            // On right turn we have to get off zero first.
-            while (opModeIsActive() && !isStopRequested() && getAngle() == 0) {
-            }
-
-            while (opModeIsActive() && !isStopRequested() && getAngle() > degrees) {
-            }
-        } else    // left turn.
-            while (opModeIsActive() && !isStopRequested() && getAngle() < degrees) {
-            }
-
-        // turn the motors off.
-        int power = 0;
-        robot.leftMotor.setPower(power);
-        robot.rightMotor.setPower(power);
-        robot.backleftMotor.setPower(power);
-        robot.backrightMotor.setPower(power);
-
-        // wait for rotation to stop.
-        sleep(50);
-
-        // reset angle tracking on new heading.
-        resetAngle();
-        RobotLog.ii("CAL", "Exit - rotate");
-    }
-
-    public void rotateUsingOneSide(int degrees, double speed) {
-        //logs that get added to a file to see what was wrong with the robot and the sequences of it
-        RobotLog.ii("CAL", "Enter - rotate - degrees=%d, power=%f",
-                degrees, speed);
-
-        // restart imu movement tracking.
-        resetAngle();
 
         if (degrees < 0)
         {   // turn right.
-            robot.leftMotor.setPower(0);
-            robot.rightMotor.setPower(-1 * speed);
-            robot.backleftMotor.setPower(0);
-            robot.backrightMotor.setPower(-1 * speed);
+            robot.leftMotor.setPower(FWD_BCW_Power * 0.15);
+            robot.rightMotor.setPower(FWD_BCW_Power * speed);
+            robot.backleftMotor.setPower(FWD_BCW_Power * 0.15);
+            robot.backrightMotor.setPower(FWD_BCW_Power * speed);
         }
         else if (degrees > 0)
         {   // turn left.
-            robot.leftMotor.setPower(-1 * speed);
-            robot.rightMotor.setPower(0);
-            robot.backleftMotor.setPower(-1 * speed);
-            robot.backrightMotor.setPower(0);
+            robot.leftMotor.setPower(FWD_BCW_Power * speed);
+            robot.rightMotor.setPower(FWD_BCW_Power * 0.15);
+            robot.backleftMotor.setPower(FWD_BCW_Power * speed);
+            robot.backrightMotor.setPower(FWD_BCW_Power * 0.15);
         }
         else return;
-
-
 
         // rotate until turn is completed.
         if (degrees < 0) {
