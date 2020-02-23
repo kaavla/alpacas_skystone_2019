@@ -22,6 +22,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class JARVISHW
 {
+
     public DcMotor leftMotor = null;
     public DcMotor rightMotor = null;
     public DcMotor backrightMotor = null;
@@ -106,6 +107,8 @@ public class JARVISHW
         sensorDistanceFL = ahwMap.get(DistanceSensor.class, "sensorDistanceFL");
 
         touch_sensor = ahwMap.get(TouchSensor.class, "touch_sensor");
+
+
 
         //markerServo = ahwMap.get(Servo.class, "MServo");
 
@@ -409,6 +412,8 @@ public class JARVISHW
             GrabberRightClawServo.setPosition(0.5);
         }
     }
+
+
 
 
 
