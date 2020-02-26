@@ -115,7 +115,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
     public void initHW() {
         RobotLog.ii("CAL", "Enter -  initHW");
         robot.init(hardwareMap);
-        robot.openCapStoneClaw();
+        robot.closeCapStoneClaw();
         //robot.initMotorEncoders();
         /*
         initVuforia();

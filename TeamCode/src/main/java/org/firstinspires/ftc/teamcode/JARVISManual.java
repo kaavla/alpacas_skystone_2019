@@ -110,20 +110,17 @@ public class JARVISManual extends JARVISAutonomousBase {
                 robot.closeCapStoneClaw();
             } else if (gamepad2.right_bumper) {
                 robot.openCapStoneClaw();
-            } else if (gamepad2.left_stick_y > 0) {
+            } else if (gamepad2.left_stick_button) {
                 robot.measureTapeOut();
-            } else if (gamepad2.left_stick_y < 0) {
-                robot.measureTapeIn();
+            } else if (gamepad2.right_stick_button) {
+                    robot.measureTapeIn();
             }  else{
                 robot.stopAllMotors();
             }
             if (robot.touch_sensor.isPressed() ) {
                 telemetry.addData("TOUCH SENSOR IS PRESSED", "THE BLOCK IS IN THE CLAW - YOU CAN NOW CLOSE THE CLAW");
-           } else {
-                telemetry.addData("not", "pressed");
+                telemetry.update();
             }
-
-            telemetry.update();
         }
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();

@@ -38,7 +38,7 @@ public class JARVISHW
     public Servo FRServo = null;
 
 
-    public CRServo  tapeServo = null;
+    public Servo  tapeServo = null;
     //public Servo CollectRightServo = null;
     public DcMotor CollectLeftMotor = null;
     public DcMotor CollectRightMotor = null;
@@ -86,7 +86,7 @@ public class JARVISHW
         FLServo = ahwMap.get(Servo.class, "FLServo");
         FRServo = ahwMap.get(Servo.class, "FRServo");
 
-        tapeServo = ahwMap.get(CRServo.class, "tapeServo");
+        tapeServo = ahwMap.get(Servo.class, "tapeServo");
         //CollectRightServo = ahwMap.get(Servo.class, "CollectRightServo");
         //VexServo = ahwMap.get(CRServo.class, "vex");
 
@@ -132,8 +132,9 @@ public class JARVISHW
         FLServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightTurnServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightClawServo.setDirection(Servo.Direction.REVERSE);
-        tapeServo.setDirection(CRServo.Direction.REVERSE);
+        tapeServo.setDirection(Servo.Direction.REVERSE);
         CollectRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        capServo.setDirection(Servo.Direction.REVERSE);
 
         // Set all motors to zero power
         stopAllMotors();
@@ -156,6 +157,9 @@ public class JARVISHW
 
         closeGrabberClaw(0);
         closeGrabberClaw(1);
+        measureTapeStop();
+
+        closeCapStoneClaw();
 
         RobotLog.ii("CAL", "Exit - init");
 
@@ -171,7 +175,7 @@ public class JARVISHW
         slide_1.setPower(0);
         //slide_2.setPower(0);
         slide_3.setPower(0);
-        measureTapeStop();
+        //measureTapeStop();
     }
 
     public void initMotorNoEncoders() {
@@ -227,17 +231,12 @@ public class JARVISHW
         double fr_power = Range.clip(y - x + z, min_power, max_power);
         double br_power = Range.clip(y + x + z, min_power, max_power);
         double bl_power = Range.clip(y - x - z, min_power, max_power);
-        RobotLog.ii("CAL", "moveHolonomic - Enter x(%f), y(%f), z(%f)", x, y, z);
-        RobotLog.ii("CAL", "moveHolonomic - Enter fl(%f), fr(%f), bl(%f), br(%f)", fl_power,fr_power, bl_power, br_power );
 
         // Sets the power of the motors to the power defined above
         leftMotor.setPower(fl_power);
         rightMotor.setPower(fr_power);
         backleftMotor.setPower(bl_power);
         backrightMotor.setPower(br_power);
-
-        RobotLog.ii("CAL", "moveHolonomic - Exit ");
-
     }
 
     //extra motions to move slowly go in case we are in a situation like that
@@ -259,7 +258,6 @@ public class JARVISHW
     public void slidesUp(double power)
     {
         slide_1.setPower(power);
-        //slide_2.setPower(power);
     }
 
     public void slidesDown(double power)
@@ -284,22 +282,16 @@ public class JARVISHW
 
     public void rotateClawInline()
     {
-        //capServo.setPosition(0.25);
         capServo.setPosition(0.4);
     }
 
     public void openClaw()
     {
-        clawServo.setPosition(0.55);
-    }
-    public void closeClaw()
-    {
-        clawServo.setPosition(0.8);
+        clawServo.setPosition(0.6);
     }
 
-    public void closeClawSensor(double timeoutS)
+    public void closeClaw()
     {
-        if (timeoutS < 10)
         clawServo.setPosition(0.8);
     }
 
@@ -320,23 +312,19 @@ public class JARVISHW
 
     public void openCapStoneClaw()
     {
-        //capServo.setPosition(0.25);
         capServo.setPosition(0.7);
     }
 
     public void measureTapeOut() {
-        tapeServo.setPower(1);
-        //VexServo.setPower(1);
+        tapeServo.setPosition(0.5);
     }
 
     public void measureTapeIn() {
-        tapeServo.setPower(-1);
-        //VexServo.setPower(1);
+        tapeServo.setPosition(0);
     }
 
     public void measureTapeStop() {
-        tapeServo.setPower(0);
-        //VexServo.setPower(1);
+        tapeServo.setPosition(0);
     }
 
 
@@ -412,9 +400,5 @@ public class JARVISHW
             GrabberRightClawServo.setPosition(0.5);
         }
     }
-
-
-
-
 
 }
