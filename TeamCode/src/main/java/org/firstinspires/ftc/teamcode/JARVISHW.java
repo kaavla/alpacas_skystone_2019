@@ -36,6 +36,8 @@ public class JARVISHW
 
     public Servo FLServo = null;
     public Servo FRServo = null;
+    public Servo FLBackServo = null;
+    public Servo FRBackServo = null;
 
 
     public Servo  tapeServo = null;
@@ -85,6 +87,9 @@ public class JARVISHW
 
         FLServo = ahwMap.get(Servo.class, "FLServo");
         FRServo = ahwMap.get(Servo.class, "FRServo");
+        FLBackServo = ahwMap.get(Servo.class, "FLBackServo");
+        FRBackServo = ahwMap.get(Servo.class, "FRBackServo");
+
 
         tapeServo = ahwMap.get(Servo.class, "tapeServo");
         //CollectRightServo = ahwMap.get(Servo.class, "CollectRightServo");
@@ -298,11 +303,15 @@ public class JARVISHW
     public void moveFoundationServoUp() {
         FLServo.setPosition(0);
         FRServo.setPosition(0);
+        FLBackServo.setPosition(0);
+        FRBackServo.setPosition(0);
     }
 
     public void moveFoundationServoDown() {
         FLServo.setPosition(0.5);
         FRServo.setPosition(0.5);
+        FLServo.setPosition(0.8);
+        FRServo.setPosition(0.8);
     }
 
     public void closeCapStoneClaw()
