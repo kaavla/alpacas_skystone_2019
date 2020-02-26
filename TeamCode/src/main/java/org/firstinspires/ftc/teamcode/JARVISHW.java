@@ -135,6 +135,7 @@ public class JARVISHW
         //slide_2.setDirection(DcMotorSimple.Direction.REVERSE);
         slide_3.setDirection(DcMotorSimple.Direction.REVERSE);
         FLServo.setDirection(Servo.Direction.REVERSE);
+        FLBackServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightTurnServo.setDirection(Servo.Direction.REVERSE);
         GrabberRightClawServo.setDirection(Servo.Direction.REVERSE);
         tapeServo.setDirection(Servo.Direction.REVERSE);
@@ -165,7 +166,7 @@ public class JARVISHW
         measureTapeStop();
 
         closeCapStoneClaw();
-
+        moveFoundationServoUp();
         RobotLog.ii("CAL", "Exit - init");
 
     }
@@ -308,10 +309,10 @@ public class JARVISHW
     }
 
     public void moveFoundationServoDown() {
-        FLServo.setPosition(0.5);
-        FRServo.setPosition(0.5);
-        FLServo.setPosition(0.8);
-        FRServo.setPosition(0.8);
+        FLServo.setPosition(0.4);
+        FRServo.setPosition(0.4);
+        FLBackServo.setPosition(0.8);
+        FRBackServo.setPosition(0.8);
     }
 
     public void closeCapStoneClaw()
