@@ -28,7 +28,10 @@ public class JARVISManual extends JARVISAutonomousBase {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         initHW();
-        robot.openCapStoneClaw();
+        
+        robot.closeCapStoneClaw();
+        //Move back Foundation servo down as wire gets stuck
+        robot.moveFoundationServoDownAuto();
 
         while (!opModeIsActive() && !isStopRequested()) {
             telemetry.addData("status", "waiting for start command...");
