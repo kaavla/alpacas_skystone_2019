@@ -315,6 +315,17 @@ public class JARVISHW
         FRBackServo.setPosition(0.8);
     }
 
+    public void moveFoundationServoUpAuto() {
+        FLServo.setPosition(0);
+        FRServo.setPosition(0);
+    }
+
+    public void moveFoundationServoDownAuto() {
+        FLServo.setPosition(0.5);
+        FRServo.setPosition(0.5);
+    }
+
+
     public void closeCapStoneClaw()
     {
         capServo.setPosition(0.0);
