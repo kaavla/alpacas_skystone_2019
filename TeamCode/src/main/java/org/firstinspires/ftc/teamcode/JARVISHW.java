@@ -117,8 +117,8 @@ public class JARVISHW
 
         //markerServo = ahwMap.get(Servo.class, "MServo");
 
-        imu = ahwMap.get(BNO055IMU.class, "imu 1");
-
+        //imu = ahwMap.get(BNO055IMU.class, "imu 1");
+        imu = ahwMap.get(BNO055IMU.class, "imu");
         //initialize the IMU
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
