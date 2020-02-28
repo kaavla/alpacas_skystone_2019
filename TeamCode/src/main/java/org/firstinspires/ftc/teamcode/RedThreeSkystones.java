@@ -115,7 +115,8 @@ public class RedThreeSkystones extends JARVISAutonomousBase{
 
 
 
-            if (strafe_back_previous < 5) {
+            //if (strafe_back_previous < 5) {
+            if (strafe_back_previous < 12) {
                 //Drive back to collect the second stone
                 myEncoderDrive(Direction.FORWARD, 0.6, 44 + strafe_back_previous, 10.0, SensorsToUse.NONE);
 
@@ -160,7 +161,7 @@ public class RedThreeSkystones extends JARVISAutonomousBase{
                 myEncoderDrive(Direction.BACKWARD, 0.6, 38 + strafe_back_previous, 10.0, SensorsToUse.NONE);
                 //drop the skystone
                 releaseStone();
-            } else if (strafe_back_previous > 10){
+            } else /*if (strafe_back_previous > 10)*/{
                 //Drive back to collect the second stone
                 myEncoderDrive(Direction.FORWARD, 0.6, 52 + strafe_back_previous, 10.0, SensorsToUse.NONE);
 
@@ -206,7 +207,7 @@ public class RedThreeSkystones extends JARVISAutonomousBase{
                 myEncoderDrive(Direction.BACKWARD, 0.6, 14 + strafe_back_previous, 10.0, SensorsToUse.NONE);
                 //drop the skystone
                 releaseStone();
-            } else {
+            } /*else {
                 //Drive back to collect the second stone
                 myEncoderDrive(Direction.FORWARD, 0.6, 44 + strafe_back_previous, 10.0, SensorsToUse.NONE);
 
@@ -251,7 +252,7 @@ public class RedThreeSkystones extends JARVISAutonomousBase{
                 myEncoderDrive(Direction.BACKWARD, 0.6, 20 + strafe_back_previous, 10.0, SensorsToUse.NONE);
                 //drop the skystone
                 releaseStone();
-            }
+            }*/
 
             //drive under the bridge then strafe towards the bridge so that our alliance also has space to park
             myEncoderDrive(Direction.FORWARD, 0.6, 15, 10.0, SensorsToUse.NONE);
