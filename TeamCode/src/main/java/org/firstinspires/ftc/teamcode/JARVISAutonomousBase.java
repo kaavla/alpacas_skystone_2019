@@ -36,7 +36,12 @@ public class JARVISAutonomousBase extends LinearOpMode {
     {
         NONE, USE_COLOR_LEFT, USE_COLOR_RIGHT, USE_DISTANCE_LEFT, USE_DISTANCE_RIGHT, USE_TOUCH,
         USE_DISTANCE_RIGHT_BLD, USE_DISTANCE_LEFT_BLD, USE_DISTANCE_LEFT_FDT, USE_DISTANCE_RIGHT_FDT,
-        USE_DISTANCE_FRONT;
+        USE_DISTANCE_FRONT, USE_ALL;
+    }
+
+    public enum TurnDirection
+    {
+        FORWARD, BACKWARD;
     }
 
     public enum SideToUse
@@ -64,6 +69,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
 
     static final double DRIVE_SPEED = 0.3;
     static final double TURN_SPEED  = 0.7;
+    public int FWD_BCW_Power = 0;
 
     private static final String TFOD_MODEL_ASSET     = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT  = "Stone";
@@ -228,7 +234,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
         RobotLog.ii("CAL", "Exit - rotate");
     }
 
-    public void rotateFrontUsingOneSide(int degrees, double speed) {
+    public void rotateAroundPoint(TurnDirection direction, int degrees, double speed) {
         //logs that get added to a file to see what was wrong with the robot and the sequences of it
         RobotLog.ii("CAL", "Enter - rotate - degrees=%d, power=%f",
                 degrees, speed);
@@ -236,76 +242,29 @@ public class JARVISAutonomousBase extends LinearOpMode {
         // restart imu movement tracking.
         resetAngle();
 
-        if (degrees < 0)
-        {   // turn right.
-            robot.leftMotor.setPower(0);
-            robot.rightMotor.setPower(1 * speed);
-            robot.backleftMotor.setPower(0);
-            robot.backrightMotor.setPower(1 * speed);
+        if (direction == TurnDirection.FORWARD) {
+            FWD_BCW_Power = 1;
         }
-        else if (degrees > 0)
-        {   // turn left.
-            robot.leftMotor.setPower(1 * speed);
-            robot.rightMotor.setPower(0);
-            robot.backleftMotor.setPower(1 * speed);
-            robot.backrightMotor.setPower(0);
+
+        else if (direction == TurnDirection.BACKWARD) {
+            FWD_BCW_Power = -1;
         }
-        else return;
-
-
-
-        // rotate until turn is completed.
-        if (degrees < 0) {
-            // On right turn we have to get off zero first.
-            while (opModeIsActive() && !isStopRequested() && getAngle() == 0) {
-            }
-
-            while (opModeIsActive() && !isStopRequested() && getAngle() > degrees) {
-            }
-        } else    // left turn.
-            while (opModeIsActive() && !isStopRequested() && getAngle() < degrees) {
-            }
-
-        // turn the motors off.
-        int power = 0;
-        robot.leftMotor.setPower(power);
-        robot.rightMotor.setPower(power);
-        robot.backleftMotor.setPower(power);
-        robot.backrightMotor.setPower(power);
-
-        // wait for rotation to stop.
-        sleep(50);
-
-        // reset angle tracking on new heading.
-        resetAngle();
-        RobotLog.ii("CAL", "Exit - rotate");
-    }
-
-    public void rotateUsingOneSide(int degrees, double speed) {
-        //logs that get added to a file to see what was wrong with the robot and the sequences of it
-        RobotLog.ii("CAL", "Enter - rotate - degrees=%d, power=%f",
-                degrees, speed);
-
-        // restart imu movement tracking.
-        resetAngle();
 
         if (degrees < 0)
         {   // turn right.
-            robot.leftMotor.setPower(0);
-            robot.rightMotor.setPower(-1 * speed);
-            robot.backleftMotor.setPower(0);
-            robot.backrightMotor.setPower(-1 * speed);
+            robot.leftMotor.setPower(FWD_BCW_Power * 0.15);
+            robot.rightMotor.setPower(FWD_BCW_Power * speed);
+            robot.backleftMotor.setPower(FWD_BCW_Power * 0.15);
+            robot.backrightMotor.setPower(FWD_BCW_Power * speed);
         }
         else if (degrees > 0)
         {   // turn left.
-            robot.leftMotor.setPower(-1 * speed);
-            robot.rightMotor.setPower(0);
-            robot.backleftMotor.setPower(-1 * speed);
-            robot.backrightMotor.setPower(0);
+            robot.leftMotor.setPower(FWD_BCW_Power * speed);
+            robot.rightMotor.setPower(FWD_BCW_Power * 0.15);
+            robot.backleftMotor.setPower(FWD_BCW_Power * speed);
+            robot.backrightMotor.setPower(FWD_BCW_Power * 0.15);
         }
         else return;
-
-
 
         // rotate until turn is completed.
         if (degrees < 0) {
@@ -364,6 +323,8 @@ public class JARVISAutonomousBase extends LinearOpMode {
                 newRightTarget = robot.leftMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
                 newLeftBackTarget = robot.backrightMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
                 newRightBackTarget = robot.backleftMotor.getCurrentPosition() + (int) (Inches * COUNTS_PER_INCH);
+
+
             } else if (direction == Direction.BACKWARD) {
                 //Go backward
                 newLeftTarget = robot.rightMotor.getCurrentPosition() + (int) (-1 * Inches * COUNTS_PER_INCH);
@@ -472,10 +433,6 @@ public class JARVISAutonomousBase extends LinearOpMode {
                 if (sensors_2_use == SensorsToUse.USE_DISTANCE_RIGHT_BLD) {
                     if(robot.sensorDistanceRight.getDistance(DistanceUnit.INCH) <= 2) {
                         robot.stopAllMotors();
-
-                        telemetry.addData("RightDistSensor", "The robot is %7f inches from crashing.",
-                                robot.sensorDistanceRight.getDistance(DistanceUnit.INCH));
-                        telemetry.update();
                         break;
                     }
                 }
@@ -483,32 +440,9 @@ public class JARVISAutonomousBase extends LinearOpMode {
                 if (sensors_2_use == SensorsToUse.USE_DISTANCE_LEFT_BLD) {
                     if(robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH) <= 2) {
                         robot.stopAllMotors();
-
-                        telemetry.addData("LeftDistSensor", "The robot is %7f inches from crashing.",
-                                robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH));
-                        telemetry.update();
                         break;
                     }
                 }
-
-                if (sensors_2_use == SensorsToUse.USE_DISTANCE_LEFT_FDT) {
-                    if(robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH) > 20) {
-                        robot.stopAllMotors();
-                    }
-                }
-
-                if (sensors_2_use == SensorsToUse.USE_DISTANCE_RIGHT_FDT) {
-                    if(robot.sensorDistanceRight.getDistance(DistanceUnit.INCH) > 20) {
-                        robot.stopAllMotors();
-                    }
-                }
-
-                if (sensors_2_use == SensorsToUse.USE_DISTANCE_FRONT) {
-                    if(robot.sensorDistanceFL.getDistance(DistanceUnit.INCH) <23) {
-                        robot.stopAllMotors();
-                    }
-                }
-
 
             }
         }
@@ -930,29 +864,13 @@ public class JARVISAutonomousBase extends LinearOpMode {
     public void moveFoundationServoDown () {
         // Checks if the servos are = null or not because that is what causes the
         // "null pointer exception". Once it is checked, the servos will run.
-        robot.moveFoundationServoDown();
-        /*
-        if (robot.FLServo != null) {
-            robot.FLServo.setPosition(0.21);
-        }
-        if (robot.FRServo != null) {
-            robot.FRServo.setPosition(0.21);
-        }
-         */
+        robot.moveFoundationServoDownAuto();
     }
 
     public void moveFoundationServoUp() {
         // Checks if the servos are = null or not because that is what causes the
         // "null pointer exception". Once it is checked, the servos will run.
-        robot.moveFoundationServoUp();
-        /*
-        if (robot.FLServo != null) {
-            robot.FLServo.setPosition(0);
-        }
-        if (robot.FRServo != null) {
-            robot.FRServo.setPosition(0);703
-        }
-         */
+        robot.moveFoundationServoUpAuto();
     }
     public boolean myDetectSkystone(SideToUse side, double timeoutS) {
         RobotLog.ii("CAL", "myDetectSkystone - Enter");
