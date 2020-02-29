@@ -12,7 +12,12 @@ public class JARVSAutoRedFS extends JARVISAutonomousBase {
         RobotLog.ii("CAL", "Enter  - runOpMode - JARVIS Autonomous 1");
         initHW(); //initialize hardware
         ref_angle = getAngle(); //get the current angle and make it the reference angle for the rest of the program
-        ref_angle_1 = getAngle() - 90;
+        if (ref_angle - 90 < 0)
+        {
+            ref_angle_1 = ref_angle - 90 + 360;
+        } else {
+            ref_angle_1 = ref_angle - 90;
+        }
         moveFoundationServoUp();
 
         // Send a telemetry message to signifyrobot waiting;
@@ -99,6 +104,7 @@ public class JARVSAutoRedFS extends JARVISAutonomousBase {
 
         // Ensure that the op mode is still active
         if (opModeIsActive() && !isStopRequested()) {
+
             //MOve towards the skystones using a distance sensor so we don't collide with them
             myEncoderDrive(Direction.STRAFE_RIGHT, 0.2, 50, 5.0, SensorsToUse.USE_DISTANCE_RIGHT);
             //align with the reference angle
@@ -144,9 +150,10 @@ public class JARVSAutoRedFS extends JARVISAutonomousBase {
             //move away from the foundation so we don't hit it
             myEncoderDrive(Direction.STRAFE_LEFT, 0.3, 3, 20, SensorsToUse.NONE);
             //turn so the servos are in line with the foundation
-            rotate(-90, 0.3);
+            //rotate(-50, 0.3);
+            correctAngleX();
             //correct the angle
-            correctAngle();
+            //correctAngle();
             //move towards it
             myEncoderDrive(Direction.FORWARD, 0.2, 5, 20, SensorsToUse.NONE);
             //go slowly toward the foundation so it can lock on well
