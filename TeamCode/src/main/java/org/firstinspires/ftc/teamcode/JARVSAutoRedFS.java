@@ -163,7 +163,7 @@ public class JARVSAutoRedFS extends JARVISAutonomousBase {
             //move the foundation attachment down
             moveFoundationServoDown();
             //leave time for the foundation servos to move
-            sleep(300);
+            sleep(250);
 
             //back up to be close to the wall
             myEncoderDrive(Direction.BACKWARD, 0.2, 20, 5, SensorsToUse.NONE);
@@ -172,18 +172,17 @@ public class JARVSAutoRedFS extends JARVISAutonomousBase {
             //move forwards with the foundation and bring it close to the wall
             myEncoderDrive(Direction.FORWARD, 0.2, 7, 5, SensorsToUse.NONE);
             //leave time for the robot to finish turning
-            sleep(200);
+            sleep(100);
             //move the foundation attachment up to release the foundation
             moveFoundationServoUp();
             //leave time for the robot to finish moving the foundation
-            sleep(200);
 
             //Strafe left toward the middle of the field
-            myEncoderDrive(Direction.STRAFE_LEFT, 0.3, 6, 3, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_LEFT, 0.4, 6, 3, SensorsToUse.NONE);
             //move to the red tape under the bridge
-            myEncoderDrive(Direction.BACKWARD, 0.4, 37, 5, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, 0.5, 37, 5, SensorsToUse.NONE);
             //Strafe out of the way so we aren't in the middle of the bridge
-            myEncoderDrive(Direction.STRAFE_LEFT, 0.3, 3, 5, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_LEFT, 0.4, 3, 5, SensorsToUse.NONE);
         }
         RobotLog.ii("CAL", "Exit - myDetectionRun");
     }
