@@ -247,10 +247,10 @@ public class JARVISHW
 
     //extra motions to move slowly go in case we are in a situation like that
     public void forwardSlow() {
-        leftMotor.setPower(Range.clip(leftMotor.getPower() + 0.01, 0.3, 1.0));
-        rightMotor.setPower(Range.clip(rightMotor.getPower() + 0.01, 0.3, 1.0));
-        backleftMotor.setPower(Range.clip(backleftMotor.getPower() + 0.01, 0.3, 1.0));
-        backrightMotor.setPower(Range.clip(backrightMotor.getPower() + 0.01, 0.3, 1.0));
+        leftMotor.setPower(Range.clip(leftMotor.getPower() + 0.01, 0.5, 1.0));
+        rightMotor.setPower(Range.clip(rightMotor.getPower() + 0.01, 0.5, 1.0));
+        backleftMotor.setPower(Range.clip(backleftMotor.getPower() + 0.01, 0.5, 1.0));
+        backrightMotor.setPower(Range.clip(backrightMotor.getPower() + 0.01, 0.5, 1.0));
     }
 
     public void backwardSlow() {
