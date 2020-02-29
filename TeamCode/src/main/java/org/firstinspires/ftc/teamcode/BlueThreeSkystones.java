@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.util.RobotLog;
 
 import java.util.List;
 @Autonomous(name="AutoBlue3Stones", group="JARVIS")
+
 public class BlueThreeSkystones extends JARVISAutonomousBase{
     static final int SIDE = 0; //Right side claw
 

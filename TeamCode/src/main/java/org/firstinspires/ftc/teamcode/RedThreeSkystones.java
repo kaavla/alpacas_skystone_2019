@@ -146,7 +146,7 @@ public class RedThreeSkystones extends JARVISAutonomousBase{
                 //drive to other side and drop the stone
                 myEncoderDrive(Direction.BACKWARD, 0.5, 52 + strafe_back_previous + strafe_back, 10.0, SensorsToUse.NONE);
                 releaseStone();
-                myEncoderDrive(Direction.FORWARD, 0.6, 46 + strafe_back_previous, 10.0, SensorsToUse.NONE);
+                myEncoderDrive(Direction.FORWARD, 0.6, 48 + strafe_back_previous, 10.0, SensorsToUse.NONE);
                 robot.openGrabberClaw(SIDE); //open the claw
                 sleep(100);
                 robot.setGrabberHalfDown(SIDE); //put the claw half down

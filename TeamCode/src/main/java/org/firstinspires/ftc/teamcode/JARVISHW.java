@@ -254,10 +254,10 @@ public class JARVISHW
     }
 
     public void backwardSlow() {
-        leftMotor.setPower(Range.clip(leftMotor.getPower() - 0.01, -0.3, -1.0));
-        rightMotor.setPower(Range.clip(rightMotor.getPower() - 0.01, -0.3, -1.0));
-        backleftMotor.setPower(Range.clip(backleftMotor.getPower() - 0.01, -0.3, -1.0));
-        backrightMotor.setPower(Range.clip(backrightMotor.getPower() - 0.01, -0.3, -1.0));
+        leftMotor.setPower(Range.clip(leftMotor.getPower() - 0.02, -0.5, -1.0));
+        rightMotor.setPower(Range.clip(rightMotor.getPower() - 0.02, -0.5, -1.0));
+        backleftMotor.setPower(Range.clip(backleftMotor.getPower() - 0.02, -0.5, -1.0));
+        backrightMotor.setPower(Range.clip(backrightMotor.getPower() - 0.02, -0.5, -1.0));
     }
 
     // All of the functions that move the motors and servos are below
@@ -304,8 +304,8 @@ public class JARVISHW
     public void moveFoundationServoUp() {
         FLServo.setPosition(0);
         FRServo.setPosition(0);
-        FLBackServo.setPosition(0);
-        FRBackServo.setPosition(0);
+        FLBackServo.setPosition(0.2);
+        FRBackServo.setPosition(0.2);
     }
 
     public void moveFoundationServoDown() {
