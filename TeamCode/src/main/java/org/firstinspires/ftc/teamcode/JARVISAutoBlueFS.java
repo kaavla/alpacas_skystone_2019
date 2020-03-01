@@ -172,10 +172,9 @@ public class JARVISAutoBlueFS extends JARVISAutonomousBase{
 
             sleep(100);
             //move the foundation attachment up to release the foundation
-            moveFoundationServoUp();
 
-            //move forwards with the foundation and bring it close to the wall
-            myEncoderDrive(Direction.FORWARD,0.2, 5, 5, SensorsToUse.NONE);
+            moveFoundationServoUp();
+            myEncoderDrive(Direction.FORWARD, 0.2, 3, 5, SensorsToUse.NONE);
             //leave time for the robot to finish turning
 
             //Strafe left toward the middle of the field

@@ -122,7 +122,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
             strafe_back = distance_traveled;
             telemetry.addData("strafe back = ", strafe_back);
             telemetry.update();
-            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,2, 5.0, SensorsToUse.NONE);
+            myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,4, 5.0, SensorsToUse.NONE);
             //Grab the skystone
             getStone();
             //second time, we need to strafe an extra inch to avoid the bridge

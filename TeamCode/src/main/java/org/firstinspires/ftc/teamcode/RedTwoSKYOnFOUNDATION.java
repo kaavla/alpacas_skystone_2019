@@ -112,8 +112,8 @@ public class RedTwoSKYOnFOUNDATION extends JARVISAutonomousBase{
             myEncoderDrive(JARVISAutonomousBase.Direction.BACKWARD, DRIVE_SPEED+0.2, 26 + 35 + strafe_back_previous, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
 
             //drop the skystone
-            myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_RIGHT, 0.6, 10, 5.0, JARVISAutonomousBase.SensorsToUse.USE_DISTANCE_RIGHT);
-            myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_RIGHT, DRIVE_SPEED,2, 5.0, JARVISAutonomousBase.SensorsToUse.NONE);
+            myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_RIGHT, 0.6, 10, 5.0, JARVISAutonomousBase.SensorsToUse.USE_DISTANCE_RIGHT_BLD);
+            //myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_RIGHT, DRIVE_SPEED,2, 5.0, JARVISAutonomousBase.SensorsToUse.NONE);
             sleep(200);
             releaseStone();
             sleep(100);
@@ -124,9 +124,9 @@ public class RedTwoSKYOnFOUNDATION extends JARVISAutonomousBase{
             //if (strafe_back_previous < 5) {
             if (strafe_back_previous < 12) {
                 //Drive back to collect the second stone
-                myEncoderDrive(JARVISAutonomousBase.Direction.FORWARD, 0.6, 32 + 44 + strafe_back_previous, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
+                myEncoderDrive(JARVISAutonomousBase.Direction.FORWARD, 0.6, 36 + 44 + strafe_back_previous, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
 
-                myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_LEFT, 0.2, 2, 5.0, JARVISAutonomousBase.SensorsToUse.NONE);
+                //myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_LEFT, 0.2, 2, 5.0, JARVISAutonomousBase.SensorsToUse.NONE);
                 robot.openGrabberClaw(SIDE); //open the claw
                 sleep(100);
                 robot.setGrabberHalfDown(SIDE); //put the claw half down
@@ -151,11 +151,11 @@ public class RedTwoSKYOnFOUNDATION extends JARVISAutonomousBase{
                 correctAngle(); //correct angle to match the reference angle
 
                 //drive to other side and drop the stone
-                myEncoderDrive(JARVISAutonomousBase.Direction.BACKWARD, 0.5, 26 + 52 + strafe_back_previous + strafe_back, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
+                myEncoderDrive(JARVISAutonomousBase.Direction.BACKWARD, 0.5, 28 + 52 + strafe_back_previous + strafe_back, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
 
                 //drop the skystone
-                myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_RIGHT, 0.6, 10, 5.0, JARVISAutonomousBase.SensorsToUse.USE_DISTANCE_RIGHT);
-                myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_RIGHT, DRIVE_SPEED,2, 5.0, JARVISAutonomousBase.SensorsToUse.NONE);
+                myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_RIGHT, 0.6, 10, 5.0, JARVISAutonomousBase.SensorsToUse.USE_DISTANCE_RIGHT_BLD);
+                //myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_RIGHT, DRIVE_SPEED,2, 5.0, JARVISAutonomousBase.SensorsToUse.NONE);
                 sleep(200);
                 releaseStone();
                 sleep(100);
@@ -164,7 +164,7 @@ public class RedTwoSKYOnFOUNDATION extends JARVISAutonomousBase{
                 correctAngle();
             } else /*if (strafe_back_previous > 10)*/{
                 //Drive back to collect the second stone
-                myEncoderDrive(JARVISAutonomousBase.Direction.FORWARD, 0.6, 30 + 52 + strafe_back_previous, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
+                myEncoderDrive(JARVISAutonomousBase.Direction.FORWARD, 0.6, 40 + 52 + strafe_back_previous, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
 
                 myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_LEFT, 0.2, 2, 5.0, JARVISAutonomousBase.SensorsToUse.NONE);
                 robot.openGrabberClaw(SIDE); //open the claw
@@ -177,8 +177,8 @@ public class RedTwoSKYOnFOUNDATION extends JARVISAutonomousBase{
                 myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_RIGHT, DRIVE_SPEED,2, 5.0, JARVISAutonomousBase.SensorsToUse.NONE);
 
                 //move forward while sensing using the color sensor
-                //stop whenever the color sensed is not yellow, but black (skystone)
                 //add the extra distance traveled using the color sensor to strafe_back
+                //stop whenever the color sensed is not yellow, but black (skystone)
                 //myEncoderDrive(Direction.FORWARD, 0.1, 20, 5.0, SensorsToUse.USE_COLOR_RIGHT);
                 //strafe_back = distance_traveled;
                 //telemetry.addData("strafe back = ", strafe_back);
@@ -192,11 +192,11 @@ public class RedTwoSKYOnFOUNDATION extends JARVISAutonomousBase{
                 correctAngle(); //correct angle to match the reference angle
 
                 //drive to other side and drop the stone
-                myEncoderDrive(JARVISAutonomousBase.Direction.BACKWARD, 0.5, 28 + 58 + strafe_back_previous + strafe_back, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
+                myEncoderDrive(JARVISAutonomousBase.Direction.BACKWARD, 0.5, 38 + 58 + strafe_back_previous + strafe_back, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
 
                 //drop the skystone
-                myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_RIGHT, 0.6, 10, 5.0, JARVISAutonomousBase.SensorsToUse.USE_DISTANCE_RIGHT);
-                myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_RIGHT, DRIVE_SPEED,2, 5.0, JARVISAutonomousBase.SensorsToUse.NONE);
+                myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_RIGHT, 0.6, 10, 5.0, JARVISAutonomousBase.SensorsToUse.USE_DISTANCE_RIGHT_BLD);
+                //myEncoderDrive(JARVISAutonomousBase.Direction.STRAFE_RIGHT, DRIVE_SPEED,2, 5.0, JARVISAutonomousBase.SensorsToUse.NONE);
                 sleep(200);
                 releaseStone();
                 sleep(100);
