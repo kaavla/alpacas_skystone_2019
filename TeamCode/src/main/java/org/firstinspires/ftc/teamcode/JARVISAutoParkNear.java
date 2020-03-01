@@ -44,7 +44,7 @@ public class JARVISAutoParkNear extends JARVISAutonomousBase {
             //Wait for 25 seconds until the end of the autonomous period
             sleep(25000);
             //move forward onto the line
-            myEncoderDrive(Direction.BACKWARD, 0.2, 31, 5, SensorsToUse.NONE);
+            myEncoderDrive(Direction.BACKWARD, 0.2, 20, 5, SensorsToUse.NONE);
         }
         RobotLog.ii("CAL", "Exit - JARVISAutoBLD2Blue");
     }

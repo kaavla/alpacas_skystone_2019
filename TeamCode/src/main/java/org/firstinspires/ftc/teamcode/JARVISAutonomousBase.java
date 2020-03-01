@@ -387,7 +387,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
                     (robot.leftMotor.isBusy())) {
 
                if (sensors_2_use == SensorsToUse.USE_DISTANCE_LEFT) {
-                    if(robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH) <= 7) {
+                    if(robot.sensorDistanceLeft.getDistance(DistanceUnit.INCH) <= 8) {
                         robot.stopAllMotors();
 
                         telemetry.addData("LeftDistSensor", "The robot is %7f inches from crashing.",
@@ -399,7 +399,7 @@ public class JARVISAutonomousBase extends LinearOpMode {
                 }
 
                 if (sensors_2_use == SensorsToUse.USE_DISTANCE_RIGHT) {
-                    if(robot.sensorDistanceRight.getDistance(DistanceUnit.INCH) <= 7) {
+                    if(robot.sensorDistanceRight.getDistance(DistanceUnit.INCH) <= 8) {
                         robot.stopAllMotors();
 
                         telemetry.addData("RightDistSensor", "The robot is %7f inches from crashing.",
