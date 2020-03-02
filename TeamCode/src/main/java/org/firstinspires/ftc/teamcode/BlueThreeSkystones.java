@@ -118,7 +118,7 @@ public class BlueThreeSkystones extends JARVISAutonomousBase{
             //if (strafe_back_previous < 5) {
             if (strafe_back_previous < 12) {
                 //Drive back to collect the second stone
-                myEncoderDrive(JARVISAutonomousBase.Direction.FORWARD, 0.6, 44 + strafe_back_previous, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
+                myEncoderDrive(JARVISAutonomousBase.Direction.FORWARD, 0.6, 40 + strafe_back_previous, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
 
                 robot.openGrabberClaw(SIDE); //open the claw
                 sleep(100);
@@ -146,7 +146,7 @@ public class BlueThreeSkystones extends JARVISAutonomousBase{
                 //drive to other side and drop the stone
                 myEncoderDrive(JARVISAutonomousBase.Direction.BACKWARD, 0.5, 52 + strafe_back_previous + strafe_back, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
                 releaseStone();
-                myEncoderDrive(JARVISAutonomousBase.Direction.FORWARD, 0.6, 46 + strafe_back_previous, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
+                myEncoderDrive(JARVISAutonomousBase.Direction.FORWARD, 0.6, 48 + strafe_back_previous, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
                 robot.openGrabberClaw(SIDE); //open the claw
                 sleep(100);
                 robot.setGrabberHalfDown(SIDE); //put the claw half down
@@ -154,7 +154,7 @@ public class BlueThreeSkystones extends JARVISAutonomousBase{
                 //Drive till we are close to the stone again
                 correctAngle(); //correct angle to match the reference angle
                 myEncoderDrive(Direction.STRAFE_LEFT, 0.2,24, 5.0, SensorsToUse.USE_DISTANCE_LEFT);
-                myEncoderDrive(Direction.STRAFE_LEFT, 0.2,2, 5.0, JARVISAutonomousBase.SensorsToUse.NONE);
+                myEncoderDrive(Direction.STRAFE_LEFT, 0.2,4, 5.0, JARVISAutonomousBase.SensorsToUse.NONE);
                 //pick up the skystone
                 getStone();
                 correctAngle(); //correct angle to match the reference angle
@@ -255,7 +255,7 @@ public class BlueThreeSkystones extends JARVISAutonomousBase{
             }*/
 
             //drive under the bridge then strafe towards the bridge so that our alliance also has space to park
-            myEncoderDrive(JARVISAutonomousBase.Direction.FORWARD, 0.6, 15, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
+            myEncoderDrive(JARVISAutonomousBase.Direction.FORWARD, 0.6, 12, 10.0, JARVISAutonomousBase.SensorsToUse.NONE);
             myEncoderDrive(Direction.STRAFE_LEFT, DRIVE_SPEED,5, 5.0, JARVISAutonomousBase.SensorsToUse.NONE);
             robot.openCapStoneClaw();
 

@@ -29,7 +29,7 @@ public class JARVISManual extends JARVISAutonomousBase {
         telemetry.update();
         initHW();
         
-        robot.closeCapStoneClaw();
+        //robot.closeCapStoneClaw();
         //Move back Foundation servo down as wire gets stuck
         robot.moveFoundationServoDownAuto();
 

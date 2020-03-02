@@ -54,7 +54,7 @@ public class JARVISAutoBlue extends JARVISAutonomousBase {
         robot.setGrabberUp(SIDE); //put the claw up so that it is vertical and doesn't drag on the ground
         sleep(500);
         //strafe towards the wall a little bit so we don't collide with the bridge
-        myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,4, 5.0, SensorsToUse.NONE);
+        myEncoderDrive(Direction.STRAFE_RIGHT, DRIVE_SPEED,6, 5.0, SensorsToUse.NONE);
         sleep(100);
     }
 
